@@ -58,4 +58,5 @@
     <string name="incluir_alimento">Incluir alimento</string>
     <string name="incluir_por_foto">Incluir por foto</string>
     <string name="buscar_alimento">Buscar alimento</string>
+    <string name="dica_foto">Centralize a tabela nutricional no quadrado da câmera para extrairmos as informações</string>
 </resources>

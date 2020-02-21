@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -24,6 +25,14 @@ android {
     dataBinding {
         enabled = true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -39,6 +48,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.0'
     implementation "com.google.android.material:material:$version_material"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    // Core
     implementation "androidx.core:core:$version_core"
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
 }
