@@ -4,4 +4,5 @@
     <dimen name="height_button">52dp</dimen>
     <dimen name="width_progress_bar">300dp</dimen>
     <dimen name="height_progress_bar">60dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
 </resources>
