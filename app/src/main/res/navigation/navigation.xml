@@ -55,10 +55,25 @@
             app:destination="@id/dicaFotoFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_incluirAlimentoFragment_to_editarHorarioRefeicaoFragment"
+            app:destination="@id/editarHorarioRefeicaoFragment" />
+        <argument
+            android:name="horarioRefeicao"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
         android:name="com.example.controlealimentar.navigation.DicaFotoFragment"
         android:label="fragment_dica_foto"
         tools:layout="@layout/fragment_dica_foto" />
+    <fragment
+        android:id="@+id/editarHorarioRefeicaoFragment"
+        android:name="com.example.controlealimentar.navigation.EditarHorarioRefeicaoFragment"
+        android:label="fragment_editar_horario_refeicao"
+        tools:layout="@layout/fragment_editar_horario_refeicao" >
+        <action
+            android:id="@+id/action_horarioRefeicaoFragment_to_incluirAlimentoFragment"
+            app:destination="@id/incluirAlimentoFragment" />
+    </fragment>
 </navigation>

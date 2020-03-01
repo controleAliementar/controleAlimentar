@@ -29,6 +29,7 @@ class IncluirAlimentoFragment : Fragment() {
         )
 
         binding.incluirAlimentoTextView.text = args.tipoRefeicao
+        binding.alterarHorarioRefeicaobutton.text = args.horarioRefeicao
 
         binding.incluirPorFotoButton
             .setOnClickListener( Navigation
