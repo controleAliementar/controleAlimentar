@@ -184,6 +184,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 app:layoutManager="LinearLayoutManager"
+                android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/fragment_refeicao_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

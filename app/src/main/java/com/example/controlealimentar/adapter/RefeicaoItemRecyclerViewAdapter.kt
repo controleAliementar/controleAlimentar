@@ -24,7 +24,7 @@ class RefeicaoItemRecyclerViewAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
         holder.mTituloRefeicaoTextView.text = item.nome
-        holder.mHorarioRefeicaoTextView.text = item.horario
+        holder.mHorarioRefeicaoTextView.text = item.horario.toString()
         holder.mProteinaValueTextView.text = Integer.toString(item.proteina)
         holder.mGorduraValueTextView.text = Integer.toString(item.gordura)
         holder.mCarboidratoValueTextView.text = Integer.toString(item.carboidrato)
