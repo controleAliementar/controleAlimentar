@@ -59,4 +59,6 @@
     <string name="incluir_por_foto">Incluir por foto</string>
     <string name="buscar_alimento">Buscar alimento</string>
     <string name="dica_foto">Centralize a tabela nutricional no quadrado da câmera para extrairmos as informações</string>
+    <string name="quanto_voce_comeu">Quanto você comeu ?</string>
+    <string name="qual_porcao_tabela">Qual a porção da tabela ?</string>
 </resources>
