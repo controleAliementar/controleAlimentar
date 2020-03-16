@@ -69,7 +69,11 @@
         android:id="@+id/dicaFotoFragment"
         android:name="com.example.controlealimentar.navigation.DicaFotoFragment"
         android:label="fragment_dica_foto"
-        tools:layout="@layout/fragment_dica_foto" />
+        tools:layout="@layout/fragment_dica_foto" >
+        <action
+            android:id="@+id/action_dicaFotoFragment_to_cadastrarDadosOcrFragment"
+            app:destination="@id/cadastrarDadosOcrFragment" />
+    </fragment>
     <fragment
         android:id="@+id/editarHorarioRefeicaoFragment"
         android:name="com.example.controlealimentar.navigation.EditarHorarioRefeicaoFragment"
@@ -88,4 +92,9 @@
             android:id="@+id/action_erroGenericoFragment_to_cadastrarUsuarioFragment"
             app:destination="@id/cadastrarUsuarioFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cadastrarDadosOcrFragment"
+        android:name="com.example.controlealimentar.navigation.CadastrarDadosOcrFragment"
+        android:label="fragment_cadastrar_dados_ocr"
+        tools:layout="@layout/fragment_cadastrar_dados_ocr" />
 </navigation>
