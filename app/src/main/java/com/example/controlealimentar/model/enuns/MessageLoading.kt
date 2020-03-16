@@ -1,4 +1,4 @@
-package com.example.controlealimentar.config
+package com.example.controlealimentar.model.enuns
 
 enum class MessageLoading {
     TITULO("Aguarde um momento"),

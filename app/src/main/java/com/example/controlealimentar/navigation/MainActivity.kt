@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.os.StrictMode
 import androidx.appcompat.app.AppCompatActivity
 import com.example.controlealimentar.R
+import com.example.controlealimentar.model.enuns.SharedIds
+import com.example.controlealimentar.util.SharedPreference
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +19,15 @@ class MainActivity : AppCompatActivity() {
             StrictMode.setThreadPolicy(policy)
         }
 
-        setContentView(R.layout.activity_main)
+        val sharedPreference = SharedPreference(context = applicationContext)
+
+        val usuarioId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+        if (usuarioId.isNullOrBlank()){
+            setContentView(R.layout.activity_main)
+        } else {
+            setContentView(R.layout.fragment_editar_metas)
+        }
 
     }
 

@@ -13,7 +13,8 @@
             android:id="@+id/action_cadastrarUsuarioFragment_to_editarMetasFragment"
             app:destination="@+id/editarMetasFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="false" />
         <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
