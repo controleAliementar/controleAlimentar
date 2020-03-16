@@ -14,6 +14,9 @@
             app:destination="@+id/editarMetasFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -79,6 +82,15 @@
         <action
             android:id="@+id/action_horarioRefeicaoFragment_to_incluirAlimentoFragment"
             app:destination="@id/incluirAlimentoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/erroGenericoFragment"
+        android:name="com.example.controlealimentar.navigation.ErroGenericoFragment"
+        android:label="fragment_erro_generico"
+        tools:layout="@layout/fragment_erro_generico" >
+        <action
+            android:id="@+id/action_erroGenericoFragment_to_cadastrarUsuarioFragment"
+            app:destination="@id/cadastrarUsuarioFragment" />
     </fragment>
     <fragment
         android:id="@+id/cadastrarDadosOcrFragment"
