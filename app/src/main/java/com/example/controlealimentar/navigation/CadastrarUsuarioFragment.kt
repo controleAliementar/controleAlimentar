@@ -11,7 +11,10 @@ import androidx.navigation.findNavController
 import com.example.controlealimentar.databinding.FragmentCadastrarUsuarioBinding
 import com.example.controlealimentar.exception.CadastrarUsuarioException
 import com.example.controlealimentar.model.Usuario
+import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.UsuarioService
+import com.example.controlealimentar.util.Loading
+import com.example.controlealimentar.util.SharedPreference
 
 /**
  * A simple [Fragment] subclass.
@@ -31,6 +34,10 @@ class CadastrarUsuarioFragment : Fragment() {
 
         binding.cadastrarUsuarioButton.setOnClickListener{
 
+            val sharedPreference = SharedPreference(context)
+            val loading = Loading(context)
+
+            loading.criar()
             try {
                 val usuario = Usuario()
                 usuario.nome = binding.nameText.text.toString()
@@ -38,10 +45,16 @@ class CadastrarUsuarioFragment : Fragment() {
 
                 val id =  usuarioService.salvarUsuario(usuario, context)
 
+                sharedPreference.save(SharedIds.ID_USUARIO.name, id)
+
+                loading.remover()
+
                 val action = CadastrarUsuarioFragmentDirections
                     .actionCadastrarUsuarioFragmentToEditarMetasFragment()
                 view?.findNavController()?.navigate(action)
             } catch (e : CadastrarUsuarioException) {
+                loading.remover()
+
                 val action = CadastrarUsuarioFragmentDirections
                     .actionCadastrarUsuarioFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
@@ -50,6 +63,5 @@ class CadastrarUsuarioFragment : Fragment() {
 
         return binding.root
     }
-
 
 }
