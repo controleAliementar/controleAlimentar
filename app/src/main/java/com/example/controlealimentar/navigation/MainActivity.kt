@@ -5,6 +5,7 @@ import android.os.StrictMode
 import androidx.appcompat.app.AppCompatActivity
 import com.example.controlealimentar.R
 import com.example.controlealimentar.model.enuns.SharedIds
+import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.SharedPreference
 
 
@@ -21,15 +22,21 @@ class MainActivity : AppCompatActivity() {
 
         val sharedPreference = SharedPreference(context = applicationContext)
 
-        val usuarioId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
-        if (usuarioId.isNullOrBlank()){
-            setContentView(R.layout.activity_main)
-        } else {
-            setContentView(R.layout.fragment_editar_metas)
+        if (processoId.isNullOrBlank()){
+            return setContentView(R.layout.activity_main)
         }
 
-    }
+        val metaDiariasService = MetaDiariasService()
 
+        val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
+
+        if (!metaDiarias!!.processoId.isNullOrBlank()){
+            setContentView(R.layout.fragment_home)
+        }
+
+        return setContentView(R.layout.fragment_editar_metas)
+    }
 
 }
