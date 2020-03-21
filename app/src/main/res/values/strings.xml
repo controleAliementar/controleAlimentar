@@ -64,4 +64,6 @@
     <string name="mensagem_tela_erro">Tivemos um problema, tente novamente !</string>
     <string name="titulo_tela_erro">Ops !</string>
     <string name="tentar_novamente">Tentar novamente</string>
+    <string name="caracteres_aceitos_campo_string">\ \abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú</string>
+    <string name="carecteres_aceitos_campo_email">1234567890abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú@.-_</string>
 </resources>
