@@ -58,7 +58,7 @@ class CadastrarUsuarioFragment : Fragment() {
                 usuario.nome = name
                 usuario.email = email
 
-                val id =  usuarioService.salvarUsuario(usuario, context)
+                val id =  usuarioService.salvarUsuario(usuario)
 
                 sharedPreference.save(SharedIds.ID_USUARIO.name, id)
 

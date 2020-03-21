@@ -1,6 +1,5 @@
 package com.example.controlealimentar.service
 
-import android.content.Context
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.CadastrarUsuarioException
 import com.example.controlealimentar.gateway.data.UsuarioRequestGateway
@@ -10,7 +9,7 @@ class UsuarioService {
 
     private val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
-    fun salvarUsuario(usuario: Usuario, context: Context?) : String? {
+    fun salvarUsuario(usuario: Usuario) : String? {
 
         val usuarioGateway = UsuarioRequestGateway(
             usuario.email,
