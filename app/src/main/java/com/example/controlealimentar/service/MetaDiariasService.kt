@@ -2,6 +2,8 @@ package com.example.controlealimentar.service
 
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
+import com.example.controlealimentar.exception.SalvarMetaDiariasException
+import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
 import com.example.controlealimentar.model.MetaDiarias
 
 class MetaDiariasService {
@@ -32,6 +34,26 @@ class MetaDiariasService {
         metaDiarias.gorduras = response.body()!!.gorduras
 
         return metaDiarias
+    }
+
+    fun salvarMetaDiarias(processoId: String, metaDiarias: MetaDiarias) {
+
+        val metaDiariasRequestGateway = MetaDiariasRequestGateway(
+            metaDiarias.calorias,
+            metaDiarias.carboidratos,
+            metaDiarias.gorduras,
+            metaDiarias.proteinas
+        )
+
+        val response = retrofitConfig.getMetaDiariasGateway()!!
+            .salvarMetaDiarias(processoId, metaDiariasRequestGateway)
+            .execute()
+
+        if (!response!!.isSuccessful){
+            print(response.errorBody())
+            throw SalvarMetaDiariasException(response.message())
+        }
+
     }
 
 }

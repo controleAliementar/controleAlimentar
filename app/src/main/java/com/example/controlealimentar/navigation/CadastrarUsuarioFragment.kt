@@ -65,7 +65,7 @@ class CadastrarUsuarioFragment : Fragment() {
                 loading.remover()
 
                 val action = CadastrarUsuarioFragmentDirections
-                    .actionCadastrarUsuarioFragmentToEditarMetasFragment()
+                    .actionCadastrarUsuarioFragmentToSalvarMetasFragment()
                 view?.findNavController()?.navigate(action)
 
             } catch (e : Exception) {

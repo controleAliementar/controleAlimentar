@@ -3,21 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/cadastrarUsuarioFragment">
+    app:startDestination="@id/loadingInicioAppFragment">
     <fragment
         android:id="@+id/cadastrarUsuarioFragment"
         android:name="com.example.controlealimentar.navigation.CadastrarUsuarioFragment"
         android:label="fragment_cadastrar_usuario"
         tools:layout="@layout/fragment_cadastrar_usuario" >
         <action
-            android:id="@+id/action_cadastrarUsuarioFragment_to_editarMetasFragment"
-            app:destination="@+id/editarMetasFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:launchSingleTop="false" />
-        <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_salvarMetasFragment"
+            app:destination="@id/salvarMetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -98,4 +95,31 @@
         android:name="com.example.controlealimentar.navigation.CadastrarDadosOcrFragment"
         android:label="fragment_cadastrar_dados_ocr"
         tools:layout="@layout/fragment_cadastrar_dados_ocr" />
+    <fragment
+        android:id="@+id/salvarMetasFragment"
+        android:name="com.example.controlealimentar.navigation.SalvarMetasFragment"
+        android:label="fragment_salvar_metas"
+        tools:layout="@layout/fragment_salvar_metas" >
+        <action
+            android:id="@+id/action_salvarMetasFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_salvarMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loadingInicioAppFragment"
+        android:name="com.example.controlealimentar.navigation.LoadingInicioAppFragment"
+        android:label="fragment_loading_inicio_app"
+        tools:layout="@layout/fragment_loading_inicio_app">
+        <action
+            android:id="@+id/action_loadingInicioAppFragment_to_cadastrarUsuarioFragment"
+            app:destination="@id/cadastrarUsuarioFragment" />
+        <action
+            android:id="@+id/action_loadingInicioAppFragment_to_salvarMetasFragment"
+            app:destination="@id/salvarMetasFragment" />
+        <action
+            android:id="@+id/action_loadingInicioAppFragment_to_homeFragment"
+            app:destination="@+id/homeFragment" />
+    </fragment>
 </navigation>
