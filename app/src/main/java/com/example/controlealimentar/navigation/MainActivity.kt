@@ -1,15 +1,13 @@
 package com.example.controlealimentar.navigation
 
+
 import android.os.Bundle
 import android.os.StrictMode
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.example.controlealimentar.R
-import com.example.controlealimentar.model.enuns.SharedIds
-import com.example.controlealimentar.service.MetaDiariasService
-import com.example.controlealimentar.util.SharedPreference
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,24 +17,17 @@ class MainActivity : AppCompatActivity() {
                 .permitAll().build()
             StrictMode.setThreadPolicy(policy)
         }
+        setContentView(R.layout.activity_main)
 
-        val sharedPreference = SharedPreference(context = applicationContext)
-
-        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
-
-        if (processoId.isNullOrBlank()){
-            return setContentView(R.layout.activity_main)
+        if (savedInstanceState == null) {
+            val fragment = LoadingInicioAppFragment()
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.fragment_loading_inicio_app, fragment)
+                    .commit()
         }
 
-        val metaDiariasService = MetaDiariasService()
 
-        val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
-
-        if (!metaDiarias!!.processoId.isNullOrBlank()){
-            setContentView(R.layout.fragment_home)
-        }
-
-        return setContentView(R.layout.fragment_editar_metas)
     }
+
 
 }
