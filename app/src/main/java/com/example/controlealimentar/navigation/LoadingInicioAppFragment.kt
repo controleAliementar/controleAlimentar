@@ -20,25 +20,31 @@ import com.example.controlealimentar.util.SharedPreference
  */
 class LoadingInicioAppFragment : Fragment() {
 
+    lateinit var binding: FragmentLoadingInicioAppBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentLoadingInicioAppBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_loading_inicio_app, container, false
         )
 
         binding.progressBar.visibility = View.VISIBLE
+        binding.button.setOnClickListener {
+            decideFluxo()
+        }
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
+    fun decideFluxo() {
 
         val sharedPreference = SharedPreference(context)
 
         val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
 
         if (processoId.isNullOrBlank()){
             val action = LoadingInicioAppFragmentDirections
@@ -51,7 +57,7 @@ class LoadingInicioAppFragment : Fragment() {
 
         val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
 
-        if (!metaDiarias!!.processoId.isNullOrBlank()){
+        if (metaDiarias!!.processoId.isNullOrBlank()){
             val action = LoadingInicioAppFragmentDirections
                 .actionLoadingInicioAppFragmentToSalvarMetasFragment()
             view?.findNavController()?.navigate(action)
@@ -60,7 +66,7 @@ class LoadingInicioAppFragment : Fragment() {
 
         val action = LoadingInicioAppFragmentDirections
                 .actionLoadingInicioAppFragmentToHomeFragment()
-            view?.findNavController()?.navigate(action)
+        view?.findNavController()?.navigate(action)
     }
 
 

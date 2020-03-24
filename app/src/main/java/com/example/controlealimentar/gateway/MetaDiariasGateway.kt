@@ -2,7 +2,6 @@ package com.example.controlealimentar.gateway
 
 import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
 import com.example.controlealimentar.gateway.data.MetaDiariasResponseGateway
-import com.example.controlealimentar.gateway.data.UsuarioResponseGateway
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,7 +12,7 @@ interface MetaDiariasGateway {
 
     @POST("meta/diaria")
     fun salvarMetaDiarias(@Header("processoId") processoId : String,
-                         @Body metaDiarias : MetaDiariasRequestGateway) : Call<UsuarioResponseGateway>
+                         @Body metaDiarias : MetaDiariasRequestGateway) : Call<Void>
 
     @GET("meta/diaria")
     fun buscarMetaDiarias(@Header("processoId") processoId : String) : Call<MetaDiariasResponseGateway>

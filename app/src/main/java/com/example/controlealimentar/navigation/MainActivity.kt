@@ -3,11 +3,11 @@ package com.example.controlealimentar.navigation
 
 import android.os.Bundle
 import android.os.StrictMode
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.example.controlealimentar.R
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
