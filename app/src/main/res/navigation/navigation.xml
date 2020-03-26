@@ -97,9 +97,9 @@
         tools:layout="@layout/fragment_cadastrar_dados_ocr" />
     <fragment
         android:id="@+id/salvarMetasFragment"
-        android:name="com.example.controlealimentar.navigation.CadastrarMetasFragment"
+        android:name="com.example.controlealimentar.navigation.SalvarMetasFragment"
         android:label="fragment_salvar_metas"
-        tools:layout="@layout/fragment_cadastrar_metas" >
+        tools:layout="@layout/fragment_salvar_metas" >
         <action
             android:id="@+id/action_salvarMetasFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
