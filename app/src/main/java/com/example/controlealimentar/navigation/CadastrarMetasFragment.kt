@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -19,6 +18,7 @@ import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.Loading
 import com.example.controlealimentar.util.SharedPreference
+import com.example.controlealimentar.util.ValidacaoFormatoMetas
 
 /**
  * A simple [Fragment] subclass.
@@ -27,6 +27,8 @@ class CadastrarMetasFragment : Fragment() {
 
     private val metaDiariasService : MetaDiariasService =
         MetaDiariasService()
+
+    val metas = ValidacaoFormatoMetas()
 
     lateinit var binding : FragmentCadastrarMetasBinding
 
@@ -100,7 +102,7 @@ class CadastrarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText1IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.caloriaText, text.toString())
+                metas.validar(binding.caloriaText, text.toString())
             }
         })
 
@@ -112,7 +114,7 @@ class CadastrarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText2IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.carboidratoText, text.toString())
+                metas.validar(binding.carboidratoText, text.toString())
             }
         })
 
@@ -124,7 +126,7 @@ class CadastrarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText3IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.proteinaText, text.toString())
+                metas.validar(binding.proteinaText, text.toString())
             }
         })
 
@@ -136,7 +138,7 @@ class CadastrarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText4IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.gorduraText, text.toString())
+                metas.validar(binding.gorduraText, text.toString())
             }
         })
 
@@ -146,60 +148,6 @@ class CadastrarMetasFragment : Fragment() {
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
         binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
-    }
-
-    fun validarDadosEntrada(ediTxt: EditText, text : String){
-
-        // Colocar ponto após digitação do quarto numero
-        if (!text.contains('.') && text.length > 4){
-            val ultimoDigito = text.substring(4)
-            val textFormatado = text.substring(0, 4) + "." + ultimoDigito
-            ediTxt.setText(textFormatado)
-            ediTxt.setSelection(textFormatado.length)
-        }
-
-        // Não deixar começar com ponto
-        if (text.startsWith('.')){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-        // Não deixar ter mais de cinco casas o numero
-        val textSemPonto = text.replace(".", "")
-        if (textSemPonto.length > 5){
-            val substring = text.substring(0, text.lastIndex)
-            ediTxt.setText(substring)
-            ediTxt.setSelection(substring.length)
-        }
-
-        // Não deixar terminar com ponto
-        if (text.length == 5 && text.endsWith(".")){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-
-        // Não deixar ter mais de um ponto
-        val quantidadePontos = text.count { string -> string.equals('.') }
-        if (quantidadePontos > 1){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-
-        // Não deixar ter mais de duas casas depois do ponto
-        val indexPonto = text.indexOf('.')
-        val ultimoIndex = text.lastIndex
-
-        if (indexPonto != -1 && (ultimoIndex - indexPonto >= 2)){
-            val substring = text.substring(0, text.lastIndex)
-            ediTxt.setText(substring)
-            ediTxt.setSelection(substring.length)
-        }
-
     }
 
 }

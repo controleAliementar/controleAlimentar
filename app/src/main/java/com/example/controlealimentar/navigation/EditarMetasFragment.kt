@@ -6,7 +6,6 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -19,10 +18,12 @@ import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.Loading
 import com.example.controlealimentar.util.SharedPreference
+import com.example.controlealimentar.util.ValidacaoFormatoMetas
 
 class EditarMetasFragment : Fragment() {
 
     lateinit var binding : FragmentEditarMetasBinding
+    var metas = ValidacaoFormatoMetas()
 
     val metaDiariasService = MetaDiariasService()
 
@@ -55,10 +56,10 @@ class EditarMetasFragment : Fragment() {
             val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
 
             if (metaDiarias != null) {
-                binding.caloriaText.setText(adicionarMascaraGramas(metaDiarias.calorias.toString()))
-                binding.carboidratoText.setText(adicionarMascaraGramas(metaDiarias.carboidratos.toString()))
-                binding.proteinaText.setText(adicionarMascaraGramas(metaDiarias.proteinas.toString()))
-                binding.gorduraText.setText(adicionarMascaraGramas(metaDiarias.gorduras.toString()))
+                binding.caloriaText.setText(metaDiarias.calorias.toString())
+                binding.carboidratoText.setText(metaDiarias.carboidratos.toString())
+                binding.proteinaText.setText(metaDiarias.proteinas.toString())
+                binding.gorduraText.setText(metaDiarias.gorduras.toString())
             }
 
             loading.remover()
@@ -84,10 +85,10 @@ class EditarMetasFragment : Fragment() {
                     throw SalvarMetaDiariasException("ProcessoId não encontrado no SharedPreference")
                 }
 
-                val gordura = java.lang.Double.parseDouble(removendoMascaraGramas(binding.gorduraText.text.toString()))
-                val carboidrato = java.lang.Double.parseDouble(removendoMascaraGramas(binding.carboidratoText.text.toString()))
-                val proteina = java.lang.Double.parseDouble(removendoMascaraGramas(binding.proteinaText.text.toString()))
-                val calorias = java.lang.Double.parseDouble(removendoMascaraGramas(binding.caloriaText.text.toString()))
+                val gordura = java.lang.Double.parseDouble(binding.gorduraText.text.toString())
+                val carboidrato = java.lang.Double.parseDouble(binding.carboidratoText.text.toString())
+                val proteina = java.lang.Double.parseDouble(binding.proteinaText.text.toString())
+                val calorias = java.lang.Double.parseDouble(binding.caloriaText.text.toString())
 
                 val metaDiarias = MetaDiarias()
                 metaDiarias.gorduras = gordura
@@ -129,7 +130,7 @@ class EditarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText1IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.caloriaText, text.toString())
+                metas.validar(binding.caloriaText, text.toString())
             }
         })
 
@@ -142,7 +143,7 @@ class EditarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText2IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.carboidratoText, text.toString())
+                metas.validar(binding.carboidratoText, text.toString())
             }
         })
 
@@ -155,7 +156,7 @@ class EditarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText3IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.proteinaText, text.toString())
+                metas.validar(binding.proteinaText, text.toString())
             }
         })
 
@@ -168,7 +169,7 @@ class EditarMetasFragment : Fragment() {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText4IsNull = text.isNullOrBlank()
                 habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                validarDadosEntrada(binding.gorduraText, text.toString())
+                metas.validar(binding.gorduraText, text.toString())
             }
         })
 
@@ -180,78 +181,6 @@ class EditarMetasFragment : Fragment() {
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
         binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
-    }
-
-    fun validarDadosEntrada(ediTxt: EditText, text : String){
-
-        // Colocar ponto após digitação do quarto numero
-        if (!text.contains('.') && text.replace("g", "").length > 4){
-            val ultimoDigito = text.substring(4)
-            val textFormatado = text.substring(0, 4) + "." + ultimoDigito
-            ediTxt.setText(textFormatado)
-            ediTxt.setSelection(textFormatado.length)
-        }
-
-        // Não deixar começar com ponto
-        if (text.startsWith('.')){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-        // Não deixar ter mais de cinco casas o numero
-        val textSemPonto = text.replace(".", "")
-        val textSemMascaraEPonto = textSemPonto.replace("g", "")
-        if (textSemMascaraEPonto.length > 5){
-            val substring = text.substring(0, text.lastIndex)
-            ediTxt.setText(substring)
-            ediTxt.setSelection(substring.length)
-        }
-
-        // Não deixar terminar com ponto
-        val textSemMascara = text.replace("g", "")
-        if (textSemMascara.length == 4 && text.endsWith(".")){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-
-        // Não deixar ter mais de um ponto
-        val quantidadePontos = text.count { string -> string.equals('.') }
-        if (quantidadePontos > 1){
-            val replace = text.replace(".", "")
-            ediTxt.setText(replace)
-            ediTxt.setSelection(replace.length)
-        }
-
-
-        // Não deixar ter mais de duas casas depois do ponto
-        val indexPonto = text.indexOf('.')
-        val ultimoIndex = text.lastIndex
-
-        if (indexPonto != -1 && (ultimoIndex - indexPonto >= 3)){
-            val substring = text.substring(0, text.lastIndex)
-            ediTxt.setText(substring)
-            ediTxt.setSelection(substring.length)
-        }
-
-        if (!text.contains("g")){
-            val strigMascaraGramas = adicionarMascaraGramas(text)
-            ediTxt.setText(strigMascaraGramas)
-            ediTxt.setSelection(strigMascaraGramas.length - 1)
-        }
-
-
-
-    }
-
-    fun adicionarMascaraGramas(text: String) : String{
-        return text.plus("g")
-    }
-
-    fun removendoMascaraGramas(text: String) : String{
-        return text.replace("g", "")
     }
 
 }
