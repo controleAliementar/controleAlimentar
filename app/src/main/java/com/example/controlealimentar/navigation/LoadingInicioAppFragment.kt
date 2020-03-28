@@ -2,14 +2,16 @@ package com.example.controlealimentar.navigation
 
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentLoadingInicioAppBinding
+import com.example.controlealimentar.extensions.navigateSafe
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.SharedPreference
@@ -31,43 +33,44 @@ class LoadingInicioAppFragment : Fragment() {
         )
 
         binding.progressBar.visibility = View.VISIBLE
-        binding.button.setOnClickListener {
-            decideFluxo()
-        }
 
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        Handler().postDelayed({
+            binding.progressBar.visibility = View.INVISIBLE
+            decideFluxo()
+        }, 1000)
+    }
 
-    fun decideFluxo() {
+
+    private fun decideFluxo() {
 
         val sharedPreference = SharedPreference(context)
 
         val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
+        var idToGo = R.id.action_loadingInicioAppFragment_to_homeFragment
 
         if (processoId.isNullOrBlank()){
-            val action = LoadingInicioAppFragmentDirections
-                .actionLoadingInicioAppFragmentToCadastrarUsuarioFragment()
-            view?.findNavController()?.navigate(action)
-            return
+            idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment
         }
 
         val metaDiariasService = MetaDiariasService()
 
-        val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
+        processoId?.let {
+            val metaDiarias = metaDiariasService.buscarMetaDiarias(it)
 
-        if (metaDiarias!!.processoId.isNullOrBlank()){
-            val action = LoadingInicioAppFragmentDirections
-                .actionLoadingInicioAppFragmentToSalvarMetasFragment()
-            view?.findNavController()?.navigate(action)
-            return
+            if (metaDiarias!!.processoId.isBlank()) {
+                idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment
+            }
         }
 
-        val action = LoadingInicioAppFragmentDirections
-                .actionLoadingInicioAppFragmentToHomeFragment()
-        view?.findNavController()?.navigate(action)
-    }
+        findNavController().navigateSafe(idToGo)
 
+
+    }
 
 }

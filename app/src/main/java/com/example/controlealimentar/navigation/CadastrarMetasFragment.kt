@@ -76,13 +76,13 @@ class CadastrarMetasFragment : Fragment() {
                 loading.remover()
 
                 val action =
-                    CadastrarMetasFragmentDirections.actionSalvarMetasFragmentToHomeFragment()
+                    CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToHomeFragment()
                 view?.findNavController()?.navigate(action)
             } catch (e : Exception){
                 loading.remover()
 
                 val action =
-                    CadastrarMetasFragmentDirections.actionSalvarMetasFragmentToErroGenericoFragment()
+                    CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             }
         }
