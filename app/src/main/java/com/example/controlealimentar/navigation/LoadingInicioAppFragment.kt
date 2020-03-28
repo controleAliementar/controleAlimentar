@@ -40,6 +40,7 @@ class LoadingInicioAppFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Handler().postDelayed({
+            binding.progressBar.visibility = View.INVISIBLE
             decideFluxo()
         }, 1000)
     }
@@ -63,7 +64,7 @@ class LoadingInicioAppFragment : Fragment() {
             val metaDiarias = metaDiariasService.buscarMetaDiarias(it)
 
             if (metaDiarias!!.processoId.isBlank()) {
-                idToGo = R.id.action_loadingInicioAppFragment_to_salvarMetasFragment
+                idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment
             }
         }
 

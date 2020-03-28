@@ -13,8 +13,8 @@
             android:id="@+id/action_cadastrarUsuarioFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
         <action
-            android:id="@+id/action_cadastrarUsuarioFragment_to_salvarMetasFragment"
-            app:destination="@id/salvarMetasFragment" />
+            android:id="@+id/action_cadastrarUsuarioFragment_to_cadastrarMetasFragment"
+            app:destination="@id/cadastrarMetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -26,6 +26,9 @@
             app:destination="@id/homeFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
+        <action
+            android:id="@+id/action_editarMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -96,15 +99,15 @@
         android:label="fragment_cadastrar_dados_ocr"
         tools:layout="@layout/fragment_cadastrar_dados_ocr" />
     <fragment
-        android:id="@+id/salvarMetasFragment"
-        android:name="com.example.controlealimentar.navigation.SalvarMetasFragment"
-        android:label="fragment_salvar_metas"
-        tools:layout="@layout/fragment_salvar_metas" >
+        android:id="@+id/cadastrarMetasFragment"
+        android:name="com.example.controlealimentar.navigation.CadastrarMetasFragment"
+        android:label="fragment_cadastrar_metas"
+        tools:layout="@layout/fragment_cadastrar_metas" >
         <action
-            android:id="@+id/action_salvarMetasFragment_to_homeFragment"
+            android:id="@+id/action_cadastrarMetasFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
         <action
-            android:id="@+id/action_salvarMetasFragment_to_erroGenericoFragment"
+            android:id="@+id/action_cadastrarMetasFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
@@ -116,8 +119,8 @@
             android:id="@+id/action_loadingInicioAppFragment_to_cadastrarUsuarioFragment"
             app:destination="@id/cadastrarUsuarioFragment" />
         <action
-            android:id="@+id/action_loadingInicioAppFragment_to_salvarMetasFragment"
-            app:destination="@id/salvarMetasFragment" />
+            android:id="@+id/action_loadingInicioAppFragment_to_cadastrarMetasFragment"
+            app:destination="@id/cadastrarMetasFragment" />
         <action
             android:id="@+id/action_loadingInicioAppFragment_to_homeFragment"
             app:destination="@+id/homeFragment" />

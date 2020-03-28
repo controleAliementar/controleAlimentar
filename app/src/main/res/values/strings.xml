@@ -66,4 +66,6 @@
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="caracteres_aceitos_campo_string">\ \abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú</string>
     <string name="carecteres_aceitos_campo_email">1234567890abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú@.-_</string>
+    <string name="carecteres_aceitos_metas">1234567890.</string>
+    <string name="gramas">g</string>
 </resources>
