@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.appdistribution'
 
 android {
     compileSdkVersion 29
@@ -33,6 +35,15 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    buildTypes {
+        release {
+            firebaseAppDistribution {
+                releaseNotes="App Controle Alimentar"
+                testers="gabriellucas914@gmail.com, murilosilvabeni2@gmail.com"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -52,4 +63,5 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-jackson:2.3.0'
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
 }
