@@ -52,7 +52,6 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/abreviacao_hora"
-        app:layout_constraintEnd_toStartOf="@+id/add_alimento_cha_noite_button"
         app:layout_constraintStart_toEndOf="@id/horarioRefeicaoTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -175,21 +174,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/gorduraValueTextView"
         app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
-
-<!--    <Button-->
-<!--        android:id="@+id/add_alimento_cha_noite_button"-->
-<!--        android:layout_width="38dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="16dp"-->
-<!--        android:layout_marginTop="45dp"-->
-<!--        android:layout_marginEnd="40dp"-->
-<!--        android:background="@drawable/round_button"-->
-<!--        android:text="@string/simbolo_mais"-->
-<!--        android:textSize="24sp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/tituloRefeicaoTextView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/abreviacaoHoraTextView"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <View
         android:id="@+id/divider7"

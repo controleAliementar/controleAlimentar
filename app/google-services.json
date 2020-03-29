@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "312002629839",
+    "firebase_url": "https://controlealimentar-c1c70.firebaseio.com",
+    "project_id": "controlealimentar-c1c70",
+    "storage_bucket": "controlealimentar-c1c70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312002629839:android:801465d2eeafa6d000e7ba",
+        "android_client_info": {
+          "package_name": "com.example.controlealimentar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312002629839-tpcoh2gpigbtofc05bh79hhef389s7cd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBboPO5lcPVUJF6N1jR0hJAdkrFCVmDtoc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312002629839-tpcoh2gpigbtofc05bh79hhef389s7cd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

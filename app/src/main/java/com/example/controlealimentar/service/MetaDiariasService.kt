@@ -21,7 +21,7 @@ class MetaDiariasService {
             throw BuscarMetaDiariasException(response.message())
         }
 
-        if (response!!.code() == 204){
+        if (response.code() == 204){
             return MetaDiarias()
         }
 
