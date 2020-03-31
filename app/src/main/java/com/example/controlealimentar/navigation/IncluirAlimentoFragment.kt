@@ -35,6 +35,10 @@ class IncluirAlimentoFragment : Fragment() {
             .setOnClickListener( Navigation
                 .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_dicaFotoFragment))
 
+        binding.buscarAlimentoButton
+            .setOnClickListener( Navigation
+                .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_buscarAlimentoFragment))
+
         binding.alterarHorarioRefeicaobutton
             .setOnClickListener(Navigation.createNavigateOnClickListener(
                 R.id.action_incluirAlimentoFragment_to_editarHorarioRefeicaoFragment))

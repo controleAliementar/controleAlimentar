@@ -39,8 +39,8 @@ android {
     buildTypes {
         release {
             firebaseAppDistribution {
-                releaseNotes="App Controle Alimentar"
-                testers="gabriellucas914@gmail.com, murilosilvabeni2@gmail.com"
+                releaseNotes = "App Controle Alimentar"
+                testers = "gabriellucas914@gmail.com, murilosilvabeni2@gmail.com"
             }
         }
     }
