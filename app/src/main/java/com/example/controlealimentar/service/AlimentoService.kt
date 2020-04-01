@@ -10,7 +10,7 @@ class AlimentoService {
 
     private val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
-    fun buscarAlimento(nomeAlimento: String) : List<Alimento> {
+    fun buscarAlimento(nomeAlimento: String) : ArrayList<Alimento> {
 
 
         val response = retrofitConfig.getAlimentoGateway()!!
@@ -25,24 +25,26 @@ class AlimentoService {
         val listAlimentoResponseGateway =  response.body()
 
         if (listAlimentoResponseGateway.isNullOrEmpty()){
-            return emptyList()
+            return arrayListOf()
         }
 
-        val listAlimentos = getListAlimentos(listAlimentoResponseGateway)
-
-        return listAlimentos
+        return getListAlimentos(listAlimentoResponseGateway)
     }
 
-    private fun getListAlimentos(listAlimentoResponseGateway: List<AlimentoResponseGateway>): List<Alimento> {
-        val alimentoList: List<Alimento> = emptyList()
+    private fun getListAlimentos(listAlimentoResponseGateway: List<AlimentoResponseGateway>): ArrayList<Alimento> {
+        val alimentoList: ArrayList<Alimento> = arrayListOf()
 
         listAlimentoResponseGateway.forEach {
 
-            val porcao = Porcao(
-                it.porcao.id,
-                it.porcao.porcao,
-                it.porcao.qtdGramas
-            )
+            var porcao = Porcao()
+
+            if (it.porcao != null){
+                porcao = Porcao(
+                    it.porcao.id,
+                    it.porcao.porcao,
+                    it.porcao.qtdGramas
+                )
+            }
 
             val alimento = Alimento(
                 it.id,
@@ -54,7 +56,7 @@ class AlimentoService {
                 porcao
             )
 
-            alimentoList.plus(alimento)
+            alimentoList.add(alimento)
         }
 
         return alimentoList

@@ -141,5 +141,9 @@
         android:id="@+id/listaBuscaAlimentosFragment"
         android:name="com.example.controlealimentar.navigation.ListaBuscaAlimentosFragment"
         android:label="fragment_lista_busca_alimentos"
-        tools:layout="@layout/fragment_lista_busca_alimentos" />
+        tools:layout="@layout/fragment_lista_busca_alimentos" >
+        <argument
+            android:name="listAlimentos"
+            app:argType="com.example.controlealimentar.model.Alimento[]"/>
+    </fragment>
 </navigation>

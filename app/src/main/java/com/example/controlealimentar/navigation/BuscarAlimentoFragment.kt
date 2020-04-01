@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentBuscarAlimentoBinding
+import com.example.controlealimentar.model.Alimento
 import com.example.controlealimentar.service.AlimentoService
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
 
@@ -39,16 +40,16 @@ class BuscarAlimentoFragment : Fragment() {
 
             val alimento = alimentoText.text.toString()
 
-            val buscarAlimento = alimentoService.buscarAlimento(alimento)
+            val listAlimentos: ArrayList<Alimento> = alimentoService.buscarAlimento(alimento)
 
-            if(buscarAlimento.isNullOrEmpty()){
+            if(listAlimentos.isNullOrEmpty()){
                 alimentoText.error = "Nenhum alimento encontrado"
                 return@setOnClickListener
             }
 
             val action =
                 BuscarAlimentoFragmentDirections
-                    .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment()
+                    .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment(listAlimentos.toTypedArray())
             view?.findNavController()?.navigate(action)
 
         }

@@ -12,7 +12,7 @@ import com.example.controlealimentar.model.Alimento
 import kotlinx.android.synthetic.main.fragment_refeicao_item.view.*
 
 class AlimentoItemRecyclerViewAdapter(
-    private val mValues: List<Alimento>,
+    private val mValues: Array<Alimento>,
     private val mListenerAlimento: IOnAlimentoListFragmentInteractionListener?
 ) : RecyclerView.Adapter<AlimentoItemRecyclerViewAdapter.ViewHolder>() {
 
