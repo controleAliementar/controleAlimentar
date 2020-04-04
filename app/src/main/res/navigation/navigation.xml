@@ -136,6 +136,10 @@
         <action
             android:id="@+id/action_buscarAlimentoFragment_to_listaBuscaAlimentosFragment"
             app:destination="@id/listaBuscaAlimentosFragment" />
+        <argument android:name="alimento"
+            app:argType="com.example.controlealimentar.model.Alimento"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"
@@ -145,5 +149,8 @@
         <argument
             android:name="listAlimentos"
             app:argType="com.example.controlealimentar.model.Alimento[]"/>
+        <action
+            android:id="@+id/action_listaBuscaAlimentosFragment_to_buscarAlimentoFragment"
+            app:destination="@id/buscarAlimentoFragment" />
     </fragment>
 </navigation>

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.controlealimentar.R
@@ -48,7 +49,10 @@ class ListaBuscaAlimentosFragment : Fragment(),
     }
 
     override fun onAlimentoListFragmentInteraction(item: Alimento) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val action =
+            ListaBuscaAlimentosFragmentDirections
+                .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(item)
+        view?.findNavController()?.navigate(action)
     }
 
 }

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentBuscarAlimentoBinding
 import com.example.controlealimentar.model.Alimento
@@ -21,6 +22,8 @@ class BuscarAlimentoFragment : Fragment() {
 
     private val alimentoService : AlimentoService =
         AlimentoService()
+
+    val args: BuscarAlimentoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,21 @@ class BuscarAlimentoFragment : Fragment() {
                 BuscarAlimentoFragmentDirections
                     .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment(listAlimentos.toTypedArray())
             view?.findNavController()?.navigate(action)
+
+        }
+
+        if (args.alimento != null){
+
+            val alimento = args.alimento!!
+
+            caloriaValue.text = alimento.calorias.toString()
+            carboidratosValue.text = alimento.carboidratos.toString()
+            proteinasValue.text = alimento.proteinas.toString()
+            gorduraValue.text = alimento.gorduras.toString()
+
+            if (alimento.porcao != null){
+
+            }
 
         }
     }
