@@ -68,4 +68,14 @@
     <string name="carecteres_aceitos_campo_email">1234567890abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú@.-_</string>
     <string name="carecteres_aceitos_metas">1234567890.</string>
     <string name="gramas">g</string>
+    <string name="grama">Gramas</string>
+    <string name="arroz">Arroz</string>
+    <string name="buscar">Buscar</string>
+    <string name="alimento">Alimento</string>
+    <string name="zero">0</string>
+    <string name="valor">Valor</string>
+    <string name="porcao">Porção:</string>
+    <string-array name="porcoes_list_default">
+        <item>Gramas</item>
+    </string-array>
 </resources>

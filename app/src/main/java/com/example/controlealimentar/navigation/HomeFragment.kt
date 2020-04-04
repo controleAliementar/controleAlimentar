@@ -11,8 +11,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.controlealimentar.R
-import com.example.controlealimentar.adapter.IOnListFragmentInteractionListener
-import com.example.controlealimentar.adapter.RefeicaoItemRecyclerViewAdapter
+import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionListener
+import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentHomeBinding
 import com.example.controlealimentar.model.Refeicao
 import com.example.controlealimentar.model.enuns.Refeicoes
@@ -24,7 +24,7 @@ import java.util.*
  * A simple [Fragment] subclass.
  */
 class HomeFragment : Fragment(),
-    IOnListFragmentInteractionListener {
+    IOnRefeicaoListFragmentInteractionListener {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +47,10 @@ class HomeFragment : Fragment(),
 
         recycleView.layoutManager = LinearLayoutManager(activity)
         recycleView.adapter =
-            RefeicaoItemRecyclerViewAdapter(fakeData(), this)
+            RefeicaoItemRecyclerViewAdapter(
+                fakeData(),
+                this
+            )
 
     }
 
@@ -67,7 +70,7 @@ class HomeFragment : Fragment(),
         return format.format(date)
     }
 
-    override fun onListFragmentInteraction(item: Refeicao) {
+    override fun onRefeicaoListFragmentInteraction(item: Refeicao) {
 
         when(item.nome) {
             Refeicoes.CAFE_MANHA.nome -> {

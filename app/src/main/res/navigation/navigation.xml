@@ -65,6 +65,9 @@
         <argument
             android:name="horarioRefeicao"
             app:argType="string" />
+        <action
+            android:id="@+id/action_incluirAlimentoFragment_to_buscarAlimentoFragment"
+            app:destination="@id/buscarAlimentoFragment" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
@@ -124,5 +127,30 @@
         <action
             android:id="@+id/action_loadingInicioAppFragment_to_homeFragment"
             app:destination="@+id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buscarAlimentoFragment"
+        android:name="com.example.controlealimentar.navigation.BuscarAlimentoFragment"
+        android:label="fragment_buscar_alimento"
+        tools:layout="@layout/fragment_buscar_alimento" >
+        <action
+            android:id="@+id/action_buscarAlimentoFragment_to_listaBuscaAlimentosFragment"
+            app:destination="@id/listaBuscaAlimentosFragment" />
+        <argument android:name="alimento"
+            app:argType="com.example.controlealimentar.model.Alimento"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaBuscaAlimentosFragment"
+        android:name="com.example.controlealimentar.navigation.ListaBuscaAlimentosFragment"
+        android:label="fragment_lista_busca_alimentos"
+        tools:layout="@layout/fragment_lista_busca_alimentos" >
+        <argument
+            android:name="listAlimentos"
+            app:argType="com.example.controlealimentar.model.Alimento[]"/>
+        <action
+            android:id="@+id/action_listaBuscaAlimentosFragment_to_buscarAlimentoFragment"
+            app:destination="@id/buscarAlimentoFragment" />
     </fragment>
 </navigation>

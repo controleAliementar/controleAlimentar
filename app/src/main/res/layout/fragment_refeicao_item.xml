@@ -7,7 +7,7 @@
     android:visibility="visible">
 
     <TextView
-        android:id="@+id/tituloRefeicaoTextView"
+        android:id="@+id/tituloAlimentoTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -29,7 +29,7 @@
         android:layout_marginEnd="8dp"
         android:text="@string/horario_cafe_manha"
         app:layout_constraintEnd_toStartOf="@id/abreviacaoHoraTextView"
-        app:layout_constraintStart_toEndOf="@id/tituloRefeicaoTextView"
+        app:layout_constraintStart_toEndOf="@id/tituloAlimentoTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="@string/kcal_value_cafe_manha"
         app:layout_constraintEnd_toStartOf="@id/kcalTextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/abreviacaoHoraTextView"
@@ -65,7 +65,7 @@
         android:text="@string/Kcal"
         app:layout_constraintEnd_toStartOf="@id/divider1"
         app:layout_constraintStart_toEndOf="@id/kcalValueTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <View
         android:id="@+id/divider1"
@@ -77,7 +77,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toStartOf="@id/proteinaValueTextView"
         app:layout_constraintStart_toEndOf="@id/kcalTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/proteinaValueTextView"
@@ -89,7 +89,7 @@
         android:text="@string/proteina_cafe_manha_value"
         app:layout_constraintEnd_toStartOf="@id/proteinaTextView"
         app:layout_constraintStart_toEndOf="@id/divider1"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/proteinaTextView"
@@ -101,7 +101,7 @@
         android:text="@string/prot"
         app:layout_constraintEnd_toStartOf="@id/divider5"
         app:layout_constraintStart_toEndOf="@id/proteinaValueTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <View
         android:id="@+id/divider5"
@@ -113,7 +113,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toStartOf="@id/carboidratoValueTextView"
         app:layout_constraintStart_toEndOf="@id/proteinaTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/carboidratoValueTextView"
@@ -125,7 +125,7 @@
         android:text="@string/carboidrato_cafe_manha_value"
         app:layout_constraintEnd_toStartOf="@id/carboidratoTextView"
         app:layout_constraintStart_toEndOf="@id/divider5"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/carboidratoTextView"
@@ -137,7 +137,7 @@
         android:text="@string/carb"
         app:layout_constraintEnd_toStartOf="@id/divider6"
         app:layout_constraintStart_toEndOf="@id/carboidratoValueTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <View
         android:id="@+id/divider6"
@@ -149,7 +149,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toStartOf="@id/gorduraValueTextView"
         app:layout_constraintStart_toEndOf="@id/carboidratoTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/gorduraValueTextView"
@@ -161,7 +161,7 @@
         android:text="@string/gordura_cafe_manha_value"
         app:layout_constraintEnd_toStartOf="@id/gorduraTextView"
         app:layout_constraintStart_toEndOf="@id/divider6"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <TextView
         android:id="@+id/gorduraTextView"
@@ -173,7 +173,7 @@
         android:text="@string/gord"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/gorduraValueTextView"
-        app:layout_constraintTop_toBottomOf="@id/tituloRefeicaoTextView" />
+        app:layout_constraintTop_toBottomOf="@id/tituloAlimentoTextView" />
 
     <View
         android:id="@+id/divider7"

@@ -1,5 +1,6 @@
 package com.example.controlealimentar.config
 
+import com.example.controlealimentar.gateway.AlimentoGateway
 import com.example.controlealimentar.gateway.MetaDiariasGateway
 import com.example.controlealimentar.gateway.UsuarioGateway
 import retrofit2.Retrofit
@@ -21,6 +22,10 @@ class RetrofitConfig {
 
     fun getMetaDiariasGateway() : MetaDiariasGateway? {
         return this.retrofit?.create(MetaDiariasGateway::class.java)
+    }
+
+    fun getAlimentoGateway() : AlimentoGateway? {
+        return this.retrofit?.create(AlimentoGateway::class.java)
     }
 
 }
