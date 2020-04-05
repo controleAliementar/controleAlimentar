@@ -45,6 +45,9 @@
             app:destination="@id/incluirAlimentoFragment"
             app:enterAnim="@anim/nav_default_pop_enter_anim"
             app:exitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/incluirAlimentoFragment"
@@ -52,7 +55,7 @@
         android:label="fragment_incluir_alimento"
         tools:layout="@layout/fragment_incluir_alimento" >
         <argument
-            android:name="tipoRefeicao"
+            android:name="idRefeicao"
             app:argType="string" />
         <action
             android:id="@+id/action_incluirAlimentoFragment_to_dicaFotoFragment"
@@ -68,6 +71,9 @@
         <action
             android:id="@+id/action_incluirAlimentoFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
+        <argument
+            android:name="nomeRefeicao"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
@@ -140,6 +146,9 @@
             app:argType="com.example.controlealimentar.model.Alimento"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="idRefeicao"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"
@@ -152,5 +161,8 @@
         <action
             android:id="@+id/action_listaBuscaAlimentosFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
+        <argument
+            android:name="idRefeicao"
+            app:argType="string" />
     </fragment>
 </navigation>
