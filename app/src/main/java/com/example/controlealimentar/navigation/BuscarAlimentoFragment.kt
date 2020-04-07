@@ -1,13 +1,17 @@
 package com.example.controlealimentar.navigation
 
 
+import android.R
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnFocusChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -20,7 +24,10 @@ import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
+import java.text.DecimalFormat
 import java.util.*
+
+
 
 
 /**
@@ -44,8 +51,34 @@ class BuscarAlimentoFragment : Fragment() {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        valorPorcaoText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(text: Editable?) {
+                if (args.alimento != null && args.alimento!!.porcao != null && !valorPorcaoText.text.toString().isBlank()){
+                    val porcaoDigitada = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
+                    caloriaValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.calorias, args.alimento!!.porcao.qtdGramas)
+                    carboidratosValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.carboidratos, args.alimento!!.porcao.qtdGramas)
+                    proteinasValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.proteinas, args.alimento!!.porcao.qtdGramas)
+                    gorduraValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.gorduras, args.alimento!!.porcao.qtdGramas)
+                }
+
+            }
+
+            override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                salvarAlimentoButton.isEnabled = !text.isNullOrBlank() && args.alimento != null
+            }
+        })
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        salvarAlimentoButton.isEnabled = false
 
         salvarAlimentoButton.setOnClickListener {
 
@@ -100,8 +133,10 @@ class BuscarAlimentoFragment : Fragment() {
             proteinasValue.text = alimento.proteinas.toString()
             gorduraValue.text = alimento.gorduras.toString()
 
-            if (alimento.porcao != null){
 
+            if (alimento.porcao != null){
+                valorPorcaoText.setText(alimento.porcao.qtdGramas.toString())
+                adicionarOpcoesSpinner(alimento.porcao.porcao)
             }
 
         }
@@ -115,5 +150,23 @@ class BuscarAlimentoFragment : Fragment() {
         })
     }
 
+    private fun adicionarOpcoesSpinner(unidadeMedida : String){
+
+        val list_of_items = arrayOf("Gramas", unidadeMedida)
+
+        val arrayAdapter =
+            ArrayAdapter(this.requireContext(), R.layout.simple_spinner_item, list_of_items)
+        arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+
+
+        spinner.adapter = arrayAdapter
+
+    }
+
+    private fun calcularQuantidadeGramas(valorPorcaoInserido: Double, valorMacronutriente: Double, valorPorcao: Double) : String {
+        val resultado = (valorMacronutriente / valorPorcao) * valorPorcaoInserido
+        val decimal = DecimalFormat("#,###.#")
+        return decimal.format(resultado)
+    }
 
 }
