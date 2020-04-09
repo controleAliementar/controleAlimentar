@@ -4,16 +4,25 @@ import com.example.controlealimentar.gateway.AlimentoGateway
 import com.example.controlealimentar.gateway.MetaDiariasGateway
 import com.example.controlealimentar.gateway.RefeicaoGateway
 import com.example.controlealimentar.gateway.UsuarioGateway
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
+import java.util.concurrent.TimeUnit
+
 
 class RetrofitConfig {
     private var retrofit: Retrofit? = null
 
     init {
+        val okHttpClient = OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build()
+
         this.retrofit = Retrofit.Builder()
             .baseUrl("https://controlealimentar.herokuapp.com/")
             .addConverterFactory(JacksonConverterFactory.create())
+            .client(okHttpClient)
             .build()
     }
 
