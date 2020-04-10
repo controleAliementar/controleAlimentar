@@ -23,6 +23,7 @@ import com.example.controlealimentar.model.SalvarAlimento
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.SharedPreference
+import com.example.controlealimentar.util.ValidacaoFormatoMetas
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
 import java.text.DecimalFormat
 import java.util.*
@@ -35,6 +36,8 @@ class BuscarAlimentoFragment : Fragment() {
 
     private val alimentoService : AlimentoService =
         AlimentoService()
+
+    val metas = ValidacaoFormatoMetas()
 
     val args: BuscarAlimentoFragmentArgs by navArgs()
     val CEM: String = "100"
@@ -62,6 +65,7 @@ class BuscarAlimentoFragment : Fragment() {
             override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                metas.validar(valorPorcaoText, valorPorcaoText.text.toString())
                 salvarAlimentoButton.isEnabled = !text.isNullOrBlank() && args.alimento != null
             }
         })
@@ -105,6 +109,11 @@ class BuscarAlimentoFragment : Fragment() {
 
             val alimento = alimentoText.text.toString()
 
+            if (alimento.length < 3){
+                alimentoText.setError("Mínimo de 3 caracteres")
+                return@setOnClickListener
+            }
+
             val listAlimentos: ArrayList<Alimento> = alimentoService.buscarAlimento(alimento)
 
             if(listAlimentos.isNullOrEmpty()){
@@ -129,14 +138,14 @@ class BuscarAlimentoFragment : Fragment() {
         if (args.alimento != null) {
             val alimento = args.alimento!!
             var tipoPorcaoAlimento : String? = null
-            var valorPorcao : String = CEM
 
             if (alimento.porcao != null) {
-                valorPorcao = alimento.porcao.qtdGramas.toString()
                 tipoPorcaoAlimento = alimento.porcao.porcao
             }
 
-            valorPorcaoText.setText(valorPorcao)
+            nomeAlimentoTextView.setText(args.alimento!!.nome)
+            salvarAlimentoButton.isEnabled = true
+            valorPorcaoText.setText(CEM)
             criarSpinner(tipoPorcaoAlimento)
         }
 
@@ -152,7 +161,11 @@ class BuscarAlimentoFragment : Fragment() {
 
     private fun criarSpinner(unidadeMedida : String?){
 
-        val list_of_items = arrayOf("Gramas", unidadeMedida)
+        val list_of_items = arrayListOf("Gramas")
+
+        if (!unidadeMedida.isNullOrBlank()){
+            list_of_items.add(unidadeMedida)
+        }
 
         val arrayAdapter =
             ArrayAdapter(this.requireContext(), R.layout.simple_spinner_item, list_of_items)
@@ -162,14 +175,10 @@ class BuscarAlimentoFragment : Fragment() {
         preencherCamposMacronutrientes(tipoPorcaoEscolhida)
     }
 
-    private fun calcularQuantidadeGramas(valorPorcaoInserido: Double, valorMacronutriente: Double, valorPorcao: Double) : String {
-        val resultado = (valorMacronutriente / valorPorcao) * valorPorcaoInserido
+    private fun calcularQuantidadeGramas(valorPorcaoInserido: Double, valorMacronutriente: Double) : String {
+        val resultado = (valorMacronutriente / 100) * valorPorcaoInserido
         val decimal = DecimalFormat("#,###.#")
         return decimal.format(resultado)
-    }
-
-    private fun retornarPorcaoEscolhida(){
-
     }
 
     private fun preencherCamposMacronutrientes(porcaoEscolhida: String){
@@ -179,15 +188,16 @@ class BuscarAlimentoFragment : Fragment() {
             val porcaoDigitada = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
 
             if(args.alimento?.porcao != null && args.alimento!!.porcao.porcao == porcaoEscolhida){
-                caloriaValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.calorias, args.alimento!!.porcao.qtdGramas)
-                carboidratosValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.carboidratos, args.alimento!!.porcao.qtdGramas)
-                proteinasValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.proteinas, args.alimento!!.porcao.qtdGramas)
-                gorduraValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.gorduras, args.alimento!!.porcao.qtdGramas)
+                val quantidadeGramasPorcao = args.alimento!!.porcao.qtdGramas * porcaoDigitada
+                caloriaValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.calorias)
+                carboidratosValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.carboidratos)
+                proteinasValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.proteinas)
+                gorduraValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.gorduras)
             }else {
-                caloriaValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.calorias, 100.0)
-                carboidratosValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.carboidratos, 100.0)
-                proteinasValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.proteinas, 100.0)
-                gorduraValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.gorduras, 100.0)
+                caloriaValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.calorias)
+                carboidratosValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.carboidratos)
+                proteinasValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.proteinas)
+                gorduraValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.gorduras)
             }
 
         }

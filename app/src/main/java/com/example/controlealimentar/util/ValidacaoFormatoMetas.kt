@@ -31,7 +31,7 @@ class ValidacaoFormatoMetas {
 
         // Não deixar terminar com ponto
         val textSemMascara = text.replace("g", "")
-        if (textSemMascara.length == 4 && text.endsWith(".")){
+        if (textSemMascara.length == 5 && text.endsWith(".")){
             val replace = text.replace(".", "")
             ediTxt.setText(replace)
             ediTxt.setSelection(replace.length)
