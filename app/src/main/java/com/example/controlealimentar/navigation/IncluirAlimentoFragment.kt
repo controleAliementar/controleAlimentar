@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentIncluirAlimentoBinding
@@ -28,16 +29,18 @@ class IncluirAlimentoFragment : Fragment() {
             inflater, R.layout.fragment_incluir_alimento, container, false
         )
 
-        binding.incluirAlimentoTextView.text = args.tipoRefeicao
+        binding.incluirAlimentoTextView.text = args.nomeRefeicao
         binding.alterarHorarioRefeicaobutton.text = args.horarioRefeicao
 
         binding.incluirPorFotoButton
             .setOnClickListener( Navigation
                 .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_dicaFotoFragment))
 
-        binding.buscarAlimentoButton
-            .setOnClickListener( Navigation
-                .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_buscarAlimentoFragment))
+        binding.buscarAlimentoButton.setOnClickListener{
+            val action = IncluirAlimentoFragmentDirections
+                .actionIncluirAlimentoFragmentToBuscarAlimentoFragment(null, args.idRefeicao)
+            view?.findNavController()?.navigate(action)
+        }
 
         binding.alterarHorarioRefeicaobutton
             .setOnClickListener(Navigation.createNavigateOnClickListener(

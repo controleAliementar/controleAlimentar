@@ -16,6 +16,7 @@ import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapte
 import com.example.controlealimentar.databinding.FragmentHomeBinding
 import com.example.controlealimentar.model.Refeicao
 import com.example.controlealimentar.model.enuns.Refeicoes
+import com.example.controlealimentar.service.RefeicaoService
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,6 +26,9 @@ import java.util.*
  */
 class HomeFragment : Fragment(),
     IOnRefeicaoListFragmentInteractionListener {
+
+    private val refeicaoService : RefeicaoService =
+        RefeicaoService()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,21 +52,22 @@ class HomeFragment : Fragment(),
         recycleView.layoutManager = LinearLayoutManager(activity)
         recycleView.adapter =
             RefeicaoItemRecyclerViewAdapter(
-                fakeData(),
+                buscarListaRefeicoes(),
                 this
             )
 
     }
 
-    private fun fakeData() = listOf(
-        Refeicao(nome = Refeicoes.ALIMENTOS_AVULSOS.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.CAFE_MANHA.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.LANCHE_MANHA.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.ALMOCO.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.LANCHE_TARDE.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.JANTA.nome, horario =convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0),
-        Refeicao(nome = Refeicoes.CHA_NOITE.nome, horario = convertLongToTime(1583027867412), caloria = 0, carboidrato = 0, gordura = 0, proteina = 0)
-    )
+    private fun buscarListaRefeicoes(): List<Refeicao> {
+        try{
+            return refeicaoService.buscarListaRefeicoes()
+        }catch(e: Exception){
+            val action = HomeFragmentDirections
+                .actionHomeFragmentToErroGenericoFragment()
+            view?.findNavController()?.navigate(action)
+        }
+        return arrayListOf()
+    }
 
     fun convertLongToTime(time: Long): String {
         val date = Date(time)
@@ -72,40 +77,40 @@ class HomeFragment : Fragment(),
 
     override fun onRefeicaoListFragmentInteraction(item: Refeicao) {
 
-        when(item.nome) {
-            Refeicoes.CAFE_MANHA.nome -> {
+        when(item.id) {
+            Refeicoes.CAFE_MANHA.id -> {
                 val action = HomeFragmentDirections
-                .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.CAFE_MANHA.nome, item.horario)
+                .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
-            Refeicoes.LANCHE_MANHA.nome -> {
+            Refeicoes.LANCHE_MANHA.id -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.LANCHE_MANHA.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
-            Refeicoes.ALMOCO.nome -> {
+            Refeicoes.ALMOCO.id -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.ALMOCO.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
-            Refeicoes.LANCHE_TARDE.nome -> {
+            Refeicoes.LANCHE_TARDE.id -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.LANCHE_TARDE.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
-            Refeicoes.JANTA.nome -> {
+            Refeicoes.JANTA.id -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.JANTA.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
-            Refeicoes.CHA_NOITE.nome -> {
+            Refeicoes.CHA_NOITE.id -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.CHA_NOITE.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
             else -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(Refeicoes.ALIMENTOS_AVULSOS.nome, item.horario)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
                 view?.findNavController()?.navigate(action)
             }
         }
