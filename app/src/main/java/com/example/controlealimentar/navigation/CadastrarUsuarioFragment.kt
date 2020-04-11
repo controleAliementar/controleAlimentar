@@ -1,6 +1,8 @@
 package com.example.controlealimentar.navigation
 
-
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,7 +16,7 @@ import com.example.controlealimentar.databinding.FragmentCadastrarUsuarioBinding
 import com.example.controlealimentar.model.Usuario
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.UsuarioService
-import com.example.controlealimentar.util.Loading
+import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 
 
@@ -25,7 +27,7 @@ class CadastrarUsuarioFragment : Fragment() {
 
     private val usuarioService : UsuarioService =
         UsuarioService()
-
+    val progressBar = CustomProgressBar()
     lateinit var binding: FragmentCadastrarUsuarioBinding
 
     override fun onCreateView(
@@ -37,8 +39,6 @@ class CadastrarUsuarioFragment : Fragment() {
         )
 
         binding.cadastrarUsuarioButton.setOnClickListener{
-
-            val loading = Loading(context)
 
             try {
 
@@ -52,24 +52,22 @@ class CadastrarUsuarioFragment : Fragment() {
                     return@setOnClickListener
                 }
 
-                loading.criar()
-
                 val usuario = Usuario()
                 usuario.nome = name
                 usuario.email = email
 
-                val id =  usuarioService.salvarUsuario(usuario)
+                val processoId =
+                    SalvarUsuarioAsync(this.requireContext(), usuario, usuarioService).execute()
+                        .get()
 
-                sharedPreference.save(SharedIds.ID_USUARIO.name, id)
-
-                loading.remover()
+                sharedPreference.save(SharedIds.ID_USUARIO.name, processoId)
 
                 val action = CadastrarUsuarioFragmentDirections
                     .actionCadastrarUsuarioFragmentToCadastrarMetasFragment()
                 view?.findNavController()?.navigate(action)
 
             } catch (e : Exception) {
-                loading.remover()
+                progressBar.dialog.dismiss()
 
                 val action = CadastrarUsuarioFragmentDirections
                     .actionCadastrarUsuarioFragmentToErroGenericoFragment()
@@ -132,6 +130,28 @@ class CadastrarUsuarioFragment : Fragment() {
 
     private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean) {
         binding.cadastrarUsuarioButton.isEnabled = !editText1IsNull && !editText2IsNull
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class SalvarUsuarioAsync(var context: Context,
+                           var usuario: Usuario,
+                           var usuarioService: UsuarioService) : AsyncTask<String, String, String>(){
+        val progressBar = CustomProgressBar()
+
+        @SuppressLint("WrongThread")
+        override fun doInBackground(vararg params: String?) : String{
+
+            val processoId = usuarioService.salvarUsuario(usuario)
+
+            progressBar.dialog.dismiss()
+            return processoId!!
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            progressBar.show(context, "Salvando ...")
+        }
+
     }
 
 }
