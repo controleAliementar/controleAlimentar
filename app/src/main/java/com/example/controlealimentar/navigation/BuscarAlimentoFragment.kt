@@ -1,8 +1,9 @@
 package com.example.controlealimentar.navigation
 
-
 import android.R
+import android.annotation.SuppressLint
 import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -22,6 +23,7 @@ import com.example.controlealimentar.model.Alimento
 import com.example.controlealimentar.model.SalvarAlimento
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
+import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
@@ -34,9 +36,9 @@ import java.util.*
  */
 class BuscarAlimentoFragment : Fragment() {
 
+    lateinit var binding : FragmentBuscarAlimentoBinding
     private val alimentoService : AlimentoService =
         AlimentoService()
-
     val metas = ValidacaoFormatoMetas()
 
     val args: BuscarAlimentoFragmentArgs by navArgs()
@@ -47,7 +49,7 @@ class BuscarAlimentoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding : FragmentBuscarAlimentoBinding = DataBindingUtil
+        binding = DataBindingUtil
             .inflate(inflater,
                 com.example.controlealimentar.R.layout.fragment_buscar_alimento, container, false)
 
@@ -102,11 +104,10 @@ class BuscarAlimentoFragment : Fragment() {
                 false
             )
 
-            alimentoService.salvarAlimento(salvarAlimento, idAlimento, idRefeicao, processoId)
+            SalvarAlimentoAsync(this.requireContext(), alimentoService, salvarAlimento, idAlimento, idRefeicao, processoId).execute()
         }
 
         buscarAlimentoButton.setOnClickListener {
-
             val alimento = alimentoText.text.toString()
 
             if (alimento.length < 3){
@@ -114,10 +115,17 @@ class BuscarAlimentoFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val listAlimentos: ArrayList<Alimento> = alimentoService.buscarAlimento(alimento)
+            val execute = BuscarAlimentoAsync(
+                this.requireContext(),
+                binding,
+                alimentoService,
+                alimento
+            ).execute()
+
+           val listAlimentos = execute.get()
 
             if(listAlimentos.isNullOrEmpty()){
-                alimentoText.error = "Nenhum alimento encontrado"
+                binding.alimentoText.error = "Nenhum alimento encontrado"
                 return@setOnClickListener
             }
 
@@ -125,7 +133,6 @@ class BuscarAlimentoFragment : Fragment() {
                 BuscarAlimentoFragmentDirections
                     .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment(listAlimentos.toTypedArray(), args.idRefeicao)
             view?.findNavController()?.navigate(action)
-
         }
 
     }
@@ -201,6 +208,55 @@ class BuscarAlimentoFragment : Fragment() {
             }
 
         }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class BuscarAlimentoAsync(var context: Context,
+                              var binding : FragmentBuscarAlimentoBinding,
+                              var alimentoService: AlimentoService,
+                              var alimento: String) : AsyncTask<String, String, ArrayList<Alimento>>(){
+        val progressBar = CustomProgressBar()
+
+        @SuppressLint("WrongThread")
+        override fun doInBackground(vararg params: String?): ArrayList<Alimento>{
+
+            val listAlimentos: ArrayList<Alimento> = alimentoService.buscarAlimento(alimento)
+
+            progressBar.dialog.dismiss()
+
+            return listAlimentos
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            progressBar.show(context, "Buscando ...")
+        }
+
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class SalvarAlimentoAsync(var context: Context,
+                              var alimentoService: AlimentoService,
+                              var alimento: SalvarAlimento,
+                              var idAlimento: String,
+                              var idRefeicao: String,
+                              var processoId: String) : AsyncTask<String, String, String>(){
+        val progressBar = CustomProgressBar()
+
+        @SuppressLint("WrongThread")
+        override fun doInBackground(vararg params: String?) : String{
+
+            alimentoService.salvarAlimento(alimento, idAlimento, idRefeicao, processoId)
+
+            progressBar.dialog.dismiss()
+            return ""
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            progressBar.show(context, "Salvando ...")
+        }
+
     }
 
 }

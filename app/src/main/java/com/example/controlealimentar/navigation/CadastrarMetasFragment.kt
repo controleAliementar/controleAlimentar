@@ -1,6 +1,8 @@
 package com.example.controlealimentar.navigation
 
-
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,7 +18,7 @@ import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.model.MetaDiarias
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
-import com.example.controlealimentar.util.Loading
+import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
 
@@ -27,7 +29,7 @@ class CadastrarMetasFragment : Fragment() {
 
     private val metaDiariasService : MetaDiariasService =
         MetaDiariasService()
-
+    val progressBar = CustomProgressBar()
     val metas = ValidacaoFormatoMetas()
 
     lateinit var binding : FragmentCadastrarMetasBinding
@@ -47,8 +49,6 @@ class CadastrarMetasFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.salvarButton.setOnClickListener {
-
-            val loading = Loading(context)
 
             try {
 
@@ -71,15 +71,14 @@ class CadastrarMetasFragment : Fragment() {
                 metaDiarias.calorias = calorias
                 metaDiarias.processoId = processoId
 
-                metaDiariasService.salvarMetaDiarias(processoId, metaDiarias)
-
-                loading.remover()
+                SalvarMetasAsync(this.requireContext(), metaDiariasService, metaDiarias, processoId).execute()
 
                 val action =
                     CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToHomeFragment()
                 view?.findNavController()?.navigate(action)
+
             } catch (e : Exception){
-                loading.remover()
+                progressBar.dialog.dismiss()
 
                 val action =
                     CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToErroGenericoFragment()
@@ -148,6 +147,29 @@ class CadastrarMetasFragment : Fragment() {
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
         binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    class SalvarMetasAsync(var context: Context,
+                              var metaDiariasService: MetaDiariasService,
+                              var metaDiarias: MetaDiarias,
+                              var processoId: String) : AsyncTask<String, String, String>(){
+        val progressBar = CustomProgressBar()
+
+        @SuppressLint("WrongThread")
+        override fun doInBackground(vararg params: String?) : String{
+
+            metaDiariasService.salvarMetaDiarias(processoId, metaDiarias)
+
+            progressBar.dialog.dismiss()
+            return ""
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            progressBar.show(context, "Salvando ...")
+        }
+
     }
 
 }
