@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -53,6 +54,18 @@ class BuscarAlimentoFragment : Fragment() {
             .inflate(inflater,
                 com.example.controlealimentar.R.layout.fragment_buscar_alimento, container, false)
 
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action =
+                        BuscarAlimentoFragmentDirections
+                            .actionBuscarAlimentoFragmentToHomeFragment()
+                    view?.findNavController()?.navigate(action)
+                }
+            })
+
         return binding.root
     }
 
@@ -88,11 +101,11 @@ class BuscarAlimentoFragment : Fragment() {
                 ?: throw SalvarAlimentoException("ProcessoId não encontrado no SharedPreference")
 
             val porcaoConsumida = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
-            val calorias = java.lang.Double.parseDouble(caloriaValue.text.toString())
-            val carboidratos = java.lang.Double.parseDouble(carboidratosValue.text.toString())
-            val proteinas = java.lang.Double.parseDouble(proteinasValue.text.toString())
-            val gorduras = java.lang.Double.parseDouble(gorduraValue.text.toString())
-            val idAlimento = UUID.randomUUID().toString()
+            val calorias = java.lang.Double.parseDouble(caloriaValue.text.toString().replace(".","").replace(",", "."))
+            val carboidratos = java.lang.Double.parseDouble(carboidratosValue.text.toString().replace(".","").replace(",", "."))
+            val proteinas = java.lang.Double.parseDouble(proteinasValue.text.toString().replace(".","").replace(",", "."))
+            val gorduras = java.lang.Double.parseDouble(gorduraValue.text.toString().replace(".","").replace(",", "."))
+            val idAlimento = args.alimento!!.id
             val idRefeicao = args.idRefeicao
 
             val salvarAlimento = SalvarAlimento(
@@ -105,6 +118,11 @@ class BuscarAlimentoFragment : Fragment() {
             )
 
             SalvarAlimentoAsync(this.requireContext(), alimentoService, salvarAlimento, idAlimento, idRefeicao, processoId).execute()
+
+            val action =
+                BuscarAlimentoFragmentDirections
+                    .actionBuscarAlimentoFragmentToHomeFragment()
+            view?.findNavController()?.navigate(action)
         }
 
         buscarAlimentoButton.setOnClickListener {
