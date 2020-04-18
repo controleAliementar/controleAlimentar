@@ -133,14 +133,13 @@ class BuscarAlimentoFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val execute = BuscarAlimentoAsync(
+            val listAlimentos = BuscarAlimentoAsync(
                 this.requireContext(),
                 binding,
                 alimentoService,
                 alimento
-            ).execute()
+            ).execute().get()
 
-           val listAlimentos = execute.get()
 
             if(listAlimentos.isNullOrEmpty()){
                 binding.alimentoText.error = "Nenhum alimento encontrado"

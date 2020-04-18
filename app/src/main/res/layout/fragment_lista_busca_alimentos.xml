@@ -6,17 +6,21 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
 
-            android:id="@+id/recycleView"
+            android:id="@+id/recycleViewListAlimentos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            app:layoutManager="LinearLayoutManager"
+            android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp"
             tools:listitem="@layout/fragment_alimento_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
