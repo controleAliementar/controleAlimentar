@@ -170,5 +170,11 @@
         <argument
             android:name="idRefeicao"
             app:argType="string" />
+        <argument
+            android:name="ehUltimaPagina"
+            app:argType="boolean" />
+        <argument
+            android:name="nomeAlimento"
+            app:argType="string" />
     </fragment>
 </navigation>

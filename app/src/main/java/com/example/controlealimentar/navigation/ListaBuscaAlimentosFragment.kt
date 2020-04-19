@@ -6,7 +6,6 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import com.example.controlealimentar.databinding.FragmentListaBuscaAlimentosBind
 import com.example.controlealimentar.model.Alimento
 import com.example.controlealimentar.model.Porcao
 import com.example.controlealimentar.model.interfaces.OnLoadMoreListener
+import com.example.controlealimentar.service.AlimentoService
 import kotlinx.android.synthetic.main.fragment_lista_busca_alimentos.*
 
 
@@ -30,9 +30,13 @@ import kotlinx.android.synthetic.main.fragment_lista_busca_alimentos.*
 class ListaBuscaAlimentosFragment : Fragment(),
     IOnAlimentoListFragmentInteractionListener {
 
+    private val alimentoService : AlimentoService =
+        AlimentoService()
     val args: ListaBuscaAlimentosFragmentArgs by navArgs()
     lateinit var adapter: AlimentoItemRecyclerViewAdapter
     var listAlimentos = ArrayList<Alimento>()
+    var ehUltimaPagina: Boolean = false
+    var paginaAtual: Int = 0
 
 
     override fun onCreateView(
@@ -42,6 +46,8 @@ class ListaBuscaAlimentosFragment : Fragment(),
         val binding: FragmentListaBuscaAlimentosBinding = DataBindingUtil.inflate(
             inflater, com.example.controlealimentar.R.layout.fragment_lista_busca_alimentos, container, false
         )
+
+        ehUltimaPagina = args.ehUltimaPagina
 
         requireActivity()
             .onBackPressedDispatcher
@@ -96,36 +102,36 @@ class ListaBuscaAlimentosFragment : Fragment(),
 
     private fun LoadMoreData(){
 
-        val porcao = Porcao()
-        listAlimentos.add(Alimento(porcao = porcao, nome = ""))
+        if (!ehUltimaPagina){
 
-        recycleViewListAlimentos.post {
-            adapter.notifyItemInserted(listAlimentos.size - 1)
-        }
-
-        Toast.makeText(this.requireContext(), "Ta carregando", Toast.LENGTH_LONG).show()
-
-        Handler().postDelayed({
-
-            listAlimentos.removeAt(listAlimentos.size - 1)
-            adapter.notifyItemRemoved(listAlimentos.size)
+            val proximaPagina = paginaAtual + 1
 
             val porcao = Porcao()
-            val alimento1 = Alimento(porcao = porcao, nome = "Parece que ta indo")
-            val alimento2 = Alimento(porcao = porcao, nome = "Acho que foi hen")
-            val alimento3 = Alimento(porcao = porcao, nome = "Se loko Cachoeira")
-            val alimento7 = Alimento(porcao = porcao, nome = "Uhuuuuu")
-            val alimento4 = Alimento(porcao = porcao, nome = "Ehhhhhh")
-            val alimento5 = Alimento(porcao = porcao, nome = "Fodaaaaa")
-            val alimento6 = Alimento(porcao = porcao, nome = "Demais")
+            listAlimentos.add(Alimento(porcao = porcao, nome = ""))
 
-            listAlimentos.addAll(arrayOf(alimento1,alimento2, alimento3, alimento4, alimento5, alimento6, alimento7))
+            recycleViewListAlimentos.post {
+                adapter.notifyItemInserted(listAlimentos.size - 1)
+            }
 
-            adapter.setLoaded()
-            adapter.notifyDataSetChanged()
+            Handler().postDelayed({
+
+                listAlimentos.removeAt(listAlimentos.size - 1)
+                adapter.notifyItemRemoved(listAlimentos.size)
+
+                val alimentoPaginado = alimentoService.buscarAlimentoPaginado(args.nomeAlimento, proximaPagina)
+
+                if (alimentoPaginado != null){
+                    listAlimentos.addAll(alimentoPaginado.listAlimentos)
+                    ehUltimaPagina = alimentoPaginado!!.ehUltimaPagina
+                }
+
+                adapter.setLoaded()
+                adapter.notifyDataSetChanged()
 
 
-        },5000)
+            },5000)
+
+        }
 
     }
 
