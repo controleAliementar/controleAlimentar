@@ -3,6 +3,7 @@ package com.example.controlealimentar.service
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.CadastrarUsuarioException
 import com.example.controlealimentar.model.Refeicao
+import com.example.controlealimentar.model.RefeicaoConsolidado
 
 class RefeicaoService {
 
@@ -33,6 +34,37 @@ class RefeicaoService {
         }
 
         return listRefeicao
+    }
+
+    fun buscarListaRefeicoesConsolidado(processoId: String) : ArrayList<RefeicaoConsolidado> {
+
+        val response = retrofitConfig.getRefeicaoGateway()!!
+            .buscarRefeicaoConsolidado(processoId)
+            .execute()
+
+        if (!response!!.isSuccessful){
+            print(response.errorBody())
+            throw CadastrarUsuarioException(response.message())
+        }
+
+        val listRefeicaoConsolidadoGateway = response.body()
+
+        val listRefeicaoConsolidado: ArrayList<RefeicaoConsolidado> = arrayListOf()
+
+        listRefeicaoConsolidadoGateway!!.forEach {
+            val refeicaoConsolidado = RefeicaoConsolidado(
+                it.nome,
+                it.calorias,
+                it.carboidratos,
+                it.gorduras,
+                it.posicao,
+                it.proteinas
+            )
+
+            listRefeicaoConsolidado.add(refeicaoConsolidado)
+        }
+
+        return listRefeicaoConsolidado
     }
 
 }

@@ -58,9 +58,14 @@ class HomeFragment : Fragment(),
 
     }
 
-    private fun buscarListaRefeicoes(): List<Refeicao> {
+    private fun buscarListaRefeicoes(processoId: String): List<Refeicao> {
         try{
-            return refeicaoService.buscarListaRefeicoes()
+            val listaRefeicoes = refeicaoService.buscarListaRefeicoes()
+            val listaRefeicoesConsolidado = refeicaoService.buscarListaRefeicoesConsolidado(processoId)
+
+
+
+            return null
         }catch(e: Exception){
             val action = HomeFragmentDirections
                 .actionHomeFragmentToErroGenericoFragment()
