@@ -14,9 +14,12 @@ import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionListener
 import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentHomeBinding
+import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.model.Refeicao
 import com.example.controlealimentar.model.enuns.Refeicoes
+import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.RefeicaoService
+import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -49,10 +52,17 @@ class HomeFragment : Fragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val sharedPreference = SharedPreference(context)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+        if (processoId.isNullOrBlank()){
+            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+        }
+
         recycleView.layoutManager = LinearLayoutManager(activity)
         recycleView.adapter =
             RefeicaoItemRecyclerViewAdapter(
-                buscarListaRefeicoes(),
+                buscarListaRefeicoes(processoId),
                 this
             )
 
@@ -60,12 +70,7 @@ class HomeFragment : Fragment(),
 
     private fun buscarListaRefeicoes(processoId: String): List<Refeicao> {
         try{
-            val listaRefeicoes = refeicaoService.buscarListaRefeicoes()
-            val listaRefeicoesConsolidado = refeicaoService.buscarListaRefeicoesConsolidado(processoId)
-
-
-
-            return null
+            return refeicaoService.buscarListaRefeicoesConsolidado(processoId)
         }catch(e: Exception){
             val action = HomeFragmentDirections
                 .actionHomeFragmentToErroGenericoFragment()
@@ -115,7 +120,7 @@ class HomeFragment : Fragment(),
             }
             else -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome, true)
                 view?.findNavController()?.navigate(action)
             }
         }

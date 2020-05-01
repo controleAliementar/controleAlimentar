@@ -47,6 +47,7 @@ class BuscarAlimentoFragment : Fragment() {
     var page: Int = 0
     var size: Int = 10
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -115,7 +116,7 @@ class BuscarAlimentoFragment : Fragment() {
                 carboidratos,
                 proteinas,
                 gorduras,
-                false
+                args.alimentoAvulso
             )
 
             SalvarAlimentoAsync(this.requireContext(), alimentoService, salvarAlimento, idAlimento, idRefeicao, processoId).execute()
@@ -154,7 +155,8 @@ class BuscarAlimentoFragment : Fragment() {
                         alimentoPaginado.listAlimentos.toTypedArray(),
                         args.idRefeicao,
                         alimentoPaginado.ehUltimaPagina,
-                        alimento)
+                        alimento,
+                        args.alimentoAvulso)
             view?.findNavController()?.navigate(action)
         }
 

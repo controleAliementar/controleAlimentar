@@ -86,7 +86,7 @@ class ListaBuscaAlimentosFragment : Fragment(),
     override fun onAlimentoListFragmentInteraction(item: Alimento) {
         val action =
             ListaBuscaAlimentosFragmentDirections
-                .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(item, args.idRefeicao)
+                .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(item, args.idRefeicao, args.alimentoAvulso)
         view?.findNavController()?.navigate(action)
     }
 

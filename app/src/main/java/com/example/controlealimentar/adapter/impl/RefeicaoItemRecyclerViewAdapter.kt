@@ -26,10 +26,10 @@ class RefeicaoItemRecyclerViewAdapter(
         val item = mValues[position]
         holder.mTituloRefeicaoTextView.text = item.nome
         holder.mHorarioRefeicaoTextView.text = item.horario
-        holder.mProteinaValueTextView.text = Integer.toString(item.proteina)
-        holder.mGorduraValueTextView.text = Integer.toString(item.gordura)
-        holder.mCarboidratoValueTextView.text = Integer.toString(item.carboidrato)
-        holder.mKcalValueTextView.text = Integer.toString(item.caloria)
+        holder.mProteinaValueTextView.text = item.proteina.toString() + " g"
+        holder.mGorduraValueTextView.text = item.gordura.toString() + " g"
+        holder.mCarboidratoValueTextView.text = item.carboidrato.toString() + " g"
+        holder.mKcalValueTextView.text = item.caloria.toString()
 
         holder.mView.setOnClickListener {
             mListenerRefeicao?.onRefeicaoListFragmentInteraction(item)

@@ -74,6 +74,10 @@
         <argument
             android:name="nomeRefeicao"
             app:argType="string" />
+        <argument
+            android:name="alimentoAvulso"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
@@ -155,6 +159,10 @@
         <action
             android:id="@+id/action_buscarAlimentoFragment_to_incluirAlimentoFragment"
             app:destination="@id/incluirAlimentoFragment" />
+        <argument
+            android:name="alimentoAvulso"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"
@@ -176,5 +184,9 @@
         <argument
             android:name="nomeAlimento"
             app:argType="string" />
+        <argument
+            android:name="alimentoAvulso"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 </navigation>
