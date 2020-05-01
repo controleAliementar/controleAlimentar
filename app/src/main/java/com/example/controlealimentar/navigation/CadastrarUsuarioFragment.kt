@@ -1,8 +1,5 @@
 package com.example.controlealimentar.navigation
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,10 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.controlealimentar.databinding.FragmentCadastrarUsuarioBinding
 import com.example.controlealimentar.model.Usuario
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.UsuarioService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
+import kotlinx.android.synthetic.main.fragment_cadastrar_usuario.*
 
 
 /**
@@ -37,43 +36,6 @@ class CadastrarUsuarioFragment : Fragment() {
         binding = DataBindingUtil.inflate(
             inflater, com.example.controlealimentar.R.layout.fragment_cadastrar_usuario, container, false
         )
-
-        binding.cadastrarUsuarioButton.setOnClickListener{
-
-            try {
-
-                val name : String = binding.nameText.text.toString()
-                val email : String = binding.emailText.text.toString()
-
-                val sharedPreference = SharedPreference(context)
-
-                if (!isEmailValido(email)){
-                    binding.emailText.error = "Email inválido"
-                    return@setOnClickListener
-                }
-
-                val usuario = Usuario()
-                usuario.nome = name
-                usuario.email = email
-
-                val processoId =
-                    SalvarUsuarioAsync(this.requireContext(), usuario, usuarioService).execute()
-                        .get()
-
-                sharedPreference.save(SharedIds.ID_USUARIO.name, processoId)
-
-                val action = CadastrarUsuarioFragmentDirections
-                    .actionCadastrarUsuarioFragmentToCadastrarMetasFragment()
-                view?.findNavController()?.navigate(action)
-
-            } catch (e : Exception) {
-                progressBar.dialog.dismiss()
-
-                val action = CadastrarUsuarioFragmentDirections
-                    .actionCadastrarUsuarioFragmentToErroGenericoFragment()
-                view?.findNavController()?.navigate(action)
-            }
-        }
 
         return binding.root
     }
@@ -126,32 +88,57 @@ class CadastrarUsuarioFragment : Fragment() {
             }
         })
 
+        cadastrarUsuarioButton.setOnClickListener{
+
+            try {
+
+                val name : String = binding.nameText.text.toString()
+                val email : String = binding.emailText.text.toString()
+
+                val sharedPreference = SharedPreference(context)
+
+                if (!isEmailValido(email)){
+                    binding.emailText.error = "Email inválido"
+                    return@setOnClickListener
+                }
+
+                val usuario = Usuario()
+                usuario.nome = name
+                usuario.email = email
+
+                progressBar.show(context, MessageLoading.MENSAGEM_SALVANDO.mensagem)
+
+                usuarioService.salvarUsuario(usuario, {
+                    sharedPreference.save(SharedIds.ID_USUARIO.name, it)
+
+                    progressBar.dialog.dismiss()
+
+                    val action = CadastrarUsuarioFragmentDirections
+                        .actionCadastrarUsuarioFragmentToCadastrarMetasFragment()
+                    view?.findNavController()?.navigate(action)
+                }, {
+                    progressBar.dialog.dismiss()
+
+                    val action = CadastrarUsuarioFragmentDirections
+                        .actionCadastrarUsuarioFragmentToErroGenericoFragment()
+                    view?.findNavController()?.navigate(action)
+
+                })
+
+            } catch (e : Exception) {
+
+                progressBar.dialog.dismiss()
+
+                val action = CadastrarUsuarioFragmentDirections
+                    .actionCadastrarUsuarioFragmentToErroGenericoFragment()
+                view?.findNavController()?.navigate(action)
+            }
+        }
+
     }
 
     private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean) {
         binding.cadastrarUsuarioButton.isEnabled = !editText1IsNull && !editText2IsNull
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class SalvarUsuarioAsync(var context: Context,
-                           var usuario: Usuario,
-                           var usuarioService: UsuarioService) : AsyncTask<String, String, String>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?) : String{
-
-            val processoId = usuarioService.salvarUsuario(usuario)
-
-            progressBar.dialog.dismiss()
-            return processoId!!
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Salvando ...")
-        }
-
     }
 
 }

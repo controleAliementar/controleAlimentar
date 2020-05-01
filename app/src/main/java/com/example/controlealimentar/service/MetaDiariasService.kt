@@ -1,10 +1,14 @@
 package com.example.controlealimentar.service
 
+import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
 import com.example.controlealimentar.model.MetaDiarias
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MetaDiariasService {
 
@@ -36,7 +40,10 @@ class MetaDiariasService {
         return metaDiarias
     }
 
-    fun salvarMetaDiarias(processoId: String, metaDiarias: MetaDiarias) {
+    fun salvarMetaDiarias(processoId: String,
+                          metaDiarias: MetaDiarias,
+                          onSuccess : () -> Unit,
+                          onError : (Exception) -> Unit) {
 
         val metaDiariasRequestGateway = MetaDiariasRequestGateway(
             metaDiarias.calorias,
@@ -45,14 +52,26 @@ class MetaDiariasService {
             metaDiarias.proteinas
         )
 
-        val response = retrofitConfig.getMetaDiariasGateway()!!
+        val call = retrofitConfig.getMetaDiariasGateway()!!
             .salvarMetaDiarias(processoId, metaDiariasRequestGateway)
-            .execute()
 
-        if (!response!!.isSuccessful){
-            print(response.errorBody())
-            throw SalvarMetaDiariasException(response.message())
-        }
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(SalvarMetaDiariasException(response.message()))
+                }
+
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(SalvarMetaDiariasException(t?.message))
+            }
+        })
 
     }
 

@@ -1,8 +1,8 @@
 package com.example.controlealimentar.model.enuns
 
 enum class MessageLoading {
-    TITULO("Aguarde um momento"),
-    MENSAGEM("Carregando ...");
+    MENSAGEM_GARREGANDO("Carregando ..."),
+    MENSAGEM_SALVANDO("Salvando ...");
 
     var mensagem : String = ""
 
