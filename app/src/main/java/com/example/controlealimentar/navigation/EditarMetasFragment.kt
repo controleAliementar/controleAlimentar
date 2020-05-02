@@ -1,8 +1,5 @@
 package com.example.controlealimentar.navigation
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -17,9 +14,8 @@ import com.example.controlealimentar.databinding.FragmentEditarMetasBinding
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.model.MetaDiarias
-import com.example.controlealimentar.model.SalvarAlimento
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.SharedIds
-import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
@@ -29,7 +25,7 @@ class EditarMetasFragment : Fragment() {
 
     lateinit var binding : FragmentEditarMetasBinding
     var metas = ValidacaoFormatoMetas()
-
+    val progressBar = CustomProgressBar()
     val metaDiariasService = MetaDiariasService()
 
     override fun onCreateView(
@@ -54,19 +50,21 @@ class EditarMetasFragment : Fragment() {
                 throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
             }
 
-            val metaDiarias = metaDiariasService.buscarMetaDiarias(processoId)
-
-            if (metaDiarias != null) {
-                binding.caloriaText.setText(metaDiarias.calorias.toString())
-                binding.carboidratoText.setText(metaDiarias.carboidratos.toString())
-                binding.proteinaText.setText(metaDiarias.proteinas.toString())
-                binding.gorduraText.setText(metaDiarias.gorduras.toString())
-            }
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
+            metaDiariasService.buscarMetaDiarias(processoId,
+                {
+                    binding.caloriaText.setText(it.calorias.toString())
+                    binding.carboidratoText.setText(it.carboidratos.toString())
+                    binding.proteinaText.setText(it.proteinas.toString())
+                    binding.gorduraText.setText(it.gorduras.toString())
+                    progressBar.dialog.dismiss()
+                },
+                {
+                    retornarErroGenerico()
+                })
 
         }catch (e : Exception){
-            val action =
-                EditarMetasFragmentDirections.actionEditarMetasFragmentToErroGenericoFragment()
-            view?.findNavController()?.navigate(action)
+            retornarErroGenerico()
         }
     }
 
@@ -74,7 +72,42 @@ class EditarMetasFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         binding.salvarButton.setOnClickListener{
-            SalvarMetasAsync(this.requireContext(), binding, metaDiariasService, view).execute()
+            try {
+
+                val sharedPreference = SharedPreference(context)
+                val processoId : String? = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+                if (processoId.isNullOrBlank()){
+                    throw SalvarMetaDiariasException("ProcessoId não encontrado no SharedPreference")
+                }
+
+                val gordura = java.lang.Double.parseDouble(binding.gorduraText.text.toString())
+                val carboidrato = java.lang.Double.parseDouble(binding.carboidratoText.text.toString())
+                val proteina = java.lang.Double.parseDouble(binding.proteinaText.text.toString())
+                val calorias = java.lang.Double.parseDouble(binding.caloriaText.text.toString())
+
+                val metaDiarias = MetaDiarias()
+                metaDiarias.gorduras = gordura
+                metaDiarias.carboidratos = carboidrato
+                metaDiarias.proteinas = proteina
+                metaDiarias.calorias = calorias
+                metaDiarias.processoId = processoId
+
+                progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
+                metaDiariasService.salvarMetaDiarias(processoId, metaDiarias,
+                    {
+                        progressBar.dialog.dismiss()
+                        val action =
+                            EditarMetasFragmentDirections.actionEditarMetasFragmentToHomeFragment()
+                        view?.findNavController()?.navigate(action)
+                    },
+                    {
+                        retornarErroGenerico()
+                    })
+
+            } catch (e : Exception){
+                retornarErroGenerico()
+            }
         }
 
         binding.salvarButton.isEnabled = true
@@ -138,88 +171,17 @@ class EditarMetasFragment : Fragment() {
 
     }
 
+    private fun retornarErroGenerico() {
+        progressBar.dialog.dismiss()
+        val action =
+            EditarMetasFragmentDirections.actionEditarMetasFragmentToErroGenericoFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
     private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean,
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
         binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class SalvarMetasAsync(var context: Context,
-                           var binding : FragmentEditarMetasBinding,
-                           var metaDiariasService: MetaDiariasService,
-                           var view: View?) : AsyncTask<String, String, String>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?) : String{
-            try {
-
-                val sharedPreference = SharedPreference(context)
-                val processoId : String? = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
-
-                if (processoId.isNullOrBlank()){
-                    throw SalvarMetaDiariasException("ProcessoId não encontrado no SharedPreference")
-                }
-
-                val gordura = java.lang.Double.parseDouble(binding.gorduraText.text.toString())
-                val carboidrato = java.lang.Double.parseDouble(binding.carboidratoText.text.toString())
-                val proteina = java.lang.Double.parseDouble(binding.proteinaText.text.toString())
-                val calorias = java.lang.Double.parseDouble(binding.caloriaText.text.toString())
-
-                val metaDiarias = MetaDiarias()
-                metaDiarias.gorduras = gordura
-                metaDiarias.carboidratos = carboidrato
-                metaDiarias.proteinas = proteina
-                metaDiarias.calorias = calorias
-                metaDiarias.processoId = processoId
-
-                metaDiariasService.salvarMetaDiarias(processoId, metaDiarias)
-
-                val action =
-                    EditarMetasFragmentDirections.actionEditarMetasFragmentToHomeFragment()
-                view?.findNavController()?.navigate(action)
-
-                progressBar.dialog.dismiss()
-            } catch (e : Exception){
-                val action =
-                    EditarMetasFragmentDirections.actionEditarMetasFragmentToErroGenericoFragment()
-                view?.findNavController()?.navigate(action)
-                progressBar.dialog.dismiss()
-            }
-            return ""
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Salvando ...")
-        }
-
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class SalvarAlimentoAsync(var context: Context,
-                              var alimentoService: AlimentoService,
-                              var alimento: SalvarAlimento,
-                              var idAlimento: String,
-                              var idRefeicao: String,
-                              var processoId: String) : AsyncTask<String, String, String>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?) : String{
-
-            alimentoService.salvarAlimento(alimento, idAlimento, idRefeicao, processoId)
-
-            progressBar.dialog.dismiss()
-            return ""
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Salvando ...")
-        }
-
     }
 
 }

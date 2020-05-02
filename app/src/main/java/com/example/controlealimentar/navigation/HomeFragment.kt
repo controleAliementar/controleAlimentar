@@ -14,9 +14,14 @@ import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionListener
 import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentHomeBinding
+import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.model.Refeicao
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.Refeicoes
+import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.RefeicaoService
+import com.example.controlealimentar.util.CustomProgressBar
+import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -29,6 +34,7 @@ class HomeFragment : Fragment(),
 
     private val refeicaoService : RefeicaoService =
         RefeicaoService()
+    val progressBar = CustomProgressBar()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,28 +51,34 @@ class HomeFragment : Fragment(),
         return binding.root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recycleView.layoutManager = LinearLayoutManager(activity)
-        recycleView.adapter =
-            RefeicaoItemRecyclerViewAdapter(
-                buscarListaRefeicoes(),
-                this
-            )
+        val sharedPreference = SharedPreference(context)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
-    }
-
-    private fun buscarListaRefeicoes(): List<Refeicao> {
-        try{
-            return refeicaoService.buscarListaRefeicoes()
-        }catch(e: Exception){
-            val action = HomeFragmentDirections
-                .actionHomeFragmentToErroGenericoFragment()
-            view?.findNavController()?.navigate(action)
+        if (processoId.isNullOrBlank()){
+            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
         }
-        return arrayListOf()
+
+        progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
+        refeicaoService.buscarListaRefeicoesConsolidado(processoId,
+            {
+                recycleView.layoutManager = LinearLayoutManager(activity)
+                recycleView.adapter =
+                    RefeicaoItemRecyclerViewAdapter(
+                        it,
+                        this
+                    )
+                progressBar.dialog.dismiss()
+            },
+            {
+                progressBar.dialog.dismiss()
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToErroGenericoFragment()
+                view?.findNavController()?.navigate(action)
+            })
+
     }
 
     fun convertLongToTime(time: Long): String {
@@ -110,7 +122,7 @@ class HomeFragment : Fragment(),
             }
             else -> {
                 val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
+                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome, true)
                 view?.findNavController()?.navigate(action)
             }
         }

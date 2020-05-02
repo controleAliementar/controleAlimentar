@@ -1,9 +1,7 @@
 package com.example.controlealimentar.navigation
 
 import android.R
-import android.annotation.SuppressLint
 import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,8 +18,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.databinding.FragmentBuscarAlimentoBinding
 import com.example.controlealimentar.exception.SalvarAlimentoException
-import com.example.controlealimentar.model.AlimentoPaginado
 import com.example.controlealimentar.model.SalvarAlimento
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.CustomProgressBar
@@ -40,12 +38,13 @@ class BuscarAlimentoFragment : Fragment() {
     private val alimentoService : AlimentoService =
         AlimentoService()
     val metas = ValidacaoFormatoMetas()
-
+    val progressBar = CustomProgressBar()
     val args: BuscarAlimentoFragmentArgs by navArgs()
     val CEM: String = "100"
     var tipoPorcaoEscolhida: String = "Gramas"
     var page: Int = 0
     var size: Int = 10
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -115,15 +114,20 @@ class BuscarAlimentoFragment : Fragment() {
                 carboidratos,
                 proteinas,
                 gorduras,
-                false
+                args.alimentoAvulso
             )
 
-            SalvarAlimentoAsync(this.requireContext(), alimentoService, salvarAlimento, idAlimento, idRefeicao, processoId).execute()
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
+            alimentoService.salvarAlimento(salvarAlimento, idAlimento, idRefeicao, processoId,
+                {
+                    progressBar.dialog.dismiss()
+                    val action =
+                        BuscarAlimentoFragmentDirections
+                            .actionBuscarAlimentoFragmentToHomeFragment()
+                    view?.findNavController()?.navigate(action)
+                },
+                {})
 
-            val action =
-                BuscarAlimentoFragmentDirections
-                    .actionBuscarAlimentoFragmentToHomeFragment()
-            view?.findNavController()?.navigate(action)
         }
 
         buscarAlimentoButton.setOnClickListener {
@@ -134,28 +138,27 @@ class BuscarAlimentoFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val alimentoPaginado = BuscarAlimentoAsync(
-                this.requireContext(),
-                binding,
-                alimentoService,
-                alimento,
-                page
-            ).execute().get()
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_BUSCANDO.mensagem)
+            alimentoService.buscarAlimentoPaginado(alimento, page,
+                {
+                    if(it.listAlimentos.isNullOrEmpty()){
+                        progressBar.dialog.dismiss()
+                        binding.alimentoText.error = "Nenhum alimento encontrado"
+                    }else{
+                        progressBar.dialog.dismiss()
+                        val action =
+                            BuscarAlimentoFragmentDirections
+                                .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment(
+                                    it.listAlimentos.toTypedArray(),
+                                    args.idRefeicao,
+                                    it.ehUltimaPagina,
+                                    alimento,
+                                    args.alimentoAvulso)
+                        view?.findNavController()?.navigate(action)
+                    }
+                },
+                {})
 
-
-            if(alimentoPaginado == null || alimentoPaginado!!.listAlimentos.isNullOrEmpty()){
-                binding.alimentoText.error = "Nenhum alimento encontrado"
-                return@setOnClickListener
-            }
-
-            val action =
-                BuscarAlimentoFragmentDirections
-                    .actionBuscarAlimentoFragmentToListaBuscaAlimentosFragment(
-                        alimentoPaginado.listAlimentos.toTypedArray(),
-                        args.idRefeicao,
-                        alimentoPaginado.ehUltimaPagina,
-                        alimento)
-            view?.findNavController()?.navigate(action)
         }
 
     }
@@ -231,59 +234,6 @@ class BuscarAlimentoFragment : Fragment() {
             }
 
         }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class BuscarAlimentoAsync(var context: Context,
-                              var binding : FragmentBuscarAlimentoBinding,
-                              var alimentoService: AlimentoService,
-                              var alimento: String,
-                              var page: Int) : AsyncTask<String, String, AlimentoPaginado?>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?): AlimentoPaginado? {
-
-            val buscarAlimentoPaginado = alimentoService.buscarAlimentoPaginado(
-                alimento,
-                page
-            )
-
-            progressBar.dialog.dismiss()
-
-            return buscarAlimentoPaginado
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Buscando ...")
-        }
-
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class SalvarAlimentoAsync(var context: Context,
-                              var alimentoService: AlimentoService,
-                              var alimento: SalvarAlimento,
-                              var idAlimento: String,
-                              var idRefeicao: String,
-                              var processoId: String) : AsyncTask<String, String, String>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?) : String{
-
-            alimentoService.salvarAlimento(alimento, idAlimento, idRefeicao, processoId)
-
-            progressBar.dialog.dismiss()
-            return ""
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Salvando ...")
-        }
-
     }
 
 }

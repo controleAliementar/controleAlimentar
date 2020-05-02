@@ -61,15 +61,16 @@ class LoadingInicioAppFragment : Fragment() {
         val metaDiariasService = MetaDiariasService()
 
         processoId?.let {
-            val metaDiarias = metaDiariasService.buscarMetaDiarias(it)
+            metaDiariasService.buscarMetaDiarias(it,
+                {
+                    if (it.processoId.isBlank()) {
+                        idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment
+                    }
+                }, {})
 
-            if (metaDiarias!!.processoId.isBlank()) {
-                idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment
-            }
         }
 
         findNavController().navigateSafe(idToGo)
-
 
     }
 

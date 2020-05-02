@@ -1,8 +1,5 @@
 package com.example.controlealimentar.navigation
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,6 +13,7 @@ import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentCadastrarMetasBinding
 import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.model.MetaDiarias
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.CustomProgressBar
@@ -71,18 +69,21 @@ class CadastrarMetasFragment : Fragment() {
                 metaDiarias.calorias = calorias
                 metaDiarias.processoId = processoId
 
-                SalvarMetasAsync(this.requireContext(), metaDiariasService, metaDiarias, processoId).execute()
+                progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
 
-                val action =
-                    CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToHomeFragment()
-                view?.findNavController()?.navigate(action)
+                metaDiariasService.salvarMetaDiarias(processoId, metaDiarias,
+                    {
+                        progressBar.dialog.dismiss()
+                        val action =
+                            CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToHomeFragment()
+                        view?.findNavController()?.navigate(action)
+                    },
+                    {
+                        retornaTelaErroGenerico()
+                    })
 
             } catch (e : Exception){
-                progressBar.dialog.dismiss()
-
-                val action =
-                    CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToErroGenericoFragment()
-                view?.findNavController()?.navigate(action)
+                retornaTelaErroGenerico()
             }
         }
 
@@ -143,33 +144,18 @@ class CadastrarMetasFragment : Fragment() {
 
     }
 
+    private fun retornaTelaErroGenerico() {
+        progressBar.dialog.dismiss()
+
+        val action =
+            CadastrarMetasFragmentDirections.actionCadastrarMetasFragmentToErroGenericoFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
     private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean,
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
         binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    class SalvarMetasAsync(var context: Context,
-                              var metaDiariasService: MetaDiariasService,
-                              var metaDiarias: MetaDiarias,
-                              var processoId: String) : AsyncTask<String, String, String>(){
-        val progressBar = CustomProgressBar()
-
-        @SuppressLint("WrongThread")
-        override fun doInBackground(vararg params: String?) : String{
-
-            metaDiariasService.salvarMetaDiarias(processoId, metaDiarias)
-
-            progressBar.dialog.dismiss()
-            return ""
-        }
-
-        override fun onPreExecute() {
-            super.onPreExecute()
-            progressBar.show(context, "Salvando ...")
-        }
-
     }
 
 }
