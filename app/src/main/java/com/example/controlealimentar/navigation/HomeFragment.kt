@@ -92,7 +92,7 @@ class HomeFragment : Fragment(),
         when(item.id) {
             Refeicoes.CAFE_MANHA.id -> {
                 val action = HomeFragmentDirections
-                .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
+                .actionHomeFragmentToListaAlimentosRefeicaoFragment()
                 view?.findNavController()?.navigate(action)
             }
             Refeicoes.LANCHE_MANHA.id -> {

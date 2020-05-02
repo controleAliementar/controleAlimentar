@@ -75,6 +75,7 @@
     <string name="zero">0</string>
     <string name="valor">Valor</string>
     <string name="porcao">Porção:</string>
+    <string name="cem">100</string>
     <string-array name="porcoes_list_default">
         <item>Gramas</item>
     </string-array>

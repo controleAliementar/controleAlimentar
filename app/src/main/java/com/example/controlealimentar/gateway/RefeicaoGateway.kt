@@ -11,7 +11,7 @@ interface RefeicaoGateway {
     fun buscarRefeicaoConsolidado(@Header("processoId") processoId: String)
             : Call<List<RefeicaoConsolidadoResponseGateway>>
 
-    @GET("5eaca41d330000b483dfe65c")
+    @GET("5ead98b82f000050001987f3")
     fun buscarRefeicaoConsolidadoMock(@Header("processoId") processoId: String)
             : Call<List<RefeicaoConsolidadoResponseGateway>>
 
