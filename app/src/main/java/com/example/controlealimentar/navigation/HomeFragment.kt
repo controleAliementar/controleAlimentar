@@ -16,9 +16,11 @@ import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapte
 import com.example.controlealimentar.databinding.FragmentHomeBinding
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.model.Refeicao
+import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.Refeicoes
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.RefeicaoService
+import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
@@ -32,6 +34,7 @@ class HomeFragment : Fragment(),
 
     private val refeicaoService : RefeicaoService =
         RefeicaoService()
+    val progressBar = CustomProgressBar()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +51,6 @@ class HomeFragment : Fragment(),
         return binding.root
     }
 
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -59,24 +61,24 @@ class HomeFragment : Fragment(),
             throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
         }
 
-        recycleView.layoutManager = LinearLayoutManager(activity)
-        recycleView.adapter =
-            RefeicaoItemRecyclerViewAdapter(
-                buscarListaRefeicoes(processoId),
-                this
-            )
+        progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
+        refeicaoService.buscarListaRefeicoesConsolidado(processoId,
+            {
+                recycleView.layoutManager = LinearLayoutManager(activity)
+                recycleView.adapter =
+                    RefeicaoItemRecyclerViewAdapter(
+                        it,
+                        this
+                    )
+                progressBar.dialog.dismiss()
+            },
+            {
+                progressBar.dialog.dismiss()
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToErroGenericoFragment()
+                view?.findNavController()?.navigate(action)
+            })
 
-    }
-
-    private fun buscarListaRefeicoes(processoId: String): List<Refeicao> {
-        try{
-            return refeicaoService.buscarListaRefeicoesConsolidado(processoId)
-        }catch(e: Exception){
-            val action = HomeFragmentDirections
-                .actionHomeFragmentToErroGenericoFragment()
-            view?.findNavController()?.navigate(action)
-        }
-        return arrayListOf()
     }
 
     fun convertLongToTime(time: Long): String {

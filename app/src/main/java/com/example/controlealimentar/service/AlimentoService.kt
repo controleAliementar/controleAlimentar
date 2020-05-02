@@ -1,7 +1,9 @@
 package com.example.controlealimentar.service
 
+import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarAlimentoException
+import com.example.controlealimentar.exception.SalvarAlimentoException
 import com.example.controlealimentar.gateway.data.AlimentoPaginadoResponseGateway
 import com.example.controlealimentar.gateway.data.AlimentoResponseGateway
 import com.example.controlealimentar.gateway.data.SalvarAlimentoRequestGateway
@@ -9,6 +11,9 @@ import com.example.controlealimentar.model.Alimento
 import com.example.controlealimentar.model.AlimentoPaginado
 import com.example.controlealimentar.model.Porcao
 import com.example.controlealimentar.model.SalvarAlimento
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class AlimentoService {
 
@@ -35,35 +40,51 @@ class AlimentoService {
         return getListAlimentos(listAlimentoResponseGateway)
     }
 
-    fun buscarAlimentoPaginado(nomeAlimento: String, page: Int) : AlimentoPaginado? {
+    fun buscarAlimentoPaginado(nomeAlimento: String,
+                               page: Int,
+                               onSuccess : (AlimentoPaginado) -> Unit,
+                               onError : (Exception) -> Unit){
 
-        val size: Int = 10
+        val size = 10
 
-        val response = retrofitConfig.getAlimentoGateway()!!
+        val call = retrofitConfig.getAlimentoGateway()!!
             .buscarAlimentoPaginado(nomeAlimento, size, page)
-            .execute()
 
-        if (!response!!.isSuccessful){
-            print(response.errorBody())
-            throw BuscarAlimentoException(response.message())
-        }
+        call.enqueue(object : Callback<AlimentoPaginadoResponseGateway> {
+            override fun onResponse(call: Call<AlimentoPaginadoResponseGateway>,
+                                    response: Response<AlimentoPaginadoResponseGateway>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(BuscarAlimentoException(response.message()))
+                }
 
-        val alimentoPaginadoResponseGateway =  response.body()
+                val alimentoPaginadoResponseGateway =  response.body()
 
-        if (alimentoPaginadoResponseGateway!!.content.isNullOrEmpty()){
-            return null
-        }
+                if (alimentoPaginadoResponseGateway!!.content.isNullOrEmpty()){
+                    return onSuccess(AlimentoPaginado())
+                }
 
-        val listPaginadoAlimentos =
-            getListPaginadoAlimentos(alimentoPaginadoResponseGateway!!.content)
+                val listPaginadoAlimentos =
+                    getListPaginadoAlimentos(alimentoPaginadoResponseGateway.content)
 
-        return AlimentoPaginado(listPaginadoAlimentos, alimentoPaginadoResponseGateway.last)
+                onSuccess(AlimentoPaginado(listPaginadoAlimentos, alimentoPaginadoResponseGateway.last))
+            }
+
+            override fun onFailure(call: Call<AlimentoPaginadoResponseGateway>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(BuscarAlimentoException(t?.message))
+            }
+        })
+
     }
 
     fun salvarAlimento(alimento: SalvarAlimento,
                        idAlimento: String,
                        idRefeicao: String,
-                       processoId: String) {
+                       processoId: String,
+                       onSuccess : () -> Unit,
+                       onError : (Exception) -> Unit) {
 
 
         val salvarAlimentoRequestGateway = SalvarAlimentoRequestGateway(
@@ -75,18 +96,28 @@ class AlimentoService {
             alimento.alimentoIngerido
         )
 
-
-        val response = retrofitConfig.getAlimentoGateway()!!
+        val call = retrofitConfig.getAlimentoGateway()!!
             .salvarAlimento(idAlimento,
                             idRefeicao,
                             processoId,
                             salvarAlimentoRequestGateway)
-            .execute()
 
-        if (!response!!.isSuccessful){
-            print(response.errorBody())
-            throw BuscarAlimentoException(response.message())
-        }
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(SalvarAlimentoException(response.message()))
+                }
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(SalvarAlimentoException(t?.message))
+            }
+        })
 
     }
 

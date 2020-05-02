@@ -118,16 +118,15 @@ class ListaBuscaAlimentosFragment : Fragment(),
                 listAlimentos.removeAt(listAlimentos.size - 1)
                 adapter.notifyItemRemoved(listAlimentos.size)
 
-                val alimentoPaginado = alimentoService.buscarAlimentoPaginado(args.nomeAlimento, proximaPagina)
+                alimentoService.buscarAlimentoPaginado(args.nomeAlimento, proximaPagina,
+                    {
+                        listAlimentos.addAll(it.listAlimentos)
+                        ehUltimaPagina = it.ehUltimaPagina
 
-                if (alimentoPaginado != null){
-                    listAlimentos.addAll(alimentoPaginado.listAlimentos)
-                    ehUltimaPagina = alimentoPaginado!!.ehUltimaPagina
-                }
-
-                adapter.setLoaded()
-                adapter.notifyDataSetChanged()
-
+                        adapter.setLoaded()
+                        adapter.notifyDataSetChanged()
+                    },
+                    {})
 
             },5000)
 

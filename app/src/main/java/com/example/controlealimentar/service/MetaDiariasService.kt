@@ -5,6 +5,7 @@ import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
+import com.example.controlealimentar.gateway.data.MetaDiariasResponseGateway
 import com.example.controlealimentar.model.MetaDiarias
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,30 +15,41 @@ class MetaDiariasService {
 
     private val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
-    fun buscarMetaDiarias(processoId: String) : MetaDiarias? {
+    fun buscarMetaDiarias(processoId: String,
+                          onSuccess : (MetaDiarias) -> Unit,
+                          onError : (Exception) -> Unit) {
 
-        val response = retrofitConfig.getMetaDiariasGateway()!!
+        val call = retrofitConfig.getMetaDiariasGateway()!!
             .buscarMetaDiarias(processoId)
-            .execute()
 
-        if (!response!!.isSuccessful){
-            print(response.errorBody())
-            throw BuscarMetaDiariasException(response.message())
-        }
+        call.enqueue(object : Callback<MetaDiariasResponseGateway> {
+            override fun onResponse(call: Call<MetaDiariasResponseGateway>,
+                                    response: Response<MetaDiariasResponseGateway>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(BuscarMetaDiariasException(response.message()))
+                } else if (response.code() == 204){
+                    return onSuccess(MetaDiarias())
+                }
 
-        if (response.code() == 204){
-            return MetaDiarias()
-        }
+                val metaDiarias = MetaDiarias()
+                metaDiarias.id = response.body()!!.id
+                metaDiarias.processoId = response.body()!!.processoId
+                metaDiarias.calorias = response.body()!!.calorias
+                metaDiarias.carboidratos = response.body()!!.carboidratos
+                metaDiarias.proteinas = response.body()!!.proteinas
+                metaDiarias.gorduras = response.body()!!.gorduras
 
-        val metaDiarias = MetaDiarias()
-        metaDiarias.id = response.body()!!.id
-        metaDiarias.processoId = response.body()!!.processoId
-        metaDiarias.calorias = response.body()!!.calorias
-        metaDiarias.carboidratos = response.body()!!.carboidratos
-        metaDiarias.proteinas = response.body()!!.proteinas
-        metaDiarias.gorduras = response.body()!!.gorduras
+                onSuccess(metaDiarias)
+            }
 
-        return metaDiarias
+            override fun onFailure(call: Call<MetaDiariasResponseGateway>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(BuscarMetaDiariasException(t?.message))
+            }
+        })
+
     }
 
     fun salvarMetaDiarias(processoId: String,
