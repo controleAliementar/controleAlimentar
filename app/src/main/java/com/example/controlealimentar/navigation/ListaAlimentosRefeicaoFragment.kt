@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnAlimentoDetalhadoListFragmentInteractionListener
@@ -20,6 +23,8 @@ import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
  */
 class ListaAlimentosRefeicaoFragment : Fragment(),
     IOnAlimentoDetalhadoListFragmentInteractionListener{
+
+    val args: ListaAlimentosRefeicaoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,19 +41,29 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val alimentoDetalhadoList = ArrayList<AlimentoDetalhado>()
-        alimentoDetalhadoList.add(AlimentoDetalhado(nomeAlimento = "Xuxu"))
+        incluirAlimentoTextView.text = args.nomeRefeicao
+        alterarHorarioRefeicaobutton.text = args.horarioRefeicao
 
         recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
         recycleViewListaAlimentoDetalhado.adapter =
             AlimentoDetalhadoItemRecyclerViewAdapter(
-                alimentoDetalhadoList,
+                args.listAlimentos.asList(),
                 this
             )
+
+        incluirPorFotoButton
+            .setOnClickListener( Navigation
+                .createNavigateOnClickListener(R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
+
+        buscarAlimentoButton.setOnClickListener{
+            val action = ListaAlimentosRefeicaoFragmentDirections
+                .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(null, args.idRefeicao, args.alimentoAvulso)
+            view?.findNavController()?.navigate(action)
+        }
     }
 
     override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 

@@ -91,34 +91,22 @@ class HomeFragment : Fragment(),
 
         when(item.id) {
             Refeicoes.CAFE_MANHA.id -> {
-                val action = HomeFragmentDirections
-                .actionHomeFragmentToListaAlimentosRefeicaoFragment()
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             Refeicoes.LANCHE_MANHA.id -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             Refeicoes.ALMOCO.id -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             Refeicoes.LANCHE_TARDE.id -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             Refeicoes.JANTA.id -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             Refeicoes.CHA_NOITE.id -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item)
             }
             else -> {
                 val action = HomeFragmentDirections
@@ -126,6 +114,41 @@ class HomeFragment : Fragment(),
                 view?.findNavController()?.navigate(action)
             }
         }
+    }
+
+    private fun defineProximaTela(item: Refeicao) {
+
+        val sharedPreference = SharedPreference(context)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+        if (processoId.isNullOrBlank()){
+            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+        }
+
+        progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
+        refeicaoService.buscarRefeicaoAlimentos(processoId, item.id,
+            {
+                if (it.isNullOrEmpty()){
+                    progressBar.dialog.dismiss()
+                    val action = HomeFragmentDirections
+                        .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
+                    view?.findNavController()?.navigate(action)
+                }else {
+                    progressBar.dialog.dismiss()
+                    val action = HomeFragmentDirections
+                        .actionHomeFragmentToListaAlimentosRefeicaoFragment(it.toTypedArray(),
+                            horarioRefeicao = item.horario,
+                            idRefeicao = item.id,
+                            nomeRefeicao = item.nome)
+                    view?.findNavController()?.navigate(action)
+                }
+            },
+            {
+                progressBar.dialog.dismiss()
+                val action = HomeFragmentDirections
+                    .actionHomeFragmentToErroGenericoFragment()
+                view?.findNavController()?.navigate(action)
+            })
     }
 
 }
