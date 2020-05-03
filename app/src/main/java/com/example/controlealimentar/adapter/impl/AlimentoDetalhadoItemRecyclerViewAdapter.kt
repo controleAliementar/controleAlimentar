@@ -4,6 +4,7 @@ package com.example.controlealimentar.adapter.impl
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.controlealimentar.R
@@ -28,15 +29,16 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         val decimal = DecimalFormat("##,###.#")
 
         holder.mNomeAlimentoTextView.text = item.nomeAlimento
-        holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida)
+        holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida) + " g"
         holder.mProteinaValueTextView.text = decimal.format(item.proteinas) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gorduras) + " g"
         holder.mCarboidratoValueTextView.text = decimal.format(item.carboidratos) + " g"
         holder.mKcalValueTextView.text = decimal.format(item.calorias)
 
-        holder.mView.setOnClickListener {
+        holder.mIngeridoCheckBox.setOnClickListener {
             mListenerAlimento?.onAlimentoDetalhadoListFragmentInteraction(item)
         }
+
     }
 
     override fun getItemCount(): Int = mValues.size
@@ -48,5 +50,6 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         val mProteinaValueTextView: TextView = mView.proteinaDetalhadoValueTextView
         val mCarboidratoValueTextView: TextView = mView.carboidratoDetalhadoValueTextView
         val mGorduraValueTextView: TextView = mView.gorduraDetalhadoValueTextView
+        val mIngeridoCheckBox: CheckBox = mView.ingeridoCheckBox
     }
 }

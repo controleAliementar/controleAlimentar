@@ -1,75 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="230dp"
     android:visibility="visible">
 
     <TextView
         android:id="@+id/nomeAlimentoTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="0dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
         android:text="@string/alimento"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@id/porcaoConsumidaTextView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/porcaoConsumidaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/cem"
-        app:layout_constraintEnd_toStartOf="@id/abreviacaoGramaTextView"
-        app:layout_constraintStart_toEndOf="@id/nomeAlimentoTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/kcalDetalhadoValueTextView"
-        android:layout_width="60dp"
+        android:layout_width="51dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/kcal_value_cafe_manha"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider7"
         app:layout_constraintBottom_toTopOf="@+id/divider7"
         app:layout_constraintEnd_toStartOf="@id/divider1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/abreviacaoGramaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="10dp"
-        android:text="@string/gramas"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/porcaoConsumidaTextView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/KcalTextView" />
 
     <View
         android:id="@+id/divider1"
         android:layout_width="1dp"
         android:layout_height="20dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider7"
         app:layout_constraintEnd_toStartOf="@id/proteinaDetalhadoValueTextView"
         app:layout_constraintStart_toEndOf="@id/kcalDetalhadoValueTextView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/KcalTextView" />
 
     <TextView
         android:id="@+id/proteinaDetalhadoValueTextView"
@@ -78,7 +56,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/proteina_cafe_manha_value"
         app:layout_constraintBottom_toTopOf="@+id/divider7"
         app:layout_constraintEnd_toStartOf="@id/divider5"
@@ -90,10 +68,11 @@
         android:layout_width="1dp"
         android:layout_height="20dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider7"
         app:layout_constraintEnd_toStartOf="@id/carboidratoDetalhadoValueTextView"
         app:layout_constraintStart_toEndOf="@id/proteinaDetalhadoValueTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -105,7 +84,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/carboidrato_cafe_manha_value"
         app:layout_constraintBottom_toTopOf="@+id/divider7"
         app:layout_constraintEnd_toStartOf="@id/divider6"
@@ -117,10 +96,11 @@
         android:layout_width="1dp"
         android:layout_height="20dp"
         android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="2dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/divider7"
         app:layout_constraintEnd_toStartOf="@id/gorduraDetalhadoValueTextView"
         app:layout_constraintStart_toEndOf="@id/carboidratoDetalhadoValueTextView"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -132,7 +112,7 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="5dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/gordura_cafe_manha_value"
         app:layout_constraintBottom_toTopOf="@+id/divider7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -145,16 +125,16 @@
         android:layout_width="200dp"
         android:layout_height="1dp"
         android:layout_marginStart="135dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="150dp"
+        android:layout_marginBottom="20dp"
         android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider5" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/KcalTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -166,7 +146,7 @@
         app:layout_constraintBottom_toTopOf="@+id/kcalDetalhadoValueTextView"
         app:layout_constraintEnd_toStartOf="@+id/textView5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/porcaoTextView" />
 
     <TextView
         android:id="@+id/textView5"
@@ -180,8 +160,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/proteinaDetalhadoValueTextView"
         app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
+        app:layout_constraintStart_toEndOf="@+id/KcalTextView"
+        app:layout_constraintTop_toBottomOf="@+id/porcaoConsumidaTextView" />
 
     <TextView
         android:id="@+id/textView6"
@@ -196,7 +176,7 @@
         app:layout_constraintBottom_toTopOf="@+id/carboidratoDetalhadoValueTextView"
         app:layout_constraintEnd_toStartOf="@+id/textView7"
         app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/porcaoTextView" />
 
     <TextView
         android:id="@+id/textView7"
@@ -211,6 +191,43 @@
         app:layout_constraintBottom_toTopOf="@+id/gorduraDetalhadoValueTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/porcaoTextView" />
+
+    <TextView
+        android:id="@+id/porcaoTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/porcao"
+        app:layout_constraintBottom_toTopOf="@+id/KcalTextView"
+        app:layout_constraintEnd_toStartOf="@+id/porcaoConsumidaTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
+
+    <TextView
+        android:id="@+id/porcaoConsumidaTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:text="@string/cem"
+        app:layout_constraintBottom_toTopOf="@+id/textView5"
+        app:layout_constraintEnd_toStartOf="@+id/ingeridoCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/porcaoTextView"
+        app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
+
+    <CheckBox
+        android:id="@+id/ingeridoCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/ingerido"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/porcaoConsumidaTextView"
         app:layout_constraintTop_toBottomOf="@+id/nomeAlimentoTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
