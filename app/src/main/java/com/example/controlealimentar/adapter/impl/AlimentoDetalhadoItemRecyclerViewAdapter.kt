@@ -29,6 +29,7 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         val decimal = DecimalFormat("##,###.#")
 
         holder.mNomeAlimentoTextView.text = item.nomeAlimento
+        holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
         holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida) + " g"
         holder.mProteinaValueTextView.text = decimal.format(item.proteinas) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gorduras) + " g"

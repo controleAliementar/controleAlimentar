@@ -2,7 +2,6 @@ package com.example.controlealimentar.service
 
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
-import com.example.controlealimentar.config.RetrofitMockConfig
 import com.example.controlealimentar.exception.BuscarAlimentosRefeicaoException
 import com.example.controlealimentar.exception.BuscarRefeicaoConsolidadaException
 import com.example.controlealimentar.gateway.data.RefeicaoAlimentosResponseGateway
@@ -15,15 +14,14 @@ import retrofit2.Response
 
 class RefeicaoService {
 
-//    private val retrofitConfig: RetrofitConfig = RetrofitConfig()
-    private val retrofitMockConfig: RetrofitMockConfig = RetrofitMockConfig()
+    private val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
     fun buscarListaRefeicoesConsolidado(processoId: String,
                                         onSuccess : (ArrayList<Refeicao>) -> Unit,
                                         onError : (Exception) -> Unit) {
 
-        val call = retrofitMockConfig.getRefeicaoGateway()!!
-            .buscarRefeicaoConsolidadoMock(processoId)
+        val call = retrofitConfig.getRefeicaoGateway()!!
+            .buscarRefeicaoConsolidado(processoId)
 
         call.enqueue(object : Callback<List<RefeicaoConsolidadoResponseGateway>> {
             override fun onResponse(call: Call<List<RefeicaoConsolidadoResponseGateway>>,
@@ -67,8 +65,6 @@ class RefeicaoService {
                                 refeicaoId: String,
                                 onSuccess : (ArrayList<AlimentoDetalhado>) -> Unit,
                                 onError : (Exception) -> Unit) {
-
-            val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
         val call = retrofitConfig.getRefeicaoGateway()!!
             .buscarAlimentosRefeicao(processoId, refeicaoId)

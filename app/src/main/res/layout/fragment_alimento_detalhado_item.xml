@@ -209,7 +209,7 @@
         android:id="@+id/porcaoConsumidaTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="17dp"
         android:text="@string/cem"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toStartOf="@+id/ingeridoCheckBox"
