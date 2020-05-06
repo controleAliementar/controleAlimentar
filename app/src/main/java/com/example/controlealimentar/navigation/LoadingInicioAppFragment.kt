@@ -52,25 +52,20 @@ class LoadingInicioAppFragment : Fragment() {
 
         val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
-        var idToGo = R.id.action_loadingInicioAppFragment_to_homeFragment
-
         if (processoId.isNullOrBlank()){
-            idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment
-        }
+            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment)
+        } else {
+            val metaDiariasService = MetaDiariasService()
 
-        val metaDiariasService = MetaDiariasService()
-
-        processoId?.let {
-            metaDiariasService.buscarMetaDiarias(it,
-                {
-                    if (it.processoId.isBlank()) {
-                        idToGo = R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment
+            metaDiariasService.buscarMetaDiarias(processoId,
+                {meta ->
+                    if (meta.processoId.isBlank()) {
+                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
+                    }else {
+                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
                     }
                 }, {})
-
         }
-
-        findNavController().navigateSafe(idToGo)
 
     }
 
