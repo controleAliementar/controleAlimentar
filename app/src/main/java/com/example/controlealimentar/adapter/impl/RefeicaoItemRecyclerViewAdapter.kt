@@ -10,6 +10,7 @@ import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionListener
 import com.example.controlealimentar.model.Refeicao
 import kotlinx.android.synthetic.main.fragment_refeicao_item.view.*
+import java.text.DecimalFormat
 
 class RefeicaoItemRecyclerViewAdapter(
     private val mValues: List<Refeicao>,
@@ -24,12 +25,14 @@ class RefeicaoItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
+        val decimal = DecimalFormat("##,###.#")
+
         holder.mTituloRefeicaoTextView.text = item.nome
         holder.mHorarioRefeicaoTextView.text = item.horario
-        holder.mProteinaValueTextView.text = item.proteina.toString() + " g"
-        holder.mGorduraValueTextView.text = item.gordura.toString() + " g"
-        holder.mCarboidratoValueTextView.text = item.carboidrato.toString() + " g"
-        holder.mKcalValueTextView.text = item.caloria.toString()
+        holder.mProteinaValueTextView.text = decimal.format(item.proteina) + " g"
+        holder.mGorduraValueTextView.text = decimal.format(item.gordura) + " g"
+        holder.mCarboidratoValueTextView.text = decimal.format(item.carboidrato) + " g"
+        holder.mKcalValueTextView.text = decimal.format(item.caloria)
 
         holder.mView.setOnClickListener {
             mListenerRefeicao?.onRefeicaoListFragmentInteraction(item)

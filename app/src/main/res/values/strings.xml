@@ -5,10 +5,10 @@
     <string name="Nome">Nome</string>
     <string name="metas_diarias">Metas diárias</string>
     <string name="salvar">Salvar</string>
-    <string name="carboidrato">Carboidrato</string>
-    <string name="proteina">Proteina</string>
-    <string name="gordura">Gordura</string>
-    <string name="caloria">Caloria</string>
+    <string name="carboidrato">Carboidratos</string>
+    <string name="proteina">Proteinas</string>
+    <string name="gordura">Gorduras</string>
+    <string name="caloria">Calorias</string>
     <string name="editar_metas">Editar Metas</string>
     <string name="abreviacao_hora">H</string>
     <string name="kcal_value_cafe_manha">0</string>
@@ -66,7 +66,7 @@
     <string name="tentar_novamente">Tentar novamente</string>
     <string name="caracteres_aceitos_campo_string">\ \abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú</string>
     <string name="carecteres_aceitos_campo_email">1234567890abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú@.-_</string>
-    <string name="carecteres_aceitos_metas">1234567890.</string>
+    <string name="carecteres_aceitos_metas">1234567890.,</string>
     <string name="gramas">g</string>
     <string name="grama">Gramas</string>
     <string name="arroz">Arroz</string>
@@ -75,6 +75,8 @@
     <string name="zero">0</string>
     <string name="valor">Valor</string>
     <string name="porcao">Porção:</string>
+    <string name="cem">100</string>
+    <string name="ingerido">Ingerido</string>
     <string-array name="porcoes_list_default">
         <item>Gramas</item>
     </string-array>
