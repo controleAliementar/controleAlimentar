@@ -23,6 +23,8 @@ import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -50,7 +52,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         super.onActivityCreated(savedInstanceState)
 
         incluirAlimentoTextView.text = args.nomeRefeicao
-        alterarHorarioRefeicaobutton.text = args.horarioRefeicao
+        alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
 
         recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
         recycleViewListaAlimentoDetalhado.adapter =
@@ -90,6 +92,12 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
                     .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             })
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
     }
 
 

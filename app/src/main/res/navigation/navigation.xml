@@ -70,7 +70,7 @@
             app:destination="@id/editarHorarioRefeicaoFragment" />
         <argument
             android:name="horarioRefeicao"
-            app:argType="string" />
+            app:argType="long" />
         <action
             android:id="@+id/action_incluirAlimentoFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
@@ -212,7 +212,7 @@
             android:defaultValue="false" />
         <argument
             android:name="horarioRefeicao"
-            app:argType="string" />
+            app:argType="long" />
         <argument
             android:name="idRefeicao"
             app:argType="string" />

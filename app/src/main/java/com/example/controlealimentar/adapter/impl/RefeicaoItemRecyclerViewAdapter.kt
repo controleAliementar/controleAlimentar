@@ -11,6 +11,8 @@ import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionL
 import com.example.controlealimentar.model.Refeicao
 import kotlinx.android.synthetic.main.fragment_refeicao_item.view.*
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RefeicaoItemRecyclerViewAdapter(
     private val mValues: List<Refeicao>,
@@ -28,7 +30,7 @@ class RefeicaoItemRecyclerViewAdapter(
         val decimal = DecimalFormat("##,###.#")
 
         holder.mTituloRefeicaoTextView.text = item.nome
-        holder.mHorarioRefeicaoTextView.text = item.horario
+        holder.mHorarioRefeicaoTextView.text = convertLongToTime(item.horario)
         holder.mProteinaValueTextView.text = decimal.format(item.proteina) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gordura) + " g"
         holder.mCarboidratoValueTextView.text = decimal.format(item.carboidrato) + " g"
@@ -48,5 +50,11 @@ class RefeicaoItemRecyclerViewAdapter(
         val mProteinaValueTextView: TextView = mView.proteinaValueTextView
         val mCarboidratoValueTextView: TextView = mView.carboidratoValueTextView
         val mGorduraValueTextView: TextView = mView.gorduraValueTextView
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
     }
 }

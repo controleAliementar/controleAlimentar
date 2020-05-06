@@ -12,6 +12,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentIncluirAlimentoBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -30,7 +32,7 @@ class IncluirAlimentoFragment : Fragment() {
         )
 
         binding.incluirAlimentoTextView.text = args.nomeRefeicao
-        binding.alterarHorarioRefeicaobutton.text = args.horarioRefeicao
+        binding.alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
 
         binding.incluirPorFotoButton
             .setOnClickListener( Navigation
@@ -47,6 +49,12 @@ class IncluirAlimentoFragment : Fragment() {
                 R.id.action_incluirAlimentoFragment_to_editarHorarioRefeicaoFragment))
 
         return binding.root
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
     }
 
 

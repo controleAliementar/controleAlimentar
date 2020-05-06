@@ -23,8 +23,6 @@ import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -79,12 +77,6 @@ class HomeFragment : Fragment(),
                 view?.findNavController()?.navigate(action)
             })
 
-    }
-
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("HH:mm")
-        return format.format(date)
     }
 
     override fun onRefeicaoListFragmentInteraction(item: Refeicao) {
