@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -45,6 +46,17 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             inflater, R.layout.fragment_lista_alimentos_refeicao, container, false
         )
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action =
+                        ListaAlimentosRefeicaoFragmentDirections
+                            .actionListaAlimentosRefeicaoFragmentToHomeFragment()
+                    view?.findNavController()?.navigate(action)
+                }
+            })
+
         return binding.root
     }
 
@@ -68,6 +80,13 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
                 .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(null, args.idRefeicao, args.alimentoAvulso)
+            view?.findNavController()?.navigate(action)
+        }
+
+        alterarHorarioRefeicaobutton.setOnClickListener {
+            val action = ListaAlimentosRefeicaoFragmentDirections
+                .actionListaAlimentosRefeicaoFragmentToEditarHorarioRefeicaoFragment(
+                    args.horarioRefeicao, args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso)
             view?.findNavController()?.navigate(action)
         }
 
