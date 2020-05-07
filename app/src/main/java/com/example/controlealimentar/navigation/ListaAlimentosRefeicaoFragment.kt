@@ -101,7 +101,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         }
 
         progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
-        alimentoService.consumirAlimento(processoId, item.idRegistro,
+        alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
             {
                 progressBar.dialog.dismiss()
             },

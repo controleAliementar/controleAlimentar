@@ -24,5 +24,6 @@ interface AlimentoGateway {
 
     @PUT("alimento/registrar")
     fun consumirAlimento(@Header("processoId") processoId : String,
-                         @Header("idRegistro") idRegistro : String) : Call<Void>
+                         @Header("idRegistro") idRegistro : String,
+                         @Header("registrarAlimento") registrar : Boolean) : Call<Void>
 }
