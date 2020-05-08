@@ -29,8 +29,14 @@ class RefeicaoItemRecyclerViewAdapter(
         val item = mValues[position]
         val decimal = DecimalFormat("##,###.#")
 
+        if (item.id == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
+            holder.mHorarioRefeicaoTextView.visibility = View.GONE
+            holder.mAbreviacaoHorario.visibility = View.GONE
+        } else {
+            holder.mHorarioRefeicaoTextView.text = convertLongToTime(item.horario)
+        }
+
         holder.mTituloRefeicaoTextView.text = item.nome
-        holder.mHorarioRefeicaoTextView.text = convertLongToTime(item.horario)
         holder.mProteinaValueTextView.text = decimal.format(item.proteina) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gordura) + " g"
         holder.mCarboidratoValueTextView.text = decimal.format(item.carboidrato) + " g"
@@ -50,6 +56,7 @@ class RefeicaoItemRecyclerViewAdapter(
         val mProteinaValueTextView: TextView = mView.proteinaValueTextView
         val mCarboidratoValueTextView: TextView = mView.carboidratoValueTextView
         val mGorduraValueTextView: TextView = mView.gorduraValueTextView
+        val mAbreviacaoHorario: TextView = mView.abreviacaoHoraTextView
     }
 
     fun convertLongToTime(time: Long): String {

@@ -63,7 +63,7 @@ class EditarHorarioRefeicaoFragment : Fragment() {
                     val action = EditarHorarioRefeicaoFragmentDirections
                         .actionHorarioRefeicaoFragmentToIncluirAlimentoFragment(args.idRefeicao, horario.time,
                             args.nomeRefeicao, args.alimentoAvulso)
-                    view?.findNavController()?.popBackStack()
+                    view?.findNavController()?.navigate(action)
                 },
                 {
                     customProgressBar.dialog.dismiss()

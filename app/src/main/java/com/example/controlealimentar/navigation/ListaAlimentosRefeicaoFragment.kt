@@ -64,7 +64,12 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         super.onActivityCreated(savedInstanceState)
 
         incluirAlimentoTextView.text = args.nomeRefeicao
-        alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+
+        if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
+            alterarHorarioRefeicaobutton.visibility = View.GONE
+        } else {
+            alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+        }
 
         recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
         recycleViewListaAlimentoDetalhado.adapter =
