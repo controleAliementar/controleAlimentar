@@ -60,10 +60,19 @@ class EditarHorarioRefeicaoFragment : Fragment() {
             refeicaoService.alterarHorarioRefeicao(processoId, args.idRefeicao, horario.time,
                 {
                     customProgressBar.dialog.dismiss()
-                    val action = EditarHorarioRefeicaoFragmentDirections
-                        .actionHorarioRefeicaoFragmentToIncluirAlimentoFragment(args.idRefeicao, horario.time,
-                            args.nomeRefeicao, args.alimentoAvulso)
-                    view?.findNavController()?.navigate(action)
+                    if (args.listAlimentos.isNullOrEmpty()){
+                        val action = EditarHorarioRefeicaoFragmentDirections
+                            .actionHorarioRefeicaoFragmentToIncluirAlimentoFragment(args.idRefeicao, horario.time,
+                                args.nomeRefeicao, args.alimentoAvulso)
+                        view?.findNavController()?.navigate(action)
+                    } else {
+                        val action = EditarHorarioRefeicaoFragmentDirections
+                            .actionEditarHorarioRefeicaoFragmentToListaAlimentosRefeicaoFragment(
+                                args.listAlimentos!!, args.alimentoAvulso, horario.time,
+                                args.idRefeicao, args.nomeRefeicao)
+                        view?.findNavController()?.navigate(action)
+                    }
+
                 },
                 {
                     customProgressBar.dialog.dismiss()

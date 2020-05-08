@@ -117,6 +117,14 @@
         <action
             android:id="@+id/action_editarHorarioRefeicaoFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
+        <argument
+            android:name="listAlimentos"
+            app:nullable="true"
+            app:argType="com.example.controlealimentar.model.AlimentoDetalhado[]"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_editarHorarioRefeicaoFragment_to_listaAlimentosRefeicaoFragment"
+            app:destination="@id/listaAlimentosRefeicaoFragment" />
     </fragment>
     <fragment
         android:id="@+id/erroGenericoFragment"
@@ -184,6 +192,9 @@
             android:name="alimentoAvulso"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_buscarAlimentoFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"

@@ -91,7 +91,8 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         alterarHorarioRefeicaobutton.setOnClickListener {
             val action = ListaAlimentosRefeicaoFragmentDirections
                 .actionListaAlimentosRefeicaoFragmentToEditarHorarioRefeicaoFragment(
-                    args.horarioRefeicao, args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso)
+                    args.horarioRefeicao, args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso,
+                    args.listAlimentos)
             view?.findNavController()?.navigate(action)
         }
 
