@@ -15,6 +15,7 @@ import java.text.DecimalFormat
 
 class AlimentoDetalhadoItemRecyclerViewAdapter(
     private val mValues: List<AlimentoDetalhado>,
+    private val idRefeicao: String,
     private val mListenerAlimento: IOnAlimentoDetalhadoListFragmentInteractionListener?
 ) : RecyclerView.Adapter<AlimentoDetalhadoItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -28,8 +29,13 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         val item = mValues[position]
         val decimal = DecimalFormat("##,###.#")
 
+        if (idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8") {
+            holder.mIngeridoCheckBox.visibility = View.GONE
+        } else {
+            holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
+        }
+
         holder.mNomeAlimentoTextView.text = item.nomeAlimento
-        holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
         holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida) + " g"
         holder.mProteinaValueTextView.text = decimal.format(item.proteinas) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gorduras) + " g"

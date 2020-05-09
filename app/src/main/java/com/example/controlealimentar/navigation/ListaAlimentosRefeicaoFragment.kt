@@ -75,6 +75,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         recycleViewListaAlimentoDetalhado.adapter =
             AlimentoDetalhadoItemRecyclerViewAdapter(
                 args.listAlimentos.asList(),
+                args.idRefeicao,
                 this
             )
 
