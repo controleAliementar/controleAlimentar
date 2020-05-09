@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -23,6 +24,8 @@ import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -43,6 +46,17 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             inflater, R.layout.fragment_lista_alimentos_refeicao, container, false
         )
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    val action =
+                        ListaAlimentosRefeicaoFragmentDirections
+                            .actionListaAlimentosRefeicaoFragmentToHomeFragment()
+                    view?.findNavController()?.navigate(action)
+                }
+            })
+
         return binding.root
     }
 
@@ -50,7 +64,12 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         super.onActivityCreated(savedInstanceState)
 
         incluirAlimentoTextView.text = args.nomeRefeicao
-        alterarHorarioRefeicaobutton.text = args.horarioRefeicao
+
+        if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
+            alterarHorarioRefeicaobutton.visibility = View.GONE
+        } else {
+            alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+        }
 
         recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
         recycleViewListaAlimentoDetalhado.adapter =
@@ -69,6 +88,14 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             view?.findNavController()?.navigate(action)
         }
 
+        alterarHorarioRefeicaobutton.setOnClickListener {
+            val action = ListaAlimentosRefeicaoFragmentDirections
+                .actionListaAlimentosRefeicaoFragmentToEditarHorarioRefeicaoFragment(
+                    args.horarioRefeicao, args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso,
+                    args.listAlimentos)
+            view?.findNavController()?.navigate(action)
+        }
+
     }
 
     override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
@@ -80,7 +107,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         }
 
         progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
-        alimentoService.consumirAlimento(processoId, item.idRegistro,
+        alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
             {
                 progressBar.dialog.dismiss()
             },
@@ -90,6 +117,12 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
                     .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             })
+    }
+
+    fun convertLongToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("HH:mm")
+        return format.format(date)
     }
 
 

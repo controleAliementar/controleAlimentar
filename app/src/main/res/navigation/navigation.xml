@@ -70,7 +70,7 @@
             app:destination="@id/editarHorarioRefeicaoFragment" />
         <argument
             android:name="horarioRefeicao"
-            app:argType="string" />
+            app:argType="long" />
         <action
             android:id="@+id/action_incluirAlimentoFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
@@ -81,6 +81,9 @@
             android:name="alimentoAvulso"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_incluirAlimentoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
@@ -99,6 +102,29 @@
         <action
             android:id="@+id/action_horarioRefeicaoFragment_to_incluirAlimentoFragment"
             app:destination="@id/incluirAlimentoFragment" />
+        <argument
+            android:name="horario"
+            app:argType="long" />
+        <argument
+            android:name="idRefeicao"
+            app:argType="string" />
+        <argument
+            android:name="nomeRefeicao"
+            app:argType="string" />
+        <argument
+            android:name="alimentoAvulso"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_editarHorarioRefeicaoFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+        <argument
+            android:name="listAlimentos"
+            app:nullable="true"
+            app:argType="com.example.controlealimentar.model.AlimentoDetalhado[]"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_editarHorarioRefeicaoFragment_to_listaAlimentosRefeicaoFragment"
+            app:destination="@id/listaAlimentosRefeicaoFragment" />
     </fragment>
     <fragment
         android:id="@+id/erroGenericoFragment"
@@ -166,6 +192,9 @@
             android:name="alimentoAvulso"
             app:argType="boolean"
             android:defaultValue="false" />
+        <action
+            android:id="@+id/action_buscarAlimentoFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"
@@ -212,7 +241,7 @@
             android:defaultValue="false" />
         <argument
             android:name="horarioRefeicao"
-            app:argType="string" />
+            app:argType="long" />
         <argument
             android:name="idRefeicao"
             app:argType="string" />
@@ -222,5 +251,11 @@
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
+        <action
+            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_editarHorarioRefeicaoFragment"
+            app:destination="@id/editarHorarioRefeicaoFragment" />
     </fragment>
 </navigation>

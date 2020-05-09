@@ -2,8 +2,10 @@ package com.example.controlealimentar.service
 
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
+import com.example.controlealimentar.exception.AlterarHorarioRefeicaoException
 import com.example.controlealimentar.exception.BuscarAlimentosRefeicaoException
 import com.example.controlealimentar.exception.BuscarRefeicaoConsolidadaException
+import com.example.controlealimentar.gateway.data.HorarioRefeicaoRequestGateway
 import com.example.controlealimentar.gateway.data.RefeicaoAlimentosResponseGateway
 import com.example.controlealimentar.gateway.data.RefeicaoConsolidadoResponseGateway
 import com.example.controlealimentar.model.AlimentoDetalhado
@@ -40,7 +42,7 @@ class RefeicaoService {
                     val refeicaoConsolidado = Refeicao(
                         it.id,
                         it.nome,
-                        "00:00",
+                        it.horaConsumo,
                         it.calorias,
                         it.proteinas,
                         it.carboidratos,
@@ -108,6 +110,37 @@ class RefeicaoService {
             override fun onFailure(call: Call<List<RefeicaoAlimentosResponseGateway>>, t: Throwable?) {
                 Log.e("Deu ruim: ", t?.message)
                 onError(BuscarAlimentosRefeicaoException(t?.message))
+            }
+        })
+
+    }
+
+    fun alterarHorarioRefeicao(processoId: String,
+                               refeicaoId: String,
+                               horario: Long,
+                               onSuccess : () -> Unit,
+                               onError : (Exception) -> Unit) {
+
+        val horarioRequest = HorarioRefeicaoRequestGateway(horario)
+
+        val call = retrofitConfig.getRefeicaoGateway()!!
+            .alterarHorarioRefeicao(processoId, refeicaoId, horarioRequest)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(AlterarHorarioRefeicaoException(response.message()))
+                }
+
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(AlterarHorarioRefeicaoException(t?.message))
             }
         })
 

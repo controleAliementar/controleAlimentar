@@ -124,11 +124,12 @@ class AlimentoService {
 
     fun consumirAlimento(processoId: String,
                          idRegistro: String,
+                         registrar: Boolean,
                        onSuccess : () -> Unit,
                        onError : (Exception) -> Unit) {
 
         val call = retrofitConfig.getAlimentoGateway()!!
-            .consumirAlimento(processoId, idRegistro)
+            .consumirAlimento(processoId, idRegistro, registrar)
 
         call.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>,

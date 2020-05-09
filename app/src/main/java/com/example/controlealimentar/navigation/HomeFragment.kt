@@ -23,8 +23,6 @@ import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * A simple [Fragment] subclass.
@@ -81,42 +79,34 @@ class HomeFragment : Fragment(),
 
     }
 
-    fun convertLongToTime(time: Long): String {
-        val date = Date(time)
-        val format = SimpleDateFormat("HH:mm")
-        return format.format(date)
-    }
-
     override fun onRefeicaoListFragmentInteraction(item: Refeicao) {
 
         when(item.id) {
             Refeicoes.CAFE_MANHA.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             Refeicoes.LANCHE_MANHA.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             Refeicoes.ALMOCO.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             Refeicoes.LANCHE_TARDE.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             Refeicoes.JANTA.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             Refeicoes.CHA_NOITE.id -> {
-                defineProximaTela(item)
+                defineProximaTela(item, false)
             }
             else -> {
-                val action = HomeFragmentDirections
-                    .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome, true)
-                view?.findNavController()?.navigate(action)
+                defineProximaTela(item, true)
             }
         }
     }
 
-    private fun defineProximaTela(item: Refeicao) {
+    private fun defineProximaTela(item: Refeicao, alimentoAvulso: Boolean) {
 
         val sharedPreference = SharedPreference(context)
         val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
@@ -131,15 +121,17 @@ class HomeFragment : Fragment(),
                 if (it.isNullOrEmpty()){
                     progressBar.dialog.dismiss()
                     val action = HomeFragmentDirections
-                        .actionHomeFragmentToIncluirAlimentoFragment(item.id, item.horario, item.nome)
+                        .actionHomeFragmentToIncluirAlimentoFragment(item.id,
+                            item.horario, item.nome, alimentoAvulso)
                     view?.findNavController()?.navigate(action)
                 }else {
                     progressBar.dialog.dismiss()
                     val action = HomeFragmentDirections
                         .actionHomeFragmentToListaAlimentosRefeicaoFragment(it.toTypedArray(),
-                            horarioRefeicao = item.horario,
-                            idRefeicao = item.id,
-                            nomeRefeicao = item.nome)
+                            alimentoAvulso,
+                            item.horario,
+                            item.id,
+                            item.nome)
                     view?.findNavController()?.navigate(action)
                 }
             },

@@ -57,7 +57,7 @@ class BuscarAlimentoFragment : Fragment() {
 
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     val action =
                         BuscarAlimentoFragmentDirections
@@ -126,7 +126,9 @@ class BuscarAlimentoFragment : Fragment() {
                             .actionBuscarAlimentoFragmentToHomeFragment()
                     view?.findNavController()?.navigate(action)
                 },
-                {})
+                {
+                    retornarErroGenerico()
+                })
 
         }
 
@@ -157,10 +159,20 @@ class BuscarAlimentoFragment : Fragment() {
                         view?.findNavController()?.navigate(action)
                     }
                 },
-                {})
+                {
+                    retornarErroGenerico()
+                })
 
         }
 
+    }
+
+    private fun retornarErroGenerico() {
+        progressBar.dialog.dismiss()
+        val action =
+            BuscarAlimentoFragmentDirections
+                .actionBuscarAlimentoFragmentToErroGenericoFragment()
+        view?.findNavController()?.navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -184,7 +196,7 @@ class BuscarAlimentoFragment : Fragment() {
 
         alimentoText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
             if (false == hasFocus) {
-                (context!!.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
+                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
                     alimentoText.getWindowToken(), 0
                 )
             }
