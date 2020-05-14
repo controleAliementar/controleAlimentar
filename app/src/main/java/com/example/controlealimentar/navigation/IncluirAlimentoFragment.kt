@@ -44,7 +44,12 @@ class IncluirAlimentoFragment : Fragment() {
             })
 
         binding.incluirAlimentoTextView.text = args.nomeRefeicao
-        binding.alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+
+        if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
+            binding.alterarHorarioRefeicaobutton.visibility = View.GONE
+        } else {
+            binding.alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+        }
 
         binding.incluirPorFotoButton
             .setOnClickListener( Navigation
