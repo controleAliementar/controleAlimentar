@@ -21,6 +21,7 @@ import com.example.controlealimentar.model.AlimentoDetalhado
 import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
+import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
@@ -35,6 +36,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
     val args: ListaAlimentosRefeicaoFragmentArgs by navArgs()
     private val alimentoService : AlimentoService = AlimentoService()
+    private val refeicaoService : RefeicaoService = RefeicaoService()
     val progressBar = CustomProgressBar()
 
     override fun onCreateView(
@@ -63,6 +65,50 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        val sharedPreference = SharedPreference(context)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+        if (processoId.isNullOrBlank()){
+            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+        }
+
+        if (args.listAlimentos.isNullOrEmpty()){
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
+            refeicaoService.buscarRefeicaoAlimentos(processoId, args.idRefeicao,
+                {
+                    if (it.isNullOrEmpty()){
+                        progressBar.dialog.dismiss()
+                        val action = ListaAlimentosRefeicaoFragmentDirections
+                            .actionListaAlimentosRefeicaoFragmentToIncluirAlimentoFragment(args.idRefeicao,
+                                args.horarioRefeicao, args.nomeRefeicao, args.alimentoAvulso)
+                        view?.findNavController()?.navigate(action)
+                    }else {
+                        recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
+                        recycleViewListaAlimentoDetalhado.adapter =
+                            AlimentoDetalhadoItemRecyclerViewAdapter(
+                                it,
+                                args.idRefeicao,
+                                this
+                            )
+                        progressBar.dialog.dismiss()
+                    }
+                },
+                {
+                    progressBar.dialog.dismiss()
+                    val action = HomeFragmentDirections
+                        .actionHomeFragmentToErroGenericoFragment()
+                    view?.findNavController()?.navigate(action)
+                })
+        }else {
+            recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
+            recycleViewListaAlimentoDetalhado.adapter =
+                AlimentoDetalhadoItemRecyclerViewAdapter(
+                    args.listAlimentos!!.toList(),
+                    args.idRefeicao,
+                    this
+                )
+        }
+
         incluirAlimentoTextView.text = args.nomeRefeicao
 
         if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
@@ -71,21 +117,14 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
         }
 
-        recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
-        recycleViewListaAlimentoDetalhado.adapter =
-            AlimentoDetalhadoItemRecyclerViewAdapter(
-                args.listAlimentos.asList(),
-                args.idRefeicao,
-                this
-            )
-
         incluirPorFotoButton
             .setOnClickListener( Navigation
                 .createNavigateOnClickListener(R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
 
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
-                .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(null, args.idRefeicao, args.alimentoAvulso)
+                .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(null,
+                    args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao)
             view?.findNavController()?.navigate(action)
         }
 

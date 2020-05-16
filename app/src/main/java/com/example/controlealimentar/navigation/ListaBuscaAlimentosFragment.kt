@@ -51,11 +51,13 @@ class ListaBuscaAlimentosFragment : Fragment(),
 
         requireActivity()
             .onBackPressedDispatcher
-            .addCallback(this, object : OnBackPressedCallback(true) {
+            .addCallback(this.viewLifecycleOwner, object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     val action =
                         ListaBuscaAlimentosFragmentDirections
-                            .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(null, args.idRefeicao)
+                            .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(
+                                null, args.idRefeicao, nomeRefeicao = args.nomeRefeicao,
+                                horarioRefeicao = args.horarioRefeicao)
                     view?.findNavController()?.navigate(action)
                 }
             })
@@ -86,7 +88,10 @@ class ListaBuscaAlimentosFragment : Fragment(),
     override fun onAlimentoListFragmentInteraction(item: Alimento) {
         val action =
             ListaBuscaAlimentosFragmentDirections
-                .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(item, args.idRefeicao, args.alimentoAvulso)
+                .actionListaBuscaAlimentosFragmentToBuscarAlimentoFragment(
+                    item, args.idRefeicao, args.alimentoAvulso,
+                    nomeRefeicao = args.nomeRefeicao,
+                    horarioRefeicao = args.horarioRefeicao)
         view?.findNavController()?.navigate(action)
     }
 

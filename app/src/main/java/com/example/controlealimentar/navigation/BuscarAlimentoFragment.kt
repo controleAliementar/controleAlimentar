@@ -61,7 +61,10 @@ class BuscarAlimentoFragment : Fragment() {
                 override fun handleOnBackPressed() {
                     val action =
                         BuscarAlimentoFragmentDirections
-                            .actionBuscarAlimentoFragmentToHomeFragment()
+                            .actionBuscarAlimentoFragmentToListaAlimentosRefeicaoFragment(
+                                idRefeicao = args.idRefeicao,
+                                horarioRefeicao = args.horarioRefeicao,
+                                nomeRefeicao = args.nomeRefeicao)
                     view?.findNavController()?.navigate(action)
                 }
             })
@@ -123,7 +126,10 @@ class BuscarAlimentoFragment : Fragment() {
                     progressBar.dialog.dismiss()
                     val action =
                         BuscarAlimentoFragmentDirections
-                            .actionBuscarAlimentoFragmentToHomeFragment()
+                            .actionBuscarAlimentoFragmentToListaAlimentosRefeicaoFragment(
+                                idRefeicao = args.idRefeicao,
+                                horarioRefeicao = args.horarioRefeicao,
+                                nomeRefeicao = args.nomeRefeicao)
                     view?.findNavController()?.navigate(action)
                 },
                 {
@@ -155,7 +161,9 @@ class BuscarAlimentoFragment : Fragment() {
                                     args.idRefeicao,
                                     it.ehUltimaPagina,
                                     alimento,
-                                    args.alimentoAvulso)
+                                    args.alimentoAvulso,
+                                    args.nomeRefeicao,
+                                    args.horarioRefeicao)
                         view?.findNavController()?.navigate(action)
                     }
                 },

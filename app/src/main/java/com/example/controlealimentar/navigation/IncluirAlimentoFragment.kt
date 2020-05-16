@@ -57,7 +57,8 @@ class IncluirAlimentoFragment : Fragment() {
 
         binding.buscarAlimentoButton.setOnClickListener{
             val action = IncluirAlimentoFragmentDirections
-                .actionIncluirAlimentoFragmentToBuscarAlimentoFragment(null, args.idRefeicao, args.alimentoAvulso)
+                .actionIncluirAlimentoFragmentToBuscarAlimentoFragment(
+                    null, args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao)
             view?.findNavController()?.navigate(action)
         }
 

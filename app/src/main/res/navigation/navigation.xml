@@ -195,6 +195,15 @@
         <action
             android:id="@+id/action_buscarAlimentoFragment_to_erroGenericoFragment"
             app:destination="@id/erroGenericoFragment" />
+        <action
+            android:id="@+id/action_buscarAlimentoFragment_to_listaAlimentosRefeicaoFragment"
+            app:destination="@id/listaAlimentosRefeicaoFragment" />
+        <argument
+            android:name="horarioRefeicao"
+            app:argType="long" />
+        <argument
+            android:name="nomeRefeicao"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/listaBuscaAlimentosFragment"
@@ -220,6 +229,12 @@
             android:name="alimentoAvulso"
             app:argType="boolean"
             android:defaultValue="false" />
+        <argument
+            android:name="nomeRefeicao"
+            app:argType="string" />
+        <argument
+            android:name="horarioRefeicao"
+            app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/listaAlimentosRefeicaoFragment"
@@ -228,7 +243,9 @@
         tools:layout="@layout/fragment_lista_alimentos_refeicao" >
         <argument
             android:name="listAlimentos"
-            app:argType="com.example.controlealimentar.model.AlimentoDetalhado[]"/>
+            app:argType="com.example.controlealimentar.model.AlimentoDetalhado[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
@@ -257,5 +274,8 @@
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_editarHorarioRefeicaoFragment"
             app:destination="@id/editarHorarioRefeicaoFragment" />
+        <action
+            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_incluirAlimentoFragment"
+            app:destination="@id/incluirAlimentoFragment" />
     </fragment>
 </navigation>
