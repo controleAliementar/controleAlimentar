@@ -27,6 +27,7 @@ import com.example.controlealimentar.util.SharedPreference
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
 import java.text.DecimalFormat
+import java.text.Normalizer
 
 
 /**
@@ -44,6 +45,8 @@ class BuscarAlimentoFragment : Fragment() {
     var tipoPorcaoEscolhida: String = "Gramas"
     var page: Int = 0
     var size: Int = 10
+    var idPorcao: String? = null
+    val porcaoInicial : String = "Gramas"
 
 
     override fun onCreateView(
@@ -91,6 +94,11 @@ class BuscarAlimentoFragment : Fragment() {
         spinner.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long){
                 tipoPorcaoEscolhida = parent.getItemAtPosition(position).toString()
+                val regexPegaNumero = "[^0-9]".toRegex()
+                if (!tipoPorcaoEscolhida.equals(porcaoInicial)){
+                    val valorEscritoNaPorcao = args.alimento!!.porcao.porcao.replace(regexPegaNumero, "")
+                    valorPorcaoText.setText(valorEscritoNaPorcao)
+                }
                 preencherCamposMacronutrientes(tipoPorcaoEscolhida)
             }
 
@@ -111,8 +119,14 @@ class BuscarAlimentoFragment : Fragment() {
             val idAlimento = args.alimento!!.id
             val idRefeicao = args.idRefeicao
 
+            val porcao = spinner.selectedItem
+            if (porcao == "Gramas"){
+                idPorcao = null
+            }
+
             val salvarAlimento = SalvarAlimento(
                 porcaoConsumida,
+                idPorcao,
                 calorias,
                 carboidratos,
                 proteinas,
@@ -147,7 +161,7 @@ class BuscarAlimentoFragment : Fragment() {
             }
 
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_BUSCANDO.mensagem)
-            alimentoService.buscarAlimentoPaginado(alimento, page,
+            alimentoService.buscarAlimentoPaginado(alimento.unaccent(), page,
                 {
                     if(it.listAlimentos.isNullOrEmpty()){
                         progressBar.dialog.dismiss()
@@ -194,6 +208,7 @@ class BuscarAlimentoFragment : Fragment() {
 
             if (alimento.porcao != null) {
                 tipoPorcaoAlimento = alimento.porcao.porcao
+                idPorcao = alimento.porcao.id
             }
 
             nomeAlimentoTextView.setText(args.alimento!!.nome)
@@ -214,10 +229,11 @@ class BuscarAlimentoFragment : Fragment() {
 
     private fun criarSpinner(unidadeMedida : String?){
 
-        val list_of_items = arrayListOf("Gramas")
+        val list_of_items = arrayListOf(porcaoInicial)
 
         if (!unidadeMedida.isNullOrBlank()){
-            list_of_items.add(unidadeMedida)
+            val regexRemoveNumbers = "\\d".toRegex()
+            list_of_items.add(unidadeMedida.replace(regexRemoveNumbers, ""))
         }
 
         val arrayAdapter =
@@ -225,7 +241,7 @@ class BuscarAlimentoFragment : Fragment() {
         arrayAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
 
-        preencherCamposMacronutrientes(tipoPorcaoEscolhida)
+        preencherCamposMacronutrientes(porcaoInicial)
     }
 
     private fun calcularQuantidadeGramas(valorPorcaoInserido: Double, valorMacronutriente: Double) : String {
@@ -240,12 +256,21 @@ class BuscarAlimentoFragment : Fragment() {
 
             val porcaoDigitada = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
 
-            if(args.alimento?.porcao != null && args.alimento!!.porcao.porcao == porcaoEscolhida){
-                val quantidadeGramasPorcao = args.alimento!!.porcao.qtdGramas * porcaoDigitada
-                caloriaValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.calorias)
-                carboidratosValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.carboidratos)
-                proteinasValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.proteinas)
-                gorduraValue.text = calcularQuantidadeGramas(quantidadeGramasPorcao, args.alimento!!.gorduras)
+            if(args.alimento?.porcao != null && args.alimento!!.porcao.porcao.endsWith(porcaoEscolhida)){
+
+                val regexPegaNumero = "[^0-9]".toRegex()
+                val valorEscritoNaPorcao = args.alimento!!.porcao.porcao.replace(regexPegaNumero, "")
+                var quantidadeGramasPorcao = args.alimento!!.porcao.qtdGramas
+
+                if (!valorEscritoNaPorcao.isBlank()){
+                    quantidadeGramasPorcao /= java.lang.Double.parseDouble(valorEscritoNaPorcao)
+                }
+
+                val quantidadeGramas = quantidadeGramasPorcao * porcaoDigitada
+                caloriaValue.text = calcularQuantidadeGramas(quantidadeGramas, args.alimento!!.calorias)
+                carboidratosValue.text = calcularQuantidadeGramas(quantidadeGramas, args.alimento!!.carboidratos)
+                proteinasValue.text = calcularQuantidadeGramas(quantidadeGramas, args.alimento!!.proteinas)
+                gorduraValue.text = calcularQuantidadeGramas(quantidadeGramas, args.alimento!!.gorduras)
             }else {
                 caloriaValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.calorias)
                 carboidratosValue.text = calcularQuantidadeGramas(porcaoDigitada, args.alimento!!.carboidratos)
@@ -254,6 +279,13 @@ class BuscarAlimentoFragment : Fragment() {
             }
 
         }
+    }
+
+    val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+
+    fun CharSequence.unaccent(): String {
+        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
     }
 
 }

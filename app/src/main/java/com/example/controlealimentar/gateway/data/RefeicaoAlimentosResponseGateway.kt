@@ -12,6 +12,7 @@ class RefeicaoAlimentosResponseGateway {
     val proteinas: Double = 0.0
     val gorduras: Double = 0.0
     val porcaoConsumida: Double = 0.0
+    val unidadePorcao: String = ""
     val alimentoIngerido: Boolean = false
 }
 

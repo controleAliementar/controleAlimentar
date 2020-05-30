@@ -35,8 +35,9 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
             holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
         }
 
+        val regexRemoveNumbers = "\\d".toRegex()
         holder.mNomeAlimentoTextView.text = item.nomeAlimento
-        holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida) + " g"
+        holder.mPorcaoConsumidaTextView.text = decimal.format(item.porcaoConsumida)+ " " +item.unidadePorcao.replace(regexRemoveNumbers, "")
         holder.mProteinaValueTextView.text = decimal.format(item.proteinas) + " g"
         holder.mGorduraValueTextView.text = decimal.format(item.gorduras) + " g"
         holder.mCarboidratoValueTextView.text = decimal.format(item.carboidratos) + " g"

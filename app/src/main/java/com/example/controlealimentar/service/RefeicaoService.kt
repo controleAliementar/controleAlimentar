@@ -96,6 +96,7 @@ class RefeicaoService {
                             it.proteinas,
                             it.gorduras,
                             it.porcaoConsumida,
+                            it.unidadePorcao,
                             it.alimentoIngerido
                         )
 
