@@ -90,6 +90,7 @@ class AlimentoService {
 
         val salvarAlimentoRequestGateway = SalvarAlimentoRequestGateway(
             alimento.porcaoConsumida,
+            alimento.idPorcao,
             alimento.calorias,
             alimento.carboidratos,
             alimento.proteinas,

@@ -13,6 +13,7 @@ data class AlimentoDetalhado(
     val proteinas: Double = 0.0,
     val gorduras: Double = 0.0,
     val porcaoConsumida: Double = 0.0,
+    val unidadePorcao: String = "",
     val alimentoIngerido: Boolean = false
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
@@ -24,24 +25,17 @@ data class AlimentoDetalhado(
         parcel.readDouble(),
         parcel.readDouble(),
         parcel.readDouble(),
+        parcel.readString()!!,
         parcel.readByte() != 0.toByte()
     ) {
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(idRegistro)
-        parcel.writeString(idAlimento)
-        parcel.writeString(nomeAlimento)
-        parcel.writeDouble(calorias)
-        parcel.writeDouble(carboidratos)
-        parcel.writeDouble(proteinas)
-        parcel.writeDouble(gorduras)
-        parcel.writeDouble(porcaoConsumida)
-        parcel.writeByte(if (alimentoIngerido) 1 else 0)
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun describeContents(): Int {
-        return 0
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     companion object CREATOR : Parcelable.Creator<AlimentoDetalhado> {
