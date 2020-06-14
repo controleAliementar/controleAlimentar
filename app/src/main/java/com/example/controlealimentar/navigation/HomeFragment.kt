@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -58,6 +59,10 @@ class HomeFragment : Fragment(),
         if (processoId.isNullOrBlank()){
             throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
         }
+
+        proteinaProgressBar.progressDrawable =
+            ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit)
+
 
         progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
         refeicaoService.buscarListaRefeicoesConsolidado(processoId,
