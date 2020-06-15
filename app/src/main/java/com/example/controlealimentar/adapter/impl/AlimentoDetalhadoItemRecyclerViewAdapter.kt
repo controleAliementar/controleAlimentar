@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.controlealimentar.R
@@ -47,6 +48,14 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
             mListenerAlimento?.onAlimentoDetalhadoListFragmentInteraction(item)
         }
 
+        holder.mEditarAlimento.setOnClickListener {
+            mListenerAlimento?.onAlimentoEditDetalhadoListFragmentInteraction(item)
+        }
+
+        holder.mExcluirAlimento.setOnClickListener {
+            mListenerAlimento?.onAlimentoDeleteDetalhadoListFragmentInteraction(item)
+        }
+
     }
 
     override fun getItemCount(): Int = mValues.size
@@ -59,5 +68,7 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         val mCarboidratoValueTextView: TextView = mView.carboidratoDetalhadoValueTextView
         val mGorduraValueTextView: TextView = mView.gorduraDetalhadoValueTextView
         val mIngeridoCheckBox: CheckBox = mView.ingeridoCheckBox
+        val mEditarAlimento: ImageView = mView.edit_icon
+        val mExcluirAlimento: ImageView = mView.delete_icon
     }
 }

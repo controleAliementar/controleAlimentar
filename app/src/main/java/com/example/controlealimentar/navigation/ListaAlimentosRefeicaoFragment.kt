@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -157,6 +158,14 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
                     .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             })
+    }
+
+    override fun onAlimentoEditDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
+        Toast.makeText(requireContext(), "Editando", Toast.LENGTH_LONG).show()
+    }
+
+    override fun onAlimentoDeleteDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
+        Toast.makeText(requireContext(), "Excluindo", Toast.LENGTH_LONG).show()
     }
 
     fun convertLongToTime(time: Long): String {

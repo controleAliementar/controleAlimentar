@@ -85,6 +85,9 @@
     <string name="cinquenta">50g</string>
     <string name="deletar">Deletar</string>
     <string name="editar">Editar</string>
+    <string name="icone_para_deletar_alimento">Icone para deletar alimento</string>
+    <string name="icone_para_editar_alimento">Icone para editar alimento</string>
+    <string name="divider_de_um_alimento_para_outro">Divider de um alimento para outro</string>
     <string-array name="porcoes_list_default">
         <item>Gramas</item>
     </string-array>

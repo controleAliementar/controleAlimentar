@@ -210,6 +210,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="30dp"
         android:layout_marginBottom="8dp"
+        android:theme="@style/GreenCheck"
         android:text="@string/ingerido"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
@@ -218,34 +219,39 @@
 
     <ImageView
         android:id="@+id/delete_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_width="43dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="2dp"
         android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/icone_para_deletar_alimento"
+        android:focusable="true"
         android:padding="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_delete_24px"
         app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/deletarText"
+        app:layout_constraintEnd_toStartOf="@+id/edit_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider1" />
 
     <ImageView
         android:id="@+id/edit_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_width="43dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="122dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginEnd="50dp"
         android:layout_marginBottom="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/icone_para_editar_alimento"
+        android:focusable="true"
         android:padding="5dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_edit_24px"
         app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/editarText"
-        app:layout_constraintStart_toEndOf="@+id/deletarText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/delete_icon"
         app:layout_constraintTop_toBottomOf="@+id/divider6" />
 
     <ImageView
@@ -260,34 +266,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/deletarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/deletar"
-        app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
-        app:layout_constraintEnd_toStartOf="@+id/edit_icon"
-        app:layout_constraintStart_toEndOf="@+id/delete_icon"
-        app:layout_constraintTop_toBottomOf="@+id/proteinaDetalhadoValueTextView" />
-
-    <TextView
-        android:id="@+id/editarText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/editar"
-        app:layout_constraintBottom_toTopOf="@+id/divider_horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_icon"
-        app:layout_constraintTop_toBottomOf="@+id/gorduraDetalhadoValueTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="@string/divider_de_um_alimento_para_outro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
