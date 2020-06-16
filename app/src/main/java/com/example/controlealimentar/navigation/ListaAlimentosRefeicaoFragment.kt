@@ -24,6 +24,7 @@ import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
+import com.example.controlealimentar.util.PopUps
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
 import java.text.SimpleDateFormat
@@ -39,6 +40,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     private val alimentoService : AlimentoService = AlimentoService()
     private val refeicaoService : RefeicaoService = RefeicaoService()
     val progressBar = CustomProgressBar()
+    val popUp = PopUps()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -166,6 +168,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
     override fun onAlimentoDeleteDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
         Toast.makeText(requireContext(), "Excluindo", Toast.LENGTH_LONG).show()
+        popUp.show(requireContext(), "Num pode menino")
     }
 
     fun convertLongToTime(time: Long): String {
