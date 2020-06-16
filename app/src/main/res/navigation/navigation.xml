@@ -277,5 +277,13 @@
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_incluirAlimentoFragment"
             app:destination="@id/incluirAlimentoFragment" />
+        <action
+            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_editarAlimentoRefeicao"
+            app:destination="@id/editarAlimentoRefeicao" />
     </fragment>
+    <fragment
+        android:id="@+id/editarAlimentoRefeicao"
+        android:name="com.example.controlealimentar.navigation.EditarAlimentoRefeicao"
+        android:label="fragment_editar_alimento_refeicao"
+        tools:layout="@layout/fragment_editar_alimento_refeicao" />
 </navigation>

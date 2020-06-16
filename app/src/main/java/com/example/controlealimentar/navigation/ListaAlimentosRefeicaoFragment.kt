@@ -163,7 +163,9 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     }
 
     override fun onAlimentoEditDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
-        Toast.makeText(requireContext(), "Editando", Toast.LENGTH_LONG).show()
+        val action = ListaAlimentosRefeicaoFragmentDirections
+            .actionListaAlimentosRefeicaoFragmentToEditarAlimentoRefeicao()
+        view?.findNavController()?.navigate(action)
     }
 
     override fun onAlimentoDeleteDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
