@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_alimento_detalhado_item.view.*
 import java.text.DecimalFormat
 
 class AlimentoDetalhadoItemRecyclerViewAdapter(
-    private val mValues: List<AlimentoDetalhado>,
+    private val mValues: ArrayList<AlimentoDetalhado>,
     private val idRefeicao: String,
     private val mListenerAlimento: IOnAlimentoDetalhadoListFragmentInteractionListener?
 ) : RecyclerView.Adapter<AlimentoDetalhadoItemRecyclerViewAdapter.ViewHolder>() {
@@ -27,11 +27,15 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val alimentoAvulsoId = "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"
+
         val item = mValues[position]
         val decimal = DecimalFormat("##,###.#")
 
-        if (idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8") {
+        if (idRefeicao == alimentoAvulsoId) {
             holder.mIngeridoCheckBox.visibility = View.GONE
+            holder.mExcluirAlimento.visibility = View.INVISIBLE
+            holder.mEditarAlimento.visibility = View.INVISIBLE
         } else {
             holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
         }

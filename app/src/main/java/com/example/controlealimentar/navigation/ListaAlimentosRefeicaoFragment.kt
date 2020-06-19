@@ -1,11 +1,11 @@
 package com.example.controlealimentar.navigation
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -13,7 +13,6 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnAlimentoDetalhadoListFragmentInteractionListener
 import com.example.controlealimentar.adapter.impl.AlimentoDetalhadoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentListaAlimentosRefeicaoBinding
@@ -26,9 +25,12 @@ import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.PopUps
 import com.example.controlealimentar.util.SharedPreference
+import kotlinx.android.synthetic.main.fragment_alimento_detalhado_item.*
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
+
 
 /**
  * A simple [Fragment] subclass.
@@ -41,6 +43,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     private val refeicaoService : RefeicaoService = RefeicaoService()
     val progressBar = CustomProgressBar()
     val popUp = PopUps()
+    val alimentoAvulsoId = "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +51,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     ): View? {
 
         val binding: FragmentListaAlimentosRefeicaoBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_lista_alimentos_refeicao, container, false
+            inflater, com.example.controlealimentar.R.layout.fragment_lista_alimentos_refeicao, container, false
         )
 
         requireActivity()
@@ -77,36 +80,12 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         if (args.listAlimentos.isNullOrEmpty()){
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
-            refeicaoService.buscarRefeicaoAlimentos(processoId, args.idRefeicao,
-                {
-                    if (it.isNullOrEmpty()){
-                        progressBar.dialog.dismiss()
-                        val action = ListaAlimentosRefeicaoFragmentDirections
-                            .actionListaAlimentosRefeicaoFragmentToIncluirAlimentoFragment(args.idRefeicao,
-                                args.horarioRefeicao, args.nomeRefeicao, args.alimentoAvulso)
-                        view?.findNavController()?.navigate(action)
-                    }else {
-                        recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
-                        recycleViewListaAlimentoDetalhado.adapter =
-                            AlimentoDetalhadoItemRecyclerViewAdapter(
-                                it,
-                                args.idRefeicao,
-                                this
-                            )
-                        progressBar.dialog.dismiss()
-                    }
-                },
-                {
-                    progressBar.dialog.dismiss()
-                    val action = HomeFragmentDirections
-                        .actionHomeFragmentToErroGenericoFragment()
-                    view?.findNavController()?.navigate(action)
-                })
+            atualizarRefeicoesPagina(processoId)
         }else {
             recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
             recycleViewListaAlimentoDetalhado.adapter =
                 AlimentoDetalhadoItemRecyclerViewAdapter(
-                    args.listAlimentos!!.toList(),
+                    args.listAlimentos!!.toCollection(ArrayList()),
                     args.idRefeicao,
                     this
                 )
@@ -114,7 +93,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         incluirAlimentoTextView.text = args.nomeRefeicao
 
-        if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
+        if (args.idRefeicao == alimentoAvulsoId){
             alterarHorarioRefeicaobutton.visibility = View.GONE
         } else {
             alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
@@ -122,7 +101,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         incluirPorFotoButton
             .setOnClickListener( Navigation
-                .createNavigateOnClickListener(R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
+                .createNavigateOnClickListener(com.example.controlealimentar.R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
 
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
@@ -141,7 +120,48 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
     }
 
+    private fun atualizarRefeicoesPagina(processoId: String) {
+        refeicaoService.buscarRefeicaoAlimentos(
+            processoId, args.idRefeicao,
+            {
+                if (it.isNullOrEmpty()) {
+                    progressBar.dialog.dismiss()
+                    val action = ListaAlimentosRefeicaoFragmentDirections
+                        .actionListaAlimentosRefeicaoFragmentToIncluirAlimentoFragment(
+                            args.idRefeicao,
+                            args.horarioRefeicao, args.nomeRefeicao, args.alimentoAvulso
+                        )
+                    view?.findNavController()?.navigate(action)
+                } else {
+                    recycleViewListaAlimentoDetalhado.layoutManager = LinearLayoutManager(activity)
+                    recycleViewListaAlimentoDetalhado.adapter =
+                        AlimentoDetalhadoItemRecyclerViewAdapter(
+                            it,
+                            args.idRefeicao,
+                            this
+                        )
+                    progressBar.dialog.dismiss()
+                }
+            },
+            {
+                retornarErroGenerico()
+            })
+    }
+
+    private fun retornarErroGenerico() {
+        progressBar.dialog.dismiss()
+        val action = ListaAlimentosRefeicaoFragmentDirections
+            .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
+        view?.findNavController()?.navigate(action)
+    }
+
     override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
+
+        if (item.alimentoIngerido){
+            ingeridoCheckBox.isChecked = true
+            return
+        }
+
         val sharedPreference = SharedPreference(context)
         val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
@@ -152,7 +172,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
         alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
             {
-                progressBar.dialog.dismiss()
+                atualizarRefeicoesPagina(processoId)
             },
             {
                 progressBar.dialog.dismiss()
@@ -169,8 +189,41 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
     }
 
     override fun onAlimentoDeleteDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
-        Toast.makeText(requireContext(), "Excluindo", Toast.LENGTH_LONG).show()
-        popUp.show(requireContext(), "Num pode menino")
+
+        if (item.alimentoIngerido){
+            val alertDialog = AlertDialog.Builder(requireContext())
+                .setMessage("Alimentos ingerigos não podem ser excluídos")
+            alertDialog.setPositiveButton(android.R.string.yes) { dialog, which -> }
+            alertDialog.show()
+        } else {
+
+            val alertDialog = AlertDialog.Builder(requireContext())
+                .setTitle("Excluindo alimento")
+                .setMessage("Tem certeza que deseja excluir ?")
+
+            alertDialog.setPositiveButton(android.R.string.yes) { dialog, which ->
+                val sharedPreference = SharedPreference(context)
+                val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+                if (processoId.isNullOrBlank()){
+                    throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+                }
+
+                progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_EXCLUINDO.mensagem)
+                alimentoService.deletarAlimento(processoId, item.idRegistro,
+                    {
+                        atualizarRefeicoesPagina(processoId)
+                    },
+                    {
+                        retornarErroGenerico()
+                    })
+            }
+
+            alertDialog.setNegativeButton(android.R.string.no) { dialog, which -> }
+            alertDialog.show()
+
+        }
+
     }
 
     fun convertLongToTime(time: Long): String {

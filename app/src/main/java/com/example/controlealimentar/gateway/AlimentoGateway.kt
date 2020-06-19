@@ -26,4 +26,8 @@ interface AlimentoGateway {
     fun consumirAlimento(@Header("processoId") processoId : String,
                          @Header("idRegistro") idRegistro : String,
                          @Header("registrarAlimento") registrar : Boolean) : Call<Void>
+
+    @DELETE("alimento")
+    fun deletarAlimento(@Header("processoId") processoId : String,
+                         @Header("idRegistro") idRegistro : String) : Call<Void>
 }

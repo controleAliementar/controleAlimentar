@@ -4,6 +4,7 @@ enum class MessageLoading {
     MENSAGEM_GARREGANDO("Carregando ..."),
     MENSAGEM_SALVANDO("Salvando ..."),
     MENSAGEM_BUSCANDO("Buscando ..."),
+    MENSAGEM_EXCLUINDO("Excluindo ..."),
     MENSAGEM_INGERINDO("Ingerindo ...");
 
     var mensagem : String = ""

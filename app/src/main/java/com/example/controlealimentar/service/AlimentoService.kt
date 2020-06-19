@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarAlimentoException
 import com.example.controlealimentar.exception.ConsumirAlimentoException
+import com.example.controlealimentar.exception.DeletarAlimentoException
 import com.example.controlealimentar.exception.SalvarAlimentoException
 import com.example.controlealimentar.gateway.data.AlimentoPaginadoResponseGateway
 import com.example.controlealimentar.gateway.data.AlimentoResponseGateway
@@ -146,6 +147,33 @@ class AlimentoService {
             override fun onFailure(call: Call<Void>, t: Throwable?) {
                 Log.e("Deu ruim: ", t?.message)
                 onError(ConsumirAlimentoException(t?.message))
+            }
+        })
+
+    }
+
+    fun deletarAlimento(processoId: String,
+                         idRegistro: String,
+                         onSuccess : () -> Unit,
+                         onError : (Exception) -> Unit) {
+
+        val call = retrofitConfig.getAlimentoGateway()!!
+            .deletarAlimento(processoId, idRegistro)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(DeletarAlimentoException(response.message()))
+                }
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(DeletarAlimentoException(t?.message))
             }
         })
 

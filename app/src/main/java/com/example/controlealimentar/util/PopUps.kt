@@ -29,9 +29,13 @@ class PopUps {
         if (title != null) {
             view.cp_title.text = title
         }
-        view.cp_bg_view.setBackgroundColor(Color.parseColor("#60000000")) //Background Color
+        view.popup_view.setBackgroundColor(Color.parseColor("#60000000")) //Background Color
         view.cp_cardview.setCardBackgroundColor(Color.WHITE) //Box Color white
         view.cp_title.setTextColor(Color.BLACK) //Text Color
+
+        view.ib_close.setOnClickListener {
+            dialog.dismiss()
+        }
 
         dialog = Dialog(context, R.style.CustomProgressBarTheme)
         dialog.setContentView(view)

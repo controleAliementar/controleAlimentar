@@ -27,15 +27,15 @@ data class AlimentoDetalhado(
         parcel.readDouble(),
         parcel.readString()!!,
         parcel.readByte() != 0.toByte()
-    ) {
-    }
+    )
 
     override fun writeToParcel(dest: Parcel?, flags: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // TODO To change body of created functions use File | Settings | File Templates.
     }
 
     override fun describeContents(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // TODO To change body of created functions use File | Settings | File Templates.
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<AlimentoDetalhado> {
