@@ -285,5 +285,29 @@
         android:id="@+id/editarAlimentoRefeicao"
         android:name="com.example.controlealimentar.navigation.EditarAlimentoRefeicao"
         android:label="fragment_editar_alimento_refeicao"
-        tools:layout="@layout/fragment_editar_alimento_refeicao" />
+        tools:layout="@layout/fragment_editar_alimento_refeicao" >
+        <argument
+            android:name="alimento"
+            app:argType="com.example.controlealimentar.model.Alimento"
+            app:nullable="true" />
+        <argument
+            android:name="idRefeicao"
+            app:argType="string" />
+        <argument
+            android:name="alimentoAvulso"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="nomeRefeicao"
+            app:argType="string" />
+        <argument
+            android:name="horarioRefeicao"
+            app:argType="long" />
+        <argument
+            android:name="alimentoUsuario"
+            app:argType="com.example.controlealimentar.model.AlimentoDetalhado" />
+        <action
+            android:id="@+id/action_editarAlimentoRefeicao_to_listaAlimentosRefeicaoFragment"
+            app:destination="@id/listaAlimentosRefeicaoFragment" />
+    </fragment>
 </navigation>

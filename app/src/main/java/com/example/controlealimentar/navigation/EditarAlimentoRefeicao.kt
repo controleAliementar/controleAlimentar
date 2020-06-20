@@ -1,14 +1,12 @@
 package com.example.controlealimentar.navigation
 
 
-import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
@@ -42,11 +40,10 @@ import java.text.DecimalFormat
 class EditarAlimentoRefeicao : Fragment() {
 
     lateinit var binding : FragmentEditarAlimentoRefeicaoBinding
-    private val alimentoService : AlimentoService =
-        AlimentoService()
+    private val alimentoService : AlimentoService = AlimentoService()
     val metas = ValidacaoFormatoMetas()
     val progressBar = CustomProgressBar()
-    val args: BuscarAlimentoFragmentArgs by navArgs()
+    val args: EditarAlimentoRefeicaoArgs by navArgs()
     val CEM: String = "100"
     var tipoPorcaoEscolhida: String = "gramas"
     var idPorcao: String? = null
@@ -106,8 +103,6 @@ class EditarAlimentoRefeicao : Fragment() {
             val carboidratos = java.lang.Double.parseDouble(carboidratosValue.text.toString().replace(".","").replace(",", "."))
             val proteinas = java.lang.Double.parseDouble(proteinasValue.text.toString().replace(".","").replace(",", "."))
             val gorduras = java.lang.Double.parseDouble(gorduraValue.text.toString().replace(".","").replace(",", "."))
-            val idAlimento = args.alimento!!.id
-            val idRefeicao = args.idRefeicao
 
             val porcao = spinner.selectedItem
             if (porcao == porcaoGramas){
@@ -125,12 +120,12 @@ class EditarAlimentoRefeicao : Fragment() {
             )
 
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
-            alimentoService.salvarAlimento(salvarAlimento, idAlimento, idRefeicao, processoId,
+            alimentoService.editarAlimento(salvarAlimento, args.alimentoUsuario.idRegistro, processoId,
                 {
                     progressBar.dialog.dismiss()
                     val action =
-                        BuscarAlimentoFragmentDirections
-                            .actionBuscarAlimentoFragmentToListaAlimentosRefeicaoFragment(
+                        EditarAlimentoRefeicaoDirections
+                            .actionEditarAlimentoRefeicaoToListaAlimentosRefeicaoFragment(
                                 idRefeicao = args.idRefeicao,
                                 horarioRefeicao = args.horarioRefeicao,
                                 nomeRefeicao = args.nomeRefeicao)
@@ -159,6 +154,7 @@ class EditarAlimentoRefeicao : Fragment() {
 
         if (args.alimento != null) {
             val alimento = args.alimento!!
+            val alimentoUsuario = args.alimentoUsuario!!
             var tipoPorcaoAlimento : String? = null
 
             if (alimento.porcao != null) {
@@ -168,17 +164,9 @@ class EditarAlimentoRefeicao : Fragment() {
 
             nomeAlimentoTextView.setText(args.alimento!!.nome)
             salvarAlimentoButton.isEnabled = true
-            valorPorcaoText.setText(CEM)
+            valorPorcaoText.setText(alimentoUsuario.porcaoConsumida.toString())
             criarSpinner(tipoPorcaoAlimento)
         }
-
-        alimentoText.setOnFocusChangeListener(View.OnFocusChangeListener { v, hasFocus ->
-            if (false == hasFocus) {
-                (requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                    alimentoText.getWindowToken(), 0
-                )
-            }
-        })
 
     }
 
