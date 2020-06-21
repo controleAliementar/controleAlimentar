@@ -19,6 +19,7 @@ import com.example.controlealimentar.service.MetaDiariasService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -60,7 +61,7 @@ class CadastrarMetasFragment : Fragment() {
                 val gordura = java.lang.Double.parseDouble(binding.gorduraText.text.toString())
                 val carboidrato = java.lang.Double.parseDouble(binding.carboidratoText.text.toString())
                 val proteina = java.lang.Double.parseDouble(binding.proteinaText.text.toString())
-                val calorias = java.lang.Double.parseDouble(binding.caloriaText.text.toString())
+                val calorias = java.lang.Double.parseDouble(binding.caloriaValueView.text.toString())
 
                 val metaDiarias = MetaDiarias()
                 metaDiarias.gorduras = gordura
@@ -80,6 +81,9 @@ class CadastrarMetasFragment : Fragment() {
                     },
                     {
                         retornaTelaErroGenerico()
+                    },
+                    {
+                        retornaTelaErroGenerico()
                     })
 
             } catch (e : Exception){
@@ -89,22 +93,9 @@ class CadastrarMetasFragment : Fragment() {
 
         binding.salvarButton.isEnabled = false
 
-        var editText1IsNull = true
         var editText2IsNull = true
         var editText3IsNull = true
         var editText4IsNull = true
-
-        binding.caloriaText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(text: Editable?) {}
-
-            override fun beforeTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                editText1IsNull = text.isNullOrBlank()
-                habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
-                metas.validar(binding.caloriaText, text.toString())
-            }
-        })
 
         binding.carboidratoText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {}
@@ -113,8 +104,9 @@ class CadastrarMetasFragment : Fragment() {
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText2IsNull = text.isNullOrBlank()
-                habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
+                habilitarBotao(editText2IsNull, editText3IsNull, editText4IsNull)
                 metas.validar(binding.carboidratoText, text.toString())
+                calcularCalorias()
             }
         })
 
@@ -125,8 +117,9 @@ class CadastrarMetasFragment : Fragment() {
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText3IsNull = text.isNullOrBlank()
-                habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
+                habilitarBotao(editText2IsNull, editText3IsNull, editText4IsNull)
                 metas.validar(binding.proteinaText, text.toString())
+                calcularCalorias()
             }
         })
 
@@ -137,8 +130,9 @@ class CadastrarMetasFragment : Fragment() {
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 editText4IsNull = text.isNullOrBlank()
-                habilitarBotao(editText1IsNull, editText2IsNull, editText3IsNull, editText4IsNull)
+                habilitarBotao(editText2IsNull, editText3IsNull, editText4IsNull)
                 metas.validar(binding.gorduraText, text.toString())
+                calcularCalorias()
             }
         })
 
@@ -152,10 +146,48 @@ class CadastrarMetasFragment : Fragment() {
         view?.findNavController()?.navigate(action)
     }
 
-    private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean,
+    private fun habilitarBotao(editText2IsNull: Boolean,
                                editText3IsNull: Boolean, editText4IsNull: Boolean) {
-        binding.salvarButton.isEnabled = !editText1IsNull && !editText2IsNull
+        binding.salvarButton.isEnabled = !editText2IsNull
                 && !editText3IsNull && !editText4IsNull
+    }
+
+    private fun calcularCalorias(){
+
+        var gordura = 0.0
+        if (!binding.gorduraText.text.toString().isBlank()){
+            gordura = java.lang.Double.parseDouble(binding.gorduraText.text.toString())
+        }
+
+        var carboidrato = 0.0
+        if (!binding.carboidratoText.text.toString().isBlank()){
+            carboidrato = java.lang.Double.parseDouble(binding.carboidratoText.text.toString())
+        }
+
+        var proteina = 0.0
+        if (!binding.proteinaText.text.toString().isBlank()){
+            proteina = java.lang.Double.parseDouble(binding.proteinaText.text.toString())
+        }
+
+        val caloriasNoCarboidrato = calcularCaloriasNoCarboidrato(carboidrato)
+        val caloriasNaGordura = calcularCaloriasNaGordura(gordura)
+        val caloriasNaProteina = calcularCaloriasNaProteina(proteina)
+
+        val calorias = caloriasNaGordura + caloriasNoCarboidrato + caloriasNaProteina
+        val decimal = DecimalFormat("####.#")
+        binding.caloriaValueView.text = decimal.format(calorias).replace(",", ".")
+    }
+
+    private fun calcularCaloriasNoCarboidrato(carboidrato: Double): Double {
+        return carboidrato * 4
+    }
+
+    private fun calcularCaloriasNaProteina(proteina: Double): Double {
+        return proteina * 4
+    }
+
+    private fun calcularCaloriasNaGordura(gordura: Double): Double {
+        return gordura * 9
     }
 
 }

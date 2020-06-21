@@ -44,7 +44,6 @@ class EditarAlimentoRefeicao : Fragment() {
     val metas = ValidacaoFormatoMetas()
     val progressBar = CustomProgressBar()
     val args: EditarAlimentoRefeicaoArgs by navArgs()
-    val CEM: String = "100"
     var tipoPorcaoEscolhida: String = "gramas"
     var idPorcao: String? = null
     val porcaoGramas : String = "gramas"
