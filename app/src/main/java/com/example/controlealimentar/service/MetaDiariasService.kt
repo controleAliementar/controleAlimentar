@@ -3,6 +3,7 @@ package com.example.controlealimentar.service
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
+import com.example.controlealimentar.exception.MetaDiariaNaoPodeSerEditadaException
 import com.example.controlealimentar.exception.SalvarMetaDiariasException
 import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
 import com.example.controlealimentar.gateway.data.MetaDiariasResponseGateway
@@ -55,7 +56,8 @@ class MetaDiariasService {
     fun salvarMetaDiarias(processoId: String,
                           metaDiarias: MetaDiarias,
                           onSuccess : () -> Unit,
-                          onError : (Exception) -> Unit) {
+                          onError : (Exception) -> Unit,
+                          onErrorTratado : (Exception) -> Unit) {
 
         val metaDiariasRequestGateway = MetaDiariasRequestGateway(
             metaDiarias.calorias,
@@ -72,6 +74,10 @@ class MetaDiariasService {
                                     response: Response<Void>
             ) {
                 if (!response.isSuccessful){
+
+                    if (response.code() == 412){
+                        return onErrorTratado(MetaDiariaNaoPodeSerEditadaException(response.message()))
+                    }
                     print(response.errorBody())
                     return onError(SalvarMetaDiariasException(response.message()))
                 }

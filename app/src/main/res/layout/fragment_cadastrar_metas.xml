@@ -36,7 +36,7 @@
             android:textAlignment="center"
             android:textColor="#FA050000"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/caloriaText"
+            app:layout_constraintBottom_toTopOf="@+id/caloriaValueView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,12 +48,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="17dp"
+            android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:text="@string/caloria"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/carboidratoTextView"
-            app:layout_constraintEnd_toStartOf="@+id/caloriaText"
+            app:layout_constraintEnd_toStartOf="@+id/caloriaValueView"
             app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/metasDiariasTitle" />
@@ -113,18 +113,16 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_begin="351dp" />
 
-        <EditText
-            android:id="@+id/caloriaText"
+        <TextView
+            android:id="@+id/caloriaValueView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:maxLength="7"
-            android:textColorLink="#00444040"
+            android:text="@string/zero"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/carboidratoText"
             app:layout_constraintEnd_toStartOf="@+id/KcalTextView"
             app:layout_constraintStart_toEndOf="@+id/caloriaTextView"
@@ -179,20 +177,21 @@
             app:layout_constraintBottom_toTopOf="@+id/proteinaText"
             app:layout_constraintEnd_toStartOf="@+id/gramasTextView2"
             app:layout_constraintStart_toEndOf="@+id/carboidratoTextView"
-            app:layout_constraintTop_toBottomOf="@+id/caloriaText" />
+            app:layout_constraintTop_toBottomOf="@+id/caloriaValueView" />
 
         <TextView
             android:id="@+id/KcalTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="50dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/Kcal"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/gramasTextView2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/caloriaText"
+            app:layout_constraintStart_toEndOf="@+id/caloriaValueView"
             app:layout_constraintTop_toBottomOf="@+id/metasDiariasTitle" />
 
         <TextView

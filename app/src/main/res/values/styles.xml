@@ -13,4 +13,8 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <style name="GreenCheck">
+        <item name="colorAccent">#06D50A</item>
+    </style>
+
 </resources>

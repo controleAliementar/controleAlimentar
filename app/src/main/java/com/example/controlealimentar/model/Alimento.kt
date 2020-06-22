@@ -21,8 +21,7 @@ data class Alimento(
         parcel.readDouble(),
         parcel.readDouble(),
         TODO("porcao")
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(id)

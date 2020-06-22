@@ -3,7 +3,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="Email">E-mail</string>
     <string name="Nome">Nome</string>
-    <string name="metas_diarias">Metas diárias</string>
+    <string name="metas_diarias">Meta diária</string>
     <string name="salvar">Salvar</string>
     <string name="carboidrato">Carboidratos</string>
     <string name="proteina">Proteinas</string>
@@ -75,8 +75,22 @@
     <string name="zero">0</string>
     <string name="valor">Valor</string>
     <string name="porcao">Porção:</string>
-    <string name="cem">100</string>
+    <string name="cem">100g</string>
     <string name="ingerido">Ingerido</string>
+    <string name="doisMil">2000</string>
+    <string name="refeicoesText">Refeições</string>
+    <string name="CentoECiquenta">150g</string>
+    <string name="trintaESete">37,5g</string>
+    <string name="duzentos">200g</string>
+    <string name="cinquenta">50g</string>
+    <string name="deletar">Deletar</string>
+    <string name="editar">Editar</string>
+    <string name="icone_para_deletar_alimento">Icone para deletar alimento</string>
+    <string name="icone_para_editar_alimento">Icone para editar alimento</string>
+    <string name="divider_de_um_alimento_para_outro">Divider de um alimento para outro</string>
+    <string name="cone_para_fechar_popup">Ícone para fechar popup</string>
+    <string name="nomeAlimento">Alimento:</string>
+    <string name="alterar">ALTERAR</string>
     <string-array name="porcoes_list_default">
         <item>Gramas</item>
     </string-array>

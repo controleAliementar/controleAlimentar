@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -15,14 +17,17 @@ import com.example.controlealimentar.adapter.IOnRefeicaoListFragmentInteractionL
 import com.example.controlealimentar.adapter.impl.RefeicaoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentHomeBinding
 import com.example.controlealimentar.exception.BuscarMetaDiariasException
+import com.example.controlealimentar.model.Home
 import com.example.controlealimentar.model.Refeicao
 import com.example.controlealimentar.model.enuns.MessageLoading
 import com.example.controlealimentar.model.enuns.Refeicoes
 import com.example.controlealimentar.model.enuns.SharedIds
+import com.example.controlealimentar.service.HomeService
 import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.text.DecimalFormat
 
 /**
  * A simple [Fragment] subclass.
@@ -30,8 +35,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment(),
     IOnRefeicaoListFragmentInteractionListener {
 
-    private val refeicaoService : RefeicaoService =
-        RefeicaoService()
+    private val homeService : HomeService = HomeService()
+    private val refeicaoService : RefeicaoService = RefeicaoService()
     val progressBar = CustomProgressBar()
 
     override fun onCreateView(
@@ -60,14 +65,16 @@ class HomeFragment : Fragment(),
         }
 
         progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_GARREGANDO.mensagem)
-        refeicaoService.buscarListaRefeicoesConsolidado(processoId,
+        homeService.buscarHome(processoId,
             {
                 recycleView.layoutManager = LinearLayoutManager(activity)
                 recycleView.adapter =
                     RefeicaoItemRecyclerViewAdapter(
-                        it,
+                        it.refeicoes,
                         this
                     )
+
+                preencheBarrasMetas(it)
                 progressBar.dialog.dismiss()
             },
             {
@@ -141,6 +148,53 @@ class HomeFragment : Fragment(),
                     .actionHomeFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             })
+    }
+
+    private fun preencheBarrasMetas(home: Home){
+
+        caloriaProgressBar.progress = calculaPorcentagemMeta(home.calorias, home.caloriasConsumidas)
+        caloriaProgressNumber.text = home.caloriasConsumidas.toString().replace(".", ",")
+        caloriaProgressNumberTotal.text = home.calorias.toString().replace(".", ",")
+        defineCorProgressBar(caloriaProgressBar)
+
+        proteinaProgressBar.progress = calculaPorcentagemMeta(home.proteinas, home.proteinasConsumidas)
+        proteinaProgressNumber.text = home.proteinasConsumidas.toString().replace(".", ",") + "g"
+        proteinaProgressNumberTotal.text = home.proteinas.toString().replace(".", ",") + "g"
+        defineCorProgressBar(proteinaProgressBar)
+
+        carboidratoProgressBar.progress = calculaPorcentagemMeta(home.carboidratos, home.carboidratosConsumidos)
+        carboidratoProgressNumber.text = home.carboidratosConsumidos.toString().replace(".", ",") + "g"
+        carboidratoProgressNumberTotal.text = home.carboidratos.toString().replace(".", ",") + "g"
+        defineCorProgressBar(carboidratoProgressBar)
+
+        gorduraProgressBar.progress = calculaPorcentagemMeta(home.gorduras, home.gordurasConsumidas)
+        gorduraProgressNumber.text = home.gordurasConsumidas.toString().replace(".", ",") + "g"
+        gorduraProgressNumberTotal.text = home.gorduras.toString().replace(".", ",") + "g"
+        defineCorProgressBar(gorduraProgressBar)
+
+    }
+
+
+    private fun calculaPorcentagemMeta(meta: Double, metaConsumida: Double): Int{
+        val total = (metaConsumida * 100)/ meta
+        val decimal = DecimalFormat("#")
+        return decimal.format(total).toInt()
+    }
+
+    private fun defineCorProgressBar(progressBar: ProgressBar){
+        val porcentagem = progressBar.progress
+
+        when {
+            porcentagem >= 75 -> progressBar.progressDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit75)
+            porcentagem >= 50 -> progressBar.progressDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit50)
+            porcentagem >= 25 -> progressBar.progressDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit25)
+            else -> progressBar.progressDrawable =
+                ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit)
+        }
+
     }
 
 }

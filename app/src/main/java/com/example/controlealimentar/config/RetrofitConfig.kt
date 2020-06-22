@@ -1,9 +1,6 @@
 package com.example.controlealimentar.config
 
-import com.example.controlealimentar.gateway.AlimentoGateway
-import com.example.controlealimentar.gateway.MetaDiariasGateway
-import com.example.controlealimentar.gateway.RefeicaoGateway
-import com.example.controlealimentar.gateway.UsuarioGateway
+import com.example.controlealimentar.gateway.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -45,6 +42,10 @@ class RetrofitConfig {
 
     fun getRefeicaoGateway() : RefeicaoGateway? {
         return this.retrofit?.create(RefeicaoGateway::class.java)
+    }
+
+    fun getHomeGateway() : HomeGateway? {
+        return this.retrofit?.create(HomeGateway::class.java)
     }
 
 }
