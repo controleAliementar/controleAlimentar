@@ -157,27 +157,27 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         if (item.alimentoIngerido){
             ingeridoCheckBox.isChecked = true
-            return
+        } else {
+            val sharedPreference = SharedPreference(context)
+            val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+            if (processoId.isNullOrBlank()){
+                throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+            }
+
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
+            alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
+                {
+                    atualizarRefeicoesPagina(processoId)
+                },
+                {
+                    progressBar.dialog.dismiss()
+                    val action = ListaAlimentosRefeicaoFragmentDirections
+                        .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
+                    view?.findNavController()?.navigate(action)
+                })
         }
 
-        val sharedPreference = SharedPreference(context)
-        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
-
-        if (processoId.isNullOrBlank()){
-            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
-        }
-
-        progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
-        alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
-            {
-                atualizarRefeicoesPagina(processoId)
-            },
-            {
-                progressBar.dialog.dismiss()
-                val action = ListaAlimentosRefeicaoFragmentDirections
-                    .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
-                view?.findNavController()?.navigate(action)
-            })
     }
 
     override fun onAlimentoEditDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
