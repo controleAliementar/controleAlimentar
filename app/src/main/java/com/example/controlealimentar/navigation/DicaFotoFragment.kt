@@ -1,17 +1,23 @@
 package com.example.controlealimentar.navigation
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentDicaFotoBinding
+
+
+
+
 
 
 /**
@@ -19,22 +25,43 @@ import com.example.controlealimentar.databinding.FragmentDicaFotoBinding
  */
 class DicaFotoFragment : Fragment() {
 
-    val REQUEST_IMAGE_CAPTURE = 1
+    private val REQUEST_IMAGE_CAPTURE = 1
+    private val PermissionsRequestCode = 123
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding : FragmentDicaFotoBinding = DataBindingUtil
-            .inflate(inflater, R.layout.fragment_dica_foto, container, false)
+            .inflate(inflater, com.example.controlealimentar.R.layout.fragment_dica_foto, container, false)
 
         binding.okButton.setOnClickListener { view ->
-            tirarFoto()
+            if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), PermissionsRequestCode)
+            } else {
+                tirarFoto()
+            }
         }
 
         return binding.root
     }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+
+        when (requestCode) {
+            PermissionsRequestCode -> {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    tirarFoto()
+                }
+                return
+            }
+        }
+    }
 
 
     private fun tirarFoto() {

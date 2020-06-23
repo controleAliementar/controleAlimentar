@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".navigation.CadastrarDadosOcrFragment">
 
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
     <ScrollView
         android:id="@+id/home_scroll"
         android:layout_width="match_parent"
@@ -102,7 +108,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/quanto_voce_comeu"
+                android:text="@string/qual_porcao_tabela"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/porcaoTabelaTextView"
                 app:layout_constraintEnd_toStartOf="@+id/quantoVoceComeuEditText"
@@ -117,7 +123,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/qual_porcao_tabela"
+                android:text="@string/quanto_voce_comeu"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/okButton"
                 app:layout_constraintEnd_toStartOf="@+id/porcaoTabelaEditText"
@@ -131,8 +137,8 @@
                 android:layout_marginStart="100dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="100dp"
-                android:layout_marginBottom="50dp"
-                android:text="@android:string/ok"
+                android:layout_marginBottom="8dp"
+                android:text="@string/salvar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,8 +148,8 @@
                 android:id="@+id/nomeEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
+                android:layout_marginStart="63dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
                 android:ems="10"
@@ -157,7 +163,7 @@
                 android:id="@+id/caloriaEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="45dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
@@ -173,8 +179,8 @@
                 android:id="@+id/carboidratoEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
                 android:ems="10"
@@ -189,10 +195,10 @@
                 android:id="@+id/proteinaEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginBottom="10dp"
                 android:ems="10"
                 android:inputType="numberDecimal"
                 android:maxLength="@integer/max_length_macronutrientes"
@@ -205,8 +211,8 @@
                 android:id="@+id/gorduraEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="16dp"
                 android:ems="10"
@@ -240,7 +246,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="30dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="25dp"
                 android:cursorVisible="false"
                 android:ems="10"
                 android:inputType="numberDecimal"
@@ -249,7 +255,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/porcaoTabelaTextView"
                 app:layout_constraintTop_toBottomOf="@+id/quantoVoceComeuEditText" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right|end"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/icone_para_adicionar_alimento_por_foto"
+            app:backgroundTint="@android:color/black"
+            app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
+            tools:layout_editor_absoluteX="336dp"
+            tools:layout_editor_absoluteY="707dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
