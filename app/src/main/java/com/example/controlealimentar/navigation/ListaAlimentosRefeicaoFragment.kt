@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnAlimentoDetalhadoListFragmentInteractionListener
 import com.example.controlealimentar.adapter.impl.AlimentoDetalhadoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentListaAlimentosRefeicaoBinding
@@ -99,7 +100,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         incluirPorFotoButton
             .setOnClickListener( Navigation
-                .createNavigateOnClickListener(com.example.controlealimentar.R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
+                .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_cadastrarDadosOcrFragment))
 
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections

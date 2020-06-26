@@ -266,6 +266,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right|end"
             android:layout_margin="16dp"
+            android:clickable="true"
+            android:focusable="true"
             android:contentDescription="@string/icone_para_adicionar_alimento_por_foto"
             app:backgroundTint="@android:color/black"
             app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
