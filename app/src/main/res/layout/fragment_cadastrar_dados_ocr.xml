@@ -10,255 +10,318 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-    <ScrollView
-        android:id="@+id/home_scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="0dp"
-        android:paddingEnd="0dp">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
+        <ScrollView
+            android:id="@+id/home_scroll"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="800dp"
-            android:visibility="visible">
+            android:layout_height="match_parent"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp">
 
-
-            <TextView
-                android:id="@+id/nomeTextView"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/Nome"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/caloriaTextView"
-                app:layout_constraintEnd_toStartOf="@+id/nomeEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:minHeight="800dp"
+                android:visibility="visible">
 
-            <TextView
-                android:id="@+id/caloriaTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/caloria"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/carboidratoTextView"
-                app:layout_constraintEnd_toStartOf="@+id/caloriaEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
 
-            <TextView
-                android:id="@+id/carboidratoTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/carboidrato"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/proteinaTextView"
-                app:layout_constraintEnd_toStartOf="@+id/carboidratoEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/caloriaTextView" />
+                <TextView
+                    android:id="@+id/nomeTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/Nome"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/caloriaTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/nomeEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tituloText" />
 
-            <TextView
-                android:id="@+id/proteinaTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/proteina"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/gorduraTextView"
-                app:layout_constraintEnd_toStartOf="@+id/proteinaEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/carboidratoTextView" />
+                <TextView
+                    android:id="@+id/caloriaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/caloria"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/carboidratoTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/caloriaEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/nomeTextView" />
 
-            <TextView
-                android:id="@+id/gorduraTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/gordura"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/quantoVoceComeuTextView"
-                app:layout_constraintEnd_toStartOf="@+id/gorduraEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/proteinaTextView" />
+                <TextView
+                    android:id="@+id/carboidratoTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/carboidrato"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/proteinaTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/carboidratoEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/caloriaTextView" />
 
-            <TextView
-                android:id="@+id/quantoVoceComeuTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/qual_porcao_tabela"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/porcaoTabelaTextView"
-                app:layout_constraintEnd_toStartOf="@+id/quantoVoceComeuEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/gorduraTextView" />
+                <TextView
+                    android:id="@+id/proteinaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/proteina"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/gorduraTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/proteinaEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/carboidratoTextView" />
 
-            <TextView
-                android:id="@+id/porcaoTabelaTextView"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/quanto_voce_comeu"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toTopOf="@+id/okButton"
-                app:layout_constraintEnd_toStartOf="@+id/porcaoTabelaEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quantoVoceComeuTextView" />
+                <TextView
+                    android:id="@+id/gorduraTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/gordura"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/qualPorcaoTextView"
+                    app:layout_constraintEnd_toStartOf="@+id/gorduraEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/proteinaTextView" />
 
-            <Button
-                android:id="@+id/okButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/salvar"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/porcaoTabelaTextView" />
+                <TextView
+                    android:id="@+id/qualPorcaoTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/qual_porcao_tabela"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/okButton"
+                    app:layout_constraintEnd_toStartOf="@+id/help_icon"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gorduraTextView" />
 
-            <EditText
-                android:id="@+id/nomeEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="63dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                app:layout_constraintBottom_toTopOf="@+id/caloriaEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/nomeTextView"
-                app:layout_constraintTop_toTopOf="parent" />
+                <Button
+                    android:id="@+id/okButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginEnd="100dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/salvar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-            <EditText
-                android:id="@+id/caloriaEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/carboidratoEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/caloriaTextView"
-                app:layout_constraintTop_toBottomOf="@+id/nomeEditText" />
+                <EditText
+                    android:id="@+id/nomeEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="63dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    app:layout_constraintBottom_toTopOf="@+id/caloriaEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/nomeTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/tituloText" />
 
-            <EditText
-                android:id="@+id/carboidratoEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/proteinaEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/carboidratoTextView"
-                app:layout_constraintTop_toBottomOf="@+id/caloriaEditText" />
+                <EditText
+                    android:id="@+id/caloriaEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="19dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/max_length_macronutrientes"
+                    app:layout_constraintBottom_toTopOf="@+id/carboidratoEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/unidadeCalorias"
+                    app:layout_constraintStart_toEndOf="@+id/caloriaTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/nomeEditText" />
 
-            <EditText
-                android:id="@+id/proteinaEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="33dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="10dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/gorduraEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/proteinaTextView"
-                app:layout_constraintTop_toBottomOf="@+id/carboidratoEditText" />
+                <EditText
+                    android:id="@+id/carboidratoEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/max_length_macronutrientes"
+                    app:layout_constraintBottom_toTopOf="@+id/proteinaEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/unidadeCarboidrato"
+                    app:layout_constraintStart_toEndOf="@+id/carboidratoTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/caloriaEditText" />
 
-            <EditText
-                android:id="@+id/gorduraEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="35dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/quantoVoceComeuEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/gorduraTextView"
-                app:layout_constraintTop_toBottomOf="@+id/proteinaEditText" />
+                <EditText
+                    android:id="@+id/proteinaEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginEnd="20dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/max_length_macronutrientes"
+                    app:layout_constraintBottom_toTopOf="@+id/gorduraEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/unidadeProteina"
+                    app:layout_constraintStart_toEndOf="@+id/proteinaTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/carboidratoEditText" />
 
-            <EditText
-                android:id="@+id/quantoVoceComeuEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="16dp"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/porcaoTabelaEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/quantoVoceComeuTextView"
-                app:layout_constraintTop_toBottomOf="@+id/gorduraEditText" />
+                <EditText
+                    android:id="@+id/gorduraEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="40dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/max_length_macronutrientes"
+                    app:layout_constraintBottom_toTopOf="@+id/qualPorcaoEditText"
+                    app:layout_constraintEnd_toStartOf="@+id/unidadeGordura"
+                    app:layout_constraintStart_toEndOf="@+id/gorduraTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/proteinaEditText" />
 
-            <EditText
-                android:id="@+id/porcaoTabelaEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="25dp"
-                android:cursorVisible="false"
-                android:ems="10"
-                android:inputType="numberDecimal"
-                android:maxLength="@integer/max_length_macronutrientes"
-                app:layout_constraintBottom_toTopOf="@+id/okButton"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/porcaoTabelaTextView"
-                app:layout_constraintTop_toBottomOf="@+id/quantoVoceComeuEditText" />
+                <EditText
+                    android:id="@+id/qualPorcaoEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:ems="10"
+                    android:inputType="numberDecimal"
+                    android:maxLength="@integer/max_length_macronutrientes"
+                    app:layout_constraintBottom_toTopOf="@+id/okButton"
+                    app:layout_constraintEnd_toStartOf="@+id/unidadePorcao"
+                    app:layout_constraintStart_toEndOf="@+id/help_icon"
+                    app:layout_constraintTop_toBottomOf="@+id/gorduraEditText" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tituloText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/informa_es_da_tabela_nutricional_do_alimento"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/nomeEditText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-    </ScrollView>
+                <TextView
+                    android:id="@+id/unidadeCalorias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="80dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/Kcal"
+                    app:layout_constraintBottom_toTopOf="@+id/unidadeCarboidrato"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/caloriaEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/nomeEditText" />
+
+                <TextView
+                    android:id="@+id/unidadeCarboidrato"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/gramas"
+                    app:layout_constraintBottom_toTopOf="@+id/unidadeProteina"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/carboidratoEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/unidadeCalorias" />
+
+                <TextView
+                    android:id="@+id/unidadeProteina"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/gramas"
+                    app:layout_constraintBottom_toTopOf="@+id/unidadeGordura"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/proteinaEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/unidadeCarboidrato" />
+
+                <TextView
+                    android:id="@+id/unidadeGordura"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="40dp"
+                    android:text="@string/gramas"
+                    app:layout_constraintBottom_toTopOf="@+id/unidadePorcao"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/gorduraEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/unidadeProteina" />
+
+                <TextView
+                    android:id="@+id/unidadePorcao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="140dp"
+                    android:text="@string/g_ml"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/qualPorcaoEditText"
+                    app:layout_constraintTop_toBottomOf="@+id/unidadeGordura" />
+
+                <ImageView
+                    android:id="@+id/help_icon"
+                    android:layout_width="33dp"
+                    android:layout_height="29dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="5dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_help_black_24dp"
+                    app:layout_constraintBottom_toTopOf="@+id/okButton"
+                    app:layout_constraintEnd_toStartOf="@+id/qualPorcaoEditText"
+                    app:layout_constraintStart_toEndOf="@+id/qualPorcaoTextView"
+                    app:layout_constraintTop_toBottomOf="@+id/gorduraEditText" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_action_button"

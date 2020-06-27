@@ -9,11 +9,9 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnAlimentoDetalhadoListFragmentInteractionListener
 import com.example.controlealimentar.adapter.impl.AlimentoDetalhadoItemRecyclerViewAdapter
 import com.example.controlealimentar.databinding.FragmentListaAlimentosRefeicaoBinding
@@ -98,9 +96,11 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
         }
 
-        incluirPorFotoButton
-            .setOnClickListener( Navigation
-                .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_cadastrarDadosOcrFragment))
+        incluirPorFotoButton.setOnClickListener{
+            val action = ListaAlimentosRefeicaoFragmentDirections
+                .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment()
+            view?.findNavController()?.navigate(action)
+        }
 
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
