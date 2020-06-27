@@ -61,11 +61,6 @@
             android:name="idRefeicao"
             app:argType="string" />
         <action
-            android:id="@+id/action_incluirAlimentoFragment_to_dicaFotoFragment"
-            app:destination="@id/dicaFotoFragment"
-            app:enterAnim="@anim/nav_default_pop_enter_anim"
-            app:exitAnim="@anim/nav_default_pop_exit_anim" />
-        <action
             android:id="@+id/action_incluirAlimentoFragment_to_editarHorarioRefeicaoFragment"
             app:destination="@id/editarHorarioRefeicaoFragment" />
         <argument
@@ -84,6 +79,9 @@
         <action
             android:id="@+id/action_incluirAlimentoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_incluirAlimentoFragment_to_cadastrarDadosOcrFragment"
+            app:destination="@id/cadastrarDadosOcrFragment" />
     </fragment>
     <fragment
         android:id="@+id/dicaFotoFragment"
@@ -139,7 +137,11 @@
         android:id="@+id/cadastrarDadosOcrFragment"
         android:name="com.example.controlealimentar.navigation.CadastrarDadosOcrFragment"
         android:label="fragment_cadastrar_dados_ocr"
-        tools:layout="@layout/fragment_cadastrar_dados_ocr" />
+        tools:layout="@layout/fragment_cadastrar_dados_ocr" >
+        <action
+            android:id="@+id/action_cadastrarDadosOcrFragment_to_dicaFotoFragment"
+            app:destination="@id/dicaFotoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cadastrarMetasFragment"
         android:name="com.example.controlealimentar.navigation.CadastrarMetasFragment"
@@ -249,9 +251,6 @@
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_buscarAlimentoFragment"
             app:destination="@id/buscarAlimentoFragment" />
-        <action
-            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment"
-            app:destination="@id/dicaFotoFragment" />
         <argument
             android:name="alimentoAvulso"
             app:argType="boolean"
@@ -280,6 +279,9 @@
         <action
             android:id="@+id/action_listaAlimentosRefeicaoFragment_to_editarAlimentoRefeicao"
             app:destination="@id/editarAlimentoRefeicao" />
+        <action
+            android:id="@+id/action_listaAlimentosRefeicaoFragment_to_cadastrarDadosOcrFragment"
+            app:destination="@id/cadastrarDadosOcrFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarAlimentoRefeicao"

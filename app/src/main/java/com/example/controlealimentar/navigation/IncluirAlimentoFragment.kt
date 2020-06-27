@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.R
@@ -51,9 +50,12 @@ class IncluirAlimentoFragment : Fragment() {
             binding.alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
         }
 
-        binding.incluirPorFotoButton
-            .setOnClickListener( Navigation
-                .createNavigateOnClickListener(R.id.action_incluirAlimentoFragment_to_dicaFotoFragment))
+        binding.incluirPorFotoButton.setOnClickListener{
+            val action = IncluirAlimentoFragmentDirections
+                .actionIncluirAlimentoFragmentToCadastrarDadosOcrFragment()
+            view?.findNavController()?.navigate(action)
+        }
+
 
         binding.buscarAlimentoButton.setOnClickListener{
             val action = IncluirAlimentoFragmentDirections

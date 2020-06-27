@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentCadastrarDadosOcrBinding
 
@@ -22,6 +23,13 @@ class CadastrarDadosOcrFragment : Fragment() {
         val binding: FragmentCadastrarDadosOcrBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_cadastrar_dados_ocr, container, false
         )
+
+        binding.floatingActionButton.setOnClickListener {
+            val action = CadastrarDadosOcrFragmentDirections.
+                actionCadastrarDadosOcrFragmentToDicaFotoFragment()
+            view?.findNavController()?.navigate(action)
+        }
+
 
         return binding.root
     }

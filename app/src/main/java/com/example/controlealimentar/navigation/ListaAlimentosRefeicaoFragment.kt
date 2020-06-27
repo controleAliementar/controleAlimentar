@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -97,9 +96,11 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
         }
 
-        incluirPorFotoButton
-            .setOnClickListener( Navigation
-                .createNavigateOnClickListener(com.example.controlealimentar.R.id.action_listaAlimentosRefeicaoFragment_to_dicaFotoFragment))
+        incluirPorFotoButton.setOnClickListener{
+            val action = ListaAlimentosRefeicaoFragmentDirections
+                .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment()
+            view?.findNavController()?.navigate(action)
+        }
 
         buscarAlimentoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
@@ -157,27 +158,27 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         if (item.alimentoIngerido){
             ingeridoCheckBox.isChecked = true
-            return
+        } else {
+            val sharedPreference = SharedPreference(context)
+            val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+            if (processoId.isNullOrBlank()){
+                throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+            }
+
+            progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
+            alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
+                {
+                    atualizarRefeicoesPagina(processoId)
+                },
+                {
+                    progressBar.dialog.dismiss()
+                    val action = ListaAlimentosRefeicaoFragmentDirections
+                        .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
+                    view?.findNavController()?.navigate(action)
+                })
         }
 
-        val sharedPreference = SharedPreference(context)
-        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
-
-        if (processoId.isNullOrBlank()){
-            throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
-        }
-
-        progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
-        alimentoService.consumirAlimento(processoId, item.idRegistro, !item.alimentoIngerido,
-            {
-                atualizarRefeicoesPagina(processoId)
-            },
-            {
-                progressBar.dialog.dismiss()
-                val action = ListaAlimentosRefeicaoFragmentDirections
-                    .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
-                view?.findNavController()?.navigate(action)
-            })
     }
 
     override fun onAlimentoEditDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {

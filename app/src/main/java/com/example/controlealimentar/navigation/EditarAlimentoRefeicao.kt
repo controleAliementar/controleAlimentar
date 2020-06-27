@@ -23,7 +23,6 @@ import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
-import kotlinx.android.synthetic.main.fragment_buscar_alimento.*
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.caloriaValue
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.carboidratosValue
 import kotlinx.android.synthetic.main.fragment_buscar_alimento.gorduraValue
@@ -153,7 +152,6 @@ class EditarAlimentoRefeicao : Fragment() {
 
         if (args.alimento != null) {
             val alimento = args.alimento!!
-            val alimentoUsuario = args.alimentoUsuario!!
             var tipoPorcaoAlimento : String? = null
 
             if (alimento.porcao != null) {
@@ -162,28 +160,34 @@ class EditarAlimentoRefeicao : Fragment() {
             }
 
             nomeAlimentoTextView.setText(args.alimento!!.nome)
-            salvarAlimentoButton.isEnabled = true
-            valorPorcaoText.setText(alimentoUsuario.porcaoConsumida.toString())
+            alterarAlimentoButton.isEnabled = true
             criarSpinner(tipoPorcaoAlimento)
+
         }
 
     }
 
     private fun criarSpinner(unidadeMedida : String?){
 
-        val list_of_items = arrayListOf(porcaoGramas)
+        val regexRemoveNumbers = "\\d".toRegex()
+        val listOfItems = arrayListOf(porcaoGramas)
+        val alimentoUsuario = args.alimentoUsuario
 
-        if (!unidadeMedida.isNullOrBlank()){
-            val regexRemoveNumbers = "\\d".toRegex()
-            list_of_items.add(unidadeMedida.replace(regexRemoveNumbers, ""))
+        if (!unidadeMedida.isNullOrBlank()) {
+            listOfItems.add(unidadeMedida.replace(regexRemoveNumbers, ""))
         }
 
         val arrayAdapter =
-            ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, list_of_items)
+            ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, listOfItems)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = arrayAdapter
 
-        preencherCamposMacronutrientes(porcaoGramas)
+        spinner.setSelection(listOfItems.indexOf(alimentoUsuario.unidadePorcao.replace(regexRemoveNumbers, "")))
+
+        valorPorcaoText.setText(alimentoUsuario.porcaoConsumida.toString())
+
+        preencherCamposMacronutrientes(alimentoUsuario.unidadePorcao)
+
     }
 
     private fun calcularQuantidadeGramas(valorPorcaoInserido: Double, valorMacronutriente: Double) : String {

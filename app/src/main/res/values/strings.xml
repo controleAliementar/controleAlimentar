@@ -91,6 +91,9 @@
     <string name="cone_para_fechar_popup">Ícone para fechar popup</string>
     <string name="nomeAlimento">Alimento:</string>
     <string name="alterar">ALTERAR</string>
+    <string name="icone_para_adicionar_alimento_por_foto">Icone para adicionar alimento por foto</string>
+    <string name="informa_es_da_tabela_nutricional_do_alimento">Informações da tabela nutricional do alimento</string>
+    <string name="g_ml">g/ml</string>
     <string-array name="porcoes_list_default">
         <item>Gramas</item>
     </string-array>

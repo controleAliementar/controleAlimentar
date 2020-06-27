@@ -16,8 +16,8 @@ interface AlimentoGateway {
 
     @GET("alimento/buscar-por-id")
     fun buscarAlimentoPorId(@Header("processoId") processoId : String,
-                               @Query("idRegistro ") idRegistro : String,
-                               @Query("idAlimento ") idAlimento : String): Call<BuscarAlimentoPorIdResponseGateway>
+                            @Header("idRegistro") idRegistro : String,
+                            @Header("idAlimento") idAlimento : String): Call<BuscarAlimentoPorIdResponseGateway>
 
     @POST("alimento/salvar")
     fun salvarAlimento(@Header("idAlimento") idAlimento : String,
