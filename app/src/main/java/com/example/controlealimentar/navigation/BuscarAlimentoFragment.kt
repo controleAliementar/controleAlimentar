@@ -107,6 +107,11 @@ class BuscarAlimentoFragment : Fragment() {
 
         salvarAlimentoButton.setOnClickListener {
 
+            if (java.lang.Double.parseDouble(valorPorcaoText.text.toString()) <= 0){
+                binding.valorPorcaoText.error = "Valor inválido"
+                return@setOnClickListener
+            }
+
             val sharedPreference = SharedPreference(context)
             val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
                 ?: throw SalvarAlimentoException("ProcessoId não encontrado no SharedPreference")

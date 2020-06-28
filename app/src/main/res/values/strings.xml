@@ -60,7 +60,7 @@
     <string name="buscar_alimento">Buscar alimento</string>
     <string name="dica_foto">Centralize a tabela nutricional no quadrado da câmera para extrairmos as informações</string>
     <string name="quanto_voce_comeu">Quanto você comeu ?</string>
-    <string name="qual_porcao_tabela">Qual a porção da tabela ?</string>
+    <string name="qual_porcao_tabela">Porção</string>
     <string name="mensagem_tela_erro">Tivemos um problema, tente novamente !</string>
     <string name="titulo_tela_erro">Ops !</string>
     <string name="tentar_novamente">Tentar novamente</string>
@@ -68,7 +68,7 @@
     <string name="carecteres_aceitos_campo_email">1234567890abcdefghijklmnopqrstuvxwyzABCDEFGHIJKLMNOPQRSTUVXWYZÁáÃãÂâÀàÇçÉéÊêÍíÓóÔôÕõÚú@.-_</string>
     <string name="carecteres_aceitos_metas">1234567890.,</string>
     <string name="gramas">g</string>
-    <string name="grama">Gramas</string>
+    <string name="grama">gramas</string>
     <string name="arroz">Arroz</string>
     <string name="buscar">Buscar</string>
     <string name="alimento">Alimento</string>
@@ -95,6 +95,6 @@
     <string name="informa_es_da_tabela_nutricional_do_alimento">Informações da tabela nutricional do alimento</string>
     <string name="g_ml">g/ml</string>
     <string-array name="porcoes_list_default">
-        <item>Gramas</item>
+        <item>gramas</item>
     </string-array>
 </resources>
