@@ -65,8 +65,8 @@ class DicaFotoFragment : Fragment() {
 
 
     private fun tirarFoto() {
-        val intent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE)
+        val intent = Intent(this.requireContext(), CameraFragment::class.java)
+        startActivity(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

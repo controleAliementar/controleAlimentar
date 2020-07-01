@@ -42,11 +42,11 @@ class BuscarAlimentoFragment : Fragment() {
     val progressBar = CustomProgressBar()
     val args: BuscarAlimentoFragmentArgs by navArgs()
     val CEM: String = "100"
-    var tipoPorcaoEscolhida: String = "Gramas"
+    var tipoPorcaoEscolhida: String = "gramas"
     var page: Int = 0
     var size: Int = 10
     var idPorcao: String? = null
-    val porcaoInicial : String = "Gramas"
+    val porcaoInicial : String = "gramas"
 
 
     override fun onCreateView(
@@ -125,7 +125,7 @@ class BuscarAlimentoFragment : Fragment() {
             val idRefeicao = args.idRefeicao
 
             val porcao = spinner.selectedItem
-            if (porcao == "Gramas"){
+            if (porcao == "gramas"){
                 idPorcao = null
             }
 
