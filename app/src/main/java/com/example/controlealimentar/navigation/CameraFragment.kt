@@ -1,53 +1,50 @@
 package com.example.controlealimentar.navigation
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Matrix
 import android.hardware.Camera
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
 import kotlinx.android.synthetic.main.preview.*
-import java.io.ByteArrayOutputStream
 
 
 class CameraFragment : FragmentActivity(), SurfaceHolder.Callback, Camera.PictureCallback {
-
-
     override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
-
-        val imageOriginal = BitmapFactory.decodeByteArray(data, 0, data!!.size, null)
-        var width = view.width
-        var height = view.height // for width
-        val narrowSize = Math.min(width, height) // for height
-        val differ =
-            Math.abs((imageOriginal.height - imageOriginal.width) / 2.0f).toInt()  // for dimension
-        width = if (width == narrowSize) 0 else differ
-        height = if (width == 0) differ else 0
-
-        val rotationMatrix = Matrix()
-        rotationMatrix.postRotate(90F) // for orientation
-
-        val imageCropped = Bitmap.createBitmap(
-            imageOriginal,
-            width,
-            height,
-            narrowSize,
-            narrowSize,
-            rotationMatrix,
-            false
-        )
-
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        imageCropped.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-        val byteArray = byteArrayOutputStream.toByteArray()
-        val encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
-
-        Toast.makeText(baseContext, "Show !", Toast.LENGTH_LONG).show()
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
+
+
+//    override fun onPictureTaken(data: ByteArray?, camera: Camera?) {
+//
+//        val imageOriginal = BitmapFactory.decodeByteArray(data, 0, data!!.size, null)
+//        var width = view.width
+//        var height = view.height // for width
+//        val narrowSize = Math.min(width, height) // for height
+//        val differ =
+//            Math.abs((imageOriginal.height - imageOriginal.width) / 2.0f).toInt()  // for dimension
+//        width = if (width == narrowSize) 0 else differ
+//        height = if (width == 0) differ else 0
+//
+//        val rotationMatrix = Matrix()
+//        rotationMatrix.postRotate(90F) // for orientation
+//
+//        val imageCropped = Bitmap.createBitmap(
+//            imageOriginal,
+//            width,
+//            height,
+//            narrowSize,
+//            narrowSize,
+//            rotationMatrix,
+//            false
+//        )
+//
+//        val byteArrayOutputStream = ByteArrayOutputStream()
+//        imageCropped.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+//        val byteArray = byteArrayOutputStream.toByteArray()
+//        val encoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+//
+//        Toast.makeText(baseContext, "Show !", Toast.LENGTH_LONG).show()
+//    }
 
     internal lateinit var mCamera: Camera
     internal lateinit var mPreview: SurfaceView
