@@ -102,9 +102,16 @@ class CadastrarUsuarioFragment : Fragment() {
                     return@setOnClickListener
                 }
 
+                var tokenFirebase = sharedPreference.getValueString(SharedIds.TOKEN_FIREBASE.name)
+
+                if (tokenFirebase.isNullOrBlank()){
+                    tokenFirebase = ""
+                }
+
                 val usuario = Usuario()
                 usuario.nome = name
                 usuario.email = email
+                usuario.tokenFirebase = tokenFirebase
 
                 progressBar.show(context, MessageLoading.MENSAGEM_SALVANDO.mensagem)
 

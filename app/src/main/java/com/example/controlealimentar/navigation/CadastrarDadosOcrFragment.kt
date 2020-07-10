@@ -33,11 +33,11 @@ class CadastrarDadosOcrFragment : Fragment() {
             inflater, R.layout.fragment_cadastrar_dados_ocr, container, false
         )
 
-        binding.floatingActionButton.setOnClickListener {
-            val action = CadastrarDadosOcrFragmentDirections.
-                actionCadastrarDadosOcrFragmentToDicaFotoFragment()
-            view?.findNavController()?.navigate(action)
-        }
+//        binding.floatingActionButton.setOnClickListener {
+//            val action = CadastrarDadosOcrFragmentDirections.
+//                actionCadastrarDadosOcrFragmentToDicaFotoFragment()
+//            view?.findNavController()?.navigate(action)
+//        }
 
         binding.salvarButton.setOnClickListener {
 
@@ -74,7 +74,8 @@ class CadastrarDadosOcrFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOptionsPorcao = arrayListOf("gramas", "mililitro")
+        val listOptionsPorcao = arrayListOf("grama(s)", "mililitro(s)",
+            "unidade(s)", "fatia(s)", "copo(s)")
 
         val arrayAdapter =
             ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, listOptionsPorcao)

@@ -346,19 +346,19 @@
 
         </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_action_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right|end"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/icone_para_adicionar_alimento_por_foto"
-            android:focusable="true"
-            app:backgroundTint="@android:color/black"
-            app:srcCompat="@drawable/ic_add_a_photo_white_24dp"
-            tools:layout_editor_absoluteX="339dp"
-            tools:layout_editor_absoluteY="742dp" />
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/floating_action_button"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom|right|end"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:clickable="true"-->
+<!--            android:contentDescription="@string/icone_para_adicionar_alimento_por_foto"-->
+<!--            android:focusable="true"-->
+<!--            app:backgroundTint="@android:color/black"-->
+<!--            app:srcCompat="@drawable/ic_add_a_photo_white_24dp"-->
+<!--            tools:layout_editor_absoluteX="339dp"-->
+<!--            tools:layout_editor_absoluteY="742dp" />-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
