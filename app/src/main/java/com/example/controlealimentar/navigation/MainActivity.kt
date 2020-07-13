@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import androidx.fragment.app.FragmentActivity
 import com.example.controlealimentar.R
+import com.google.android.gms.common.GoogleApiAvailability
 
 
 class MainActivity : FragmentActivity() {
@@ -27,6 +28,11 @@ class MainActivity : FragmentActivity() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this)
     }
 
 

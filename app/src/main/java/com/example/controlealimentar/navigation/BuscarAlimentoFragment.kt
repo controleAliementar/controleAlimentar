@@ -42,11 +42,11 @@ class BuscarAlimentoFragment : Fragment() {
     val progressBar = CustomProgressBar()
     val args: BuscarAlimentoFragmentArgs by navArgs()
     val CEM: String = "100"
-    var tipoPorcaoEscolhida: String = "Gramas"
+    var tipoPorcaoEscolhida: String = "gramas"
     var page: Int = 0
     var size: Int = 10
     var idPorcao: String? = null
-    val porcaoInicial : String = "Gramas"
+    val porcaoInicial : String = "gramas"
 
 
     override fun onCreateView(
@@ -107,6 +107,11 @@ class BuscarAlimentoFragment : Fragment() {
 
         salvarAlimentoButton.setOnClickListener {
 
+            if (java.lang.Double.parseDouble(valorPorcaoText.text.toString()) <= 0){
+                binding.valorPorcaoText.error = "Valor inválido"
+                return@setOnClickListener
+            }
+
             val sharedPreference = SharedPreference(context)
             val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
                 ?: throw SalvarAlimentoException("ProcessoId não encontrado no SharedPreference")
@@ -120,7 +125,7 @@ class BuscarAlimentoFragment : Fragment() {
             val idRefeicao = args.idRefeicao
 
             val porcao = spinner.selectedItem
-            if (porcao == "Gramas"){
+            if (porcao == "gramas"){
                 idPorcao = null
             }
 

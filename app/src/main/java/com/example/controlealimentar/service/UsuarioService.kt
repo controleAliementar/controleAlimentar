@@ -20,7 +20,8 @@ class UsuarioService {
 
         val usuarioGateway = UsuarioRequestGateway(
             usuario.email,
-            usuario.nome)
+            usuario.nome,
+            usuario.tokenFirebase)
 
         val call = retrofitConfig.getUsuarioGateway()!!
             .salvarUsuario(usuarioGateway)

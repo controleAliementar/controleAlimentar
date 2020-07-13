@@ -141,6 +141,9 @@
         <action
             android:id="@+id/action_cadastrarDadosOcrFragment_to_dicaFotoFragment"
             app:destination="@id/dicaFotoFragment" />
+        <action
+            android:id="@+id/action_cadastrarDadosOcrFragment_to_incluirAlimentoCadastradoFragment"
+            app:destination="@id/incluirAlimentoCadastradoFragment" />
     </fragment>
     <fragment
         android:id="@+id/cadastrarMetasFragment"
@@ -311,5 +314,13 @@
         <action
             android:id="@+id/action_editarAlimentoRefeicao_to_listaAlimentosRefeicaoFragment"
             app:destination="@id/listaAlimentosRefeicaoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/incluirAlimentoCadastradoFragment"
+        android:name="com.example.controlealimentar.navigation.IncluirAlimentoCadastradoFragment"
+        android:label="fragment_incluir_alimento_cadastrado"
+        tools:layout="@layout/fragment_incluir_alimento_cadastrado">
+    <argument android:name="alimentoTabelaNutricional"
+        app:argType="com.example.controlealimentar.model.AlimentoTabelaNutricional" />
     </fragment>
 </navigation>

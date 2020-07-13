@@ -209,7 +209,7 @@ class EditarMetasFragment : Fragment() {
         val caloriasNaProteina = calcularCaloriasNaProteina(proteina)
 
         val calorias = caloriasNaGordura + caloriasNoCarboidrato + caloriasNaProteina
-        val decimal = DecimalFormat("####.#")
+        val decimal = DecimalFormat("####.0")
         binding.caloriaValueView.text = decimal.format(calorias).replace(",", ".")
     }
 
