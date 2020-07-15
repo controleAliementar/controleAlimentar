@@ -32,7 +32,8 @@ class LoadingInicioAppFragment : Fragment() {
             inflater, R.layout.fragment_loading_inicio_app, container, false
         )
 
-        binding.progressBar.visibility = View.VISIBLE
+        binding.iconControleAlimentar.visibility = View.VISIBLE
+        binding.titleControleAlimentar.visibility = View.VISIBLE
 
         return binding.root
     }
@@ -40,32 +41,42 @@ class LoadingInicioAppFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Handler().postDelayed({
-            binding.progressBar.visibility = View.INVISIBLE
+            binding.iconControleAlimentar.visibility = View.INVISIBLE
+            binding.titleControleAlimentar.visibility = View.INVISIBLE
             decideFluxo()
-        }, 1000)
+        }, 5000)
     }
 
 
     private fun decideFluxo() {
 
-        val sharedPreference = SharedPreference(context)
+        if (true){
 
-        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_exibirFeedbackFragment2)
 
-        if (processoId.isNullOrBlank()){
-            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment)
-        } else {
-            val metaDiariasService = MetaDiariasService()
+        }else {
 
-            metaDiariasService.buscarMetaDiarias(processoId,
-                {meta ->
-                    if (meta.processoId.isBlank()) {
-                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
-                    }else {
-                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
-                    }
-                }, {})
+            val sharedPreference = SharedPreference(context)
+
+            val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+            if (processoId.isNullOrBlank()){
+                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment)
+            } else {
+                val metaDiariasService = MetaDiariasService()
+
+                metaDiariasService.buscarMetaDiarias(processoId,
+                    {meta ->
+                        if (meta.processoId.isBlank()) {
+                            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
+                        }else {
+                            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                        }
+                    }, {})
+            }
+
         }
+
 
     }
 
