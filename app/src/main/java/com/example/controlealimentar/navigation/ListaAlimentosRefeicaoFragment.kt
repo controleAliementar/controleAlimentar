@@ -98,7 +98,8 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
         incluirPorFotoButton.setOnClickListener{
             val action = ListaAlimentosRefeicaoFragmentDirections
-                .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment()
+                .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment(args.idRefeicao,
+                    args.nomeRefeicao, args.alimentoAvulso, args.horarioRefeicao)
             view?.findNavController()?.navigate(action)
         }
 

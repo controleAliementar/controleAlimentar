@@ -52,7 +52,8 @@ class IncluirAlimentoFragment : Fragment() {
 
         binding.incluirPorFotoButton.setOnClickListener{
             val action = IncluirAlimentoFragmentDirections
-                .actionIncluirAlimentoFragmentToCadastrarDadosOcrFragment()
+                .actionIncluirAlimentoFragmentToCadastrarDadosOcrFragment(args.idRefeicao,
+                   args.nomeRefeicao, args.alimentoAvulso, args.horarioRefeicao)
             view?.findNavController()?.navigate(action)
         }
 

@@ -3,14 +3,8 @@ package com.example.controlealimentar.service
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
 import com.example.controlealimentar.exception.*
-import com.example.controlealimentar.gateway.data.AlimentoPaginadoResponseGateway
-import com.example.controlealimentar.gateway.data.BuscarAlimentoPorIdResponseGateway
-import com.example.controlealimentar.gateway.data.EditarAlimentoRequestGateway
-import com.example.controlealimentar.gateway.data.SalvarAlimentoRequestGateway
-import com.example.controlealimentar.model.Alimento
-import com.example.controlealimentar.model.AlimentoPaginado
-import com.example.controlealimentar.model.Porcao
-import com.example.controlealimentar.model.SalvarAlimento
+import com.example.controlealimentar.gateway.data.*
+import com.example.controlealimentar.model.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -278,6 +272,53 @@ class AlimentoService {
         }
 
         return alimentoList
+    }
+
+    fun salvarAlimentoUsuario(alimento: AlimentoUsuario,
+                       idRefeicao: String,
+                       processoId: String,
+                       onSuccess : () -> Unit,
+                       onError : (Exception) -> Unit) {
+
+
+        val salvarAlimentoUsuarioRequestGateway = SalvarAlimentoUsuarioRequestGateway(
+            alimento.porcaoConsumida,
+            alimento.nomeAlimento,
+            alimento.calorias,
+            alimento.porcaoAlimento,
+            alimento.caloriaPorcao,
+            alimento.carboidratos,
+            alimento.carboidratoPorcao,
+            alimento.proteinas,
+            alimento.proteinaPorcao,
+            alimento.gorduras,
+            alimento.gorduraPorcao,
+            alimento.alimentoIngerido
+        )
+
+        val call = retrofitConfig.getAlimentoGateway()!!
+            .salvarAlimentoUsuario(
+                idRefeicao,
+                processoId,
+                salvarAlimentoUsuarioRequestGateway)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(SalvarAlimentoUsuarioException(response.message()))
+                }
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(SalvarAlimentoUsuarioException(t?.message))
+            }
+        })
+
     }
 
 }
