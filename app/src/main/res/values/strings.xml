@@ -94,9 +94,12 @@
     <string name="icone_para_adicionar_alimento_por_foto">Icone para adicionar alimento por foto</string>
     <string name="informa_es_da_tabela_nutricional_do_alimento">Informações da tabela nutricional do alimento</string>
     <string name="g_ml">g/ml</string>
-    <string name="feeback">Feeback de ontem</string>
+    <string name="feeback">Feedback do seu último dia</string>
     <string name="emoji_feedback">Emoji feedback</string>
     <string name="controle_alimentar">Controle Alimentar</string>
+    <string name="icone_para_editar_metas">Icone para editar metas</string>
+    <string name="icone_para_historico_de_metas">Icone para historico de metas</string>
+    <string name="hist_rico_de_metas">Histórico de metas</string>
     <string-array name="porcoes_list_default">
         <item>gramas</item>
     </string-array>
