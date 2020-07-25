@@ -14,6 +14,7 @@ class AlimentoService {
     private val retrofitConfig: RetrofitConfig = RetrofitConfig()
 
     fun buscarAlimentoPaginado(nomeAlimento: String,
+                               processoId: String,
                                 page: Int,
                                 onSuccess : (AlimentoPaginado) -> Unit,
                                 onError : (Exception) -> Unit){
@@ -21,7 +22,7 @@ class AlimentoService {
         val size = 10
 
         val call = retrofitConfig.getAlimentoGateway()!!
-            .buscarAlimentoPaginado(nomeAlimento, size, page)
+            .buscarAlimentoPaginado(nomeAlimento, processoId, size, page)
 
         call.enqueue(object : Callback<AlimentoPaginadoResponseGateway> {
             override fun onResponse(call: Call<AlimentoPaginadoResponseGateway>,
@@ -71,13 +72,13 @@ class AlimentoService {
                     return onError(BuscarAlimentoException(response.message()))
                 }
 
-                val response =  response.body()!!.alimentoBanco
+                val response = response.body()!!.alimentoBanco
 
                 var porcao = Porcao()
 
                 if (response.porcao != null){
                     porcao = Porcao(
-                        response.porcao.id,
+                        response.porcao.id?:"",
                         response.porcao.porcao,
                         response.porcao.qtdGramas
                     )
@@ -161,7 +162,8 @@ class AlimentoService {
             alimento.carboidratos,
             alimento.proteinas,
             alimento.gorduras,
-            alimento.alimentoIngerido
+            alimento.alimentoIngerido,
+            alimento.unidadePorcao
         )
 
         val call = retrofitConfig.getAlimentoGateway()!!
@@ -293,7 +295,8 @@ class AlimentoService {
             alimento.proteinaPorcao,
             alimento.gorduras,
             alimento.gorduraPorcao,
-            alimento.alimentoIngerido
+            alimento.alimentoIngerido,
+            alimento.unidadePorcao
         )
 
         val call = retrofitConfig.getAlimentoGateway()!!

@@ -11,6 +11,7 @@ interface AlimentoGateway {
 
     @GET("alimento/paginado")
     fun buscarAlimentoPaginado(@Header("nomeAlimento") nomeAlimento : String,
+                               @Header("processoId") processoId : String,
                                 @Query("size") size: Int,
                                 @Query("page") page: Int) : Call<AlimentoPaginadoResponseGateway>
 

@@ -50,33 +50,24 @@ class LoadingInicioAppFragment : Fragment() {
 
     private fun decideFluxo() {
 
-        if (true){
+        val sharedPreference = SharedPreference(context)
 
-            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_exibirFeedbackFragment2)
+        val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
-        }else {
+        if (processoId.isNullOrBlank()){
+            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment)
+        } else {
+            val metaDiariasService = MetaDiariasService()
 
-            val sharedPreference = SharedPreference(context)
-
-            val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
-
-            if (processoId.isNullOrBlank()){
-                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarUsuarioFragment)
-            } else {
-                val metaDiariasService = MetaDiariasService()
-
-                metaDiariasService.buscarMetaDiarias(processoId,
-                    {meta ->
-                        if (meta.processoId.isBlank()) {
-                            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
-                        }else {
-                            findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
-                        }
-                    }, {})
-            }
-
+            metaDiariasService.buscarMetaDiarias(processoId,
+                {meta ->
+                    if (meta.processoId.isBlank()) {
+                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
+                    }else {
+                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                    }
+                }, {})
         }
-
 
     }
 

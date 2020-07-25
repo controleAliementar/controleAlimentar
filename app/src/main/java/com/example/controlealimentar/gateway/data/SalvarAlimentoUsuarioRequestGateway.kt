@@ -12,5 +12,6 @@ class SalvarAlimentoUsuarioRequestGateway(
     val proteinaPorcao: Double,
     val gorduras: Double,
     val gorduraPorcao: Double,
-    val alimentoIngerido : Boolean)
+    val alimentoIngerido : Boolean,
+    val unidadePorcao : String)
 

@@ -49,6 +49,7 @@ class IncluirAlimentoCadastradoFragment : Fragment() {
         val alimentoTabelaNutricional = args.alimentoUsuario
 
         binding.nomeAlimentoTextView.text = alimentoTabelaNutricional.nomeAlimento
+        binding.porcaoText.text = alimentoTabelaNutricional.unidadePorcao
 
         binding.salvarAlimentoTabelaNutricionalButton.isEnabled = false
 

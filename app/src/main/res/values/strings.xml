@@ -100,6 +100,9 @@
     <string name="icone_para_editar_metas">Icone para editar metas</string>
     <string name="icone_para_historico_de_metas">Icone para historico de metas</string>
     <string name="hist_rico_de_metas">Histórico de metas</string>
+    <string name="icone_adicionar_alimento_por_cadastro">Icone adicionar alimento por cadastro</string>
+    <string name="icone_para_adicionar_alimento_por_busca">Icone para adicionar alimento por busca</string>
+    <string name="voc_n_o_possui_nenhum_alimento_na_sua_refei_o_aproveite_e_cadastre_agora">Você não possui alimento na sua refeição. Aproveite e cadastre agora!</string>
     <string-array name="porcoes_list_default">
         <item>gramas</item>
     </string-array>

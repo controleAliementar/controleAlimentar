@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.databinding.FragmentBuscarAlimentoBinding
+import com.example.controlealimentar.exception.BuscarMetaDiariasException
 import com.example.controlealimentar.exception.SalvarAlimentoException
 import com.example.controlealimentar.model.SalvarAlimento
 import com.example.controlealimentar.model.enuns.MessageLoading
@@ -165,8 +166,15 @@ class BuscarAlimentoFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            val sharedPreference = SharedPreference(context)
+            val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
+
+            if (processoId.isNullOrBlank()){
+                throw BuscarMetaDiariasException("ProcessoId não encontrado no sharedPreference")
+            }
+
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_BUSCANDO.mensagem)
-            alimentoService.buscarAlimentoPaginado(alimento.unaccent(), page,
+            alimentoService.buscarAlimentoPaginado(alimento.unaccent(), processoId, page,
                 {
                     if(it.listAlimentos.isNullOrEmpty()){
                         progressBar.dialog.dismiss()

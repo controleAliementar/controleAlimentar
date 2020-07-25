@@ -7,5 +7,6 @@ class EditarAlimentoRequestGateway(
     val carboidratos: Double,
     val proteinas: Double,
     val gorduras: Double,
-    val alimentoIngerido : Boolean)
+    val alimentoIngerido : Boolean,
+    val unidadePorcao: String?)
 
