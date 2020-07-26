@@ -120,7 +120,8 @@ class AlimentoService {
             alimento.carboidratos,
             alimento.proteinas,
             alimento.gorduras,
-            alimento.alimentoIngerido
+            alimento.alimentoIngerido,
+            alimento.unidadePorcao
         )
 
         val call = retrofitConfig.getAlimentoGateway()!!
@@ -254,7 +255,7 @@ class AlimentoService {
 
             if (it.porcao != null){
                 porcao = Porcao(
-                    it.porcao.id,
+                    it.porcao.id?:"",
                     it.porcao.porcao,
                     it.porcao.qtdGramas
                 )
