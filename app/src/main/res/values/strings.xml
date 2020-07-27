@@ -103,6 +103,8 @@
     <string name="icone_adicionar_alimento_por_cadastro">Icone adicionar alimento por cadastro</string>
     <string name="icone_para_adicionar_alimento_por_busca">Icone para adicionar alimento por busca</string>
     <string name="voc_n_o_possui_nenhum_alimento_na_sua_refei_o_aproveite_e_cadastre_agora">Você não possui alimento na sua refeição. Aproveite e cadastre agora!</string>
+    <string name="icone_para_incluir_alimento_na_refei_o">Icone para incluir alimento na refeição</string>
+    <string name="icone_para_buscar_alimento_na_refei_o">Icone para buscar alimento na refeição</string>
     <string-array name="porcoes_list_default">
         <item>gramas</item>
     </string-array>

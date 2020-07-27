@@ -51,18 +51,18 @@ class IncluirAlimentoFragment : Fragment() {
         }
 
         binding.incluirPorFotoButton.setOnClickListener{
-            val action = IncluirAlimentoFragmentDirections
-                .actionIncluirAlimentoFragmentToCadastrarDadosOcrFragment(args.idRefeicao,
-                   args.nomeRefeicao, args.alimentoAvulso, args.horarioRefeicao)
-            view?.findNavController()?.navigate(action)
+            incluirAlimento()
+        }
+        binding.incluirAlimentoText.setOnClickListener {
+            incluirAlimento()
         }
 
 
         binding.buscarAlimentoButton.setOnClickListener{
-            val action = IncluirAlimentoFragmentDirections
-                .actionIncluirAlimentoFragmentToBuscarAlimentoFragment(
-                    null, args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao)
-            view?.findNavController()?.navigate(action)
+            buscarAlimento()
+        }
+        binding.buscarAlimentoTextView.setOnClickListener {
+            buscarAlimento()
         }
 
         binding.alterarHorarioRefeicaobutton.setOnClickListener{
@@ -73,6 +73,23 @@ class IncluirAlimentoFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun buscarAlimento() {
+        val action = IncluirAlimentoFragmentDirections
+            .actionIncluirAlimentoFragmentToBuscarAlimentoFragment(
+                null, args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao
+            )
+        view?.findNavController()?.navigate(action)
+    }
+
+    private fun incluirAlimento() {
+        val action = IncluirAlimentoFragmentDirections
+            .actionIncluirAlimentoFragmentToCadastrarDadosOcrFragment(
+                args.idRefeicao,
+                args.nomeRefeicao, args.alimentoAvulso, args.horarioRefeicao
+            )
+        view?.findNavController()?.navigate(action)
     }
 
     private fun convertLongToTime(time: Long): String {

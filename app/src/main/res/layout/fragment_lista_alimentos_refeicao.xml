@@ -4,12 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".navigation.ListaAlimentosRefeicaoFragment">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
-
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -78,65 +72,73 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layoutManager="LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@+id/divider4"
+            app:layout_constraintTop_toBottomOf="@+id/buscarAlimentoButton"
             tools:listitem="@layout/fragment_alimento_detalhado_item" />
 
-<!--        <Button-->
-<!--            android:id="@+id/buscarAlimentoButton"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="24dp"-->
-<!--            android:text="@string/buscar_alimento"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/incluirPorFotoButton"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/divider4" />-->
+        <ImageView
+            android:id="@+id/buscarAlimentoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:contentDescription="@string/icone_para_buscar_alimento_na_refei_o"
+            android:src="@drawable/ic_search_black_24dp"
+            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+            app:layout_constraintEnd_toStartOf="@+id/buscarAlimentoTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider4" />
 
-<!--        <Button-->
-<!--            android:id="@+id/incluirPorFotoButton"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:text="@string/incluir_alimento"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintStart_toEndOf="@+id/buscarAlimentoButton"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/divider4" />-->
+        <ImageView
+            android:id="@+id/incluirPorFotoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:contentDescription="@string/icone_para_incluir_alimento_na_refei_o"
+            android:src="@drawable/ic_add_black_24dp"
+            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+            app:layout_constraintEnd_toStartOf="@+id/incluirAlimentoText"
+            app:layout_constraintStart_toEndOf="@+id/buscarAlimentoTextView"
+            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+        <TextView
+            android:id="@+id/buscarAlimentoTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="2dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/buscar_alimento"
+            android:textColor="#FA050000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+            app:layout_constraintEnd_toStartOf="@+id/incluirPorFotoButton"
+            app:layout_constraintStart_toEndOf="@+id/buscarAlimentoButton"
+            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+        <TextView
+            android:id="@+id/incluirAlimentoText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="2dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="@string/incluir_alimento"
+            android:textColor="#FA050000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/incluirPorFotoButton"
+            app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/incluirPorFotoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/icone_adicionar_alimento_por_cadastro"
-            android:focusable="true"
-            app:backgroundTint="@android:color/black"
-            app:srcCompat="@drawable/ic_add_white_24dp"
-            tools:layout_editor_absoluteX="339dp"
-            tools:layout_editor_absoluteY="600dp" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/buscarAlimentoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:layout_margin="16dp"
-            android:clickable="true"
-            android:contentDescription="@string/icone_para_adicionar_alimento_por_busca"
-            android:focusable="true"
-            app:backgroundTint="@android:color/black"
-            app:srcCompat="@drawable/ic_search_white_24dp"
-            tools:layout_editor_absoluteX="339dp"
-            tools:layout_editor_absoluteY="588dp"
-            app:layout_anchor="@id/incluirPorFotoButton"
-            app:layout_anchorGravity="top"/>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
