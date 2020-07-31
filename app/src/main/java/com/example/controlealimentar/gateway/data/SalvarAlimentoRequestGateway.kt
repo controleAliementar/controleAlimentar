@@ -8,5 +8,11 @@ class SalvarAlimentoRequestGateway(
     val proteinas: Double,
     val gorduras: Double,
     val alimentoIngerido : Boolean,
-    val unidadePorcao: String?)
+    val unidadePorcao: String?,
+    val caloriasPorcao: Double? = null,
+    val carboidratosPorcao: Double? = null,
+    val proteinasPorcao: Double? = null,
+    val gordurasPorcao: Double? = null,
+    val nomeAlimento: String? = null,
+    val porcaoAlimento: Double? = null)
 

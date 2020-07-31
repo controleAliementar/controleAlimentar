@@ -2,9 +2,12 @@ package com.example.controlealimentar.service
 
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
+import com.example.controlealimentar.exception.BuscarFeedbackUsuarioException
 import com.example.controlealimentar.exception.CadastrarUsuarioException
+import com.example.controlealimentar.gateway.data.FeedbackUsuarioResponseGateway
 import com.example.controlealimentar.gateway.data.UsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.UsuarioResponseGateway
+import com.example.controlealimentar.model.FeedbackUsuario
 import com.example.controlealimentar.model.Usuario
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +46,51 @@ class UsuarioService {
             override fun onFailure(call: Call<UsuarioResponseGateway>, t: Throwable?) {
                 Log.e("Deu ruim: ", t?.message)
                 onError(CadastrarUsuarioException(t?.message))
+            }
+        })
+
+    }
+
+    fun buscarFeedbackUsuario(processoId: String,
+                              onSuccess : (FeedbackUsuario) -> Unit,
+                              onError : (Exception) -> Unit) {
+
+        val call = retrofitConfig.getUsuarioGateway()!!
+            .buscarFeedbackUsuario(processoId)
+
+        call.enqueue(object : Callback<FeedbackUsuarioResponseGateway> {
+            override fun onResponse(call: Call<FeedbackUsuarioResponseGateway>,
+                                    response: Response<FeedbackUsuarioResponseGateway>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(BuscarFeedbackUsuarioException(response.errorBody().toString()))
+                }
+                if (response.code() == 204){
+                    onSuccess(FeedbackUsuario())
+                }
+
+                response.body()?.let {
+
+                    val feedbackUsuario = FeedbackUsuario()
+                    feedbackUsuario.caloriasConsumidas = it.caloriasConsumidas
+                    feedbackUsuario.caloriasMeta = it.caloriasMeta
+                    feedbackUsuario.carboidratosConsumidas = it.carboidratosConsumidas
+                    feedbackUsuario.carboidratosMeta = it.carboidratosMeta
+                    feedbackUsuario.gordurasConsumidas = it.gordurasConsumidas
+                    feedbackUsuario.gordurasMeta = it.gordurasMeta
+                    feedbackUsuario.proteinasConsumidas = it.proteinasConsumidas
+                    feedbackUsuario.proteinasMeta = it.proteinasMeta
+                    feedbackUsuario.status = it.status
+                    feedbackUsuario.data = it.data
+
+                    onSuccess(feedbackUsuario)
+                }
+            }
+
+            override fun onFailure(call: Call<FeedbackUsuarioResponseGateway>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(BuscarFeedbackUsuarioException(t?.message))
             }
         })
 

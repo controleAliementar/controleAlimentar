@@ -121,7 +121,13 @@ class AlimentoService {
             alimento.proteinas,
             alimento.gorduras,
             alimento.alimentoIngerido,
-            alimento.unidadePorcao
+            alimento.unidadePorcao,
+            alimento.caloriasPorcao,
+            alimento.carboidratosPorcao,
+            alimento.proteinasPorcao,
+            alimento.gordurasPorcao,
+            alimento.nomeAlimento,
+            alimento.porcaoAlimento
         )
 
         val call = retrofitConfig.getAlimentoGateway()!!

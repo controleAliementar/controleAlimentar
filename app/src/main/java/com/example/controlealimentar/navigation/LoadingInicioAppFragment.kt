@@ -14,6 +14,7 @@ import com.example.controlealimentar.databinding.FragmentLoadingInicioAppBinding
 import com.example.controlealimentar.extensions.navigateSafe
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
+import com.example.controlealimentar.service.UsuarioService
 import com.example.controlealimentar.util.SharedPreference
 
 
@@ -64,7 +65,22 @@ class LoadingInicioAppFragment : Fragment() {
                     if (meta.processoId.isBlank()) {
                         findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
                     }else {
-                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+
+                        val usuarioService = UsuarioService()
+
+                        usuarioService.buscarFeedbackUsuario(processoId,
+                            {
+
+                                if(it.status.equals("P")){
+
+                                    findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_exibirFeedbackFragment2)
+
+                                }
+
+                                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                            },{
+                                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                            })
                     }
                 }, {})
         }

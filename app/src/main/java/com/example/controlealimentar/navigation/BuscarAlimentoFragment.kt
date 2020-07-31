@@ -131,7 +131,7 @@ class BuscarAlimentoFragment : Fragment() {
             val idRefeicao = args.idRefeicao
 
             val porcao = spinner.selectedItem
-            if (porcao == "gramas" || (args.alimento?.porcao != null && args.alimento!!.porcao.id == "")){
+            if (porcao == "gramas" || (args.alimento!!.id == alimentoIseridoPeloUsuario)){
                 idPorcao = null
             }
 
@@ -145,8 +145,14 @@ class BuscarAlimentoFragment : Fragment() {
                 args.alimentoAvulso
             )
 
-            if (args.alimento?.porcao != null && args.alimento!!.porcao.id == ""){
-                salvarAlimento.unidadePorcao = tipoPorcaoEscolhida
+            if (args.alimento!!.id == alimentoIseridoPeloUsuario){
+                salvarAlimento.caloriasPorcao = args.alimento!!.calorias
+                salvarAlimento.carboidratosPorcao = args.alimento!!.carboidratos
+                salvarAlimento.proteinasPorcao = args.alimento!!.proteinas
+                salvarAlimento.gordurasPorcao = args.alimento!!.gorduras
+                salvarAlimento.porcaoAlimento = args.alimento!!.porcao.qtdGramas
+                salvarAlimento.unidadePorcao = args.alimento!!.porcao.porcao
+                salvarAlimento.nomeAlimento = args.alimento!!.nome
             }
 
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
@@ -288,7 +294,7 @@ class BuscarAlimentoFragment : Fragment() {
 
             val porcaoDigitada = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
 
-            if(args.alimento?.porcao != null && args.alimento!!.porcao.id.isNullOrBlank()){
+            if(args.alimento?.porcao != null && args.alimento!!.id == alimentoIseridoPeloUsuario){
                 caloriaValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.calorias, args.alimento!!.porcao.qtdGramas)
                 carboidratosValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.carboidratos, args.alimento!!.porcao.qtdGramas)
                 proteinasValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.proteinas, args.alimento!!.porcao.qtdGramas)
