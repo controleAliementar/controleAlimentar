@@ -4,10 +4,7 @@ import com.example.controlealimentar.gateway.data.FeedbackUsuarioResponseGateway
 import com.example.controlealimentar.gateway.data.UsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.UsuarioResponseGateway
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UsuarioGateway {
 
@@ -16,4 +13,7 @@ interface UsuarioGateway {
 
     @GET("usuario/feedback")
     fun buscarFeedbackUsuario(@Header("processoId") processoId : String) : Call<FeedbackUsuarioResponseGateway>
+
+    @PUT("usuario/feedback")
+    fun atualizarFeedbackUsuario(@Header("processoId") processoId : String) : Call<Void>
 }

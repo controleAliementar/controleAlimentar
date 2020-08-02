@@ -40,6 +40,8 @@ class ExibirFeedbackFragment : DialogFragment() {
 
                 preencheBarrasMetas(it, view)
 
+                setGif(it, view)
+
             },{
                 findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
             })
@@ -48,10 +50,33 @@ class ExibirFeedbackFragment : DialogFragment() {
         alert.setView(view)
 
         view.exit.setOnClickListener {
-            findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+
+            usuarioService.atualizarFeedbackUsuario(processoId,
+                {
+                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+                },
+                {
+                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+                })
+
         }
 
         return alert.create()
+    }
+
+    private fun setGif(
+        it: FeedbackUsuario,
+        view: View
+    ) {
+        if (isMetaAtingida(it.caloriasMeta, it.caloriasConsumidas) &&
+            isMetaAtingida(it.carboidratosMeta, it.carboidratosConsumidas) &&
+            isMetaAtingida(it.proteinasMeta, it.proteinasConsumidas) &&
+            isMetaAtingida(it.gordurasMeta, it.gordurasConsumidas)
+        ) {
+
+            view.emoji.setImageResource(R.drawable.success_gif)
+
+        }
     }
 
     private fun preencheBarrasMetas(feedbackUsuario: FeedbackUsuario, view: View){
@@ -98,6 +123,13 @@ class ExibirFeedbackFragment : DialogFragment() {
                 ContextCompat.getDrawable(requireContext(), R.drawable.progress_limit)
         }
 
+    }
+
+    private fun isMetaAtingida(meta: Double, metaConsumida: Double): Boolean{
+        val total = (metaConsumida * 100)/ meta
+        val decimal = DecimalFormat("#")
+        val porcentagem = decimal.format(total).toInt()
+        return porcentagem in 90..110
     }
 
 }

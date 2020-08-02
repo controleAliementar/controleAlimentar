@@ -2,6 +2,7 @@ package com.example.controlealimentar.service
 
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
+import com.example.controlealimentar.exception.AtualizarFeedbackUsuarioException
 import com.example.controlealimentar.exception.BuscarFeedbackUsuarioException
 import com.example.controlealimentar.exception.CadastrarUsuarioException
 import com.example.controlealimentar.gateway.data.FeedbackUsuarioResponseGateway
@@ -91,6 +92,33 @@ class UsuarioService {
             override fun onFailure(call: Call<FeedbackUsuarioResponseGateway>, t: Throwable?) {
                 Log.e("Deu ruim: ", t?.message)
                 onError(BuscarFeedbackUsuarioException(t?.message))
+            }
+        })
+
+    }
+
+    fun atualizarFeedbackUsuario(processoId: String,
+                              onSuccess : () -> Unit,
+                              onError : (Exception) -> Unit) {
+
+        val call = retrofitConfig.getUsuarioGateway()!!
+            .atualizarFeedbackUsuario(processoId)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(AtualizarFeedbackUsuarioException(response.errorBody().toString()))
+                }
+
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(AtualizarFeedbackUsuarioException(t?.message))
             }
         })
 
