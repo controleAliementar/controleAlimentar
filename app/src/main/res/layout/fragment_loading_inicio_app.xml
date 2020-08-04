@@ -7,23 +7,43 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="203dp"
-            android:layout_height="116dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="100dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="150dp"
-            android:progressDrawable="@drawable/circular_progress_bar"
+        <ImageView
+            android:id="@+id/icon_controle_alimentar"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="100dp"
+            android:clickable="true"
+            android:contentDescription="@string/icone_para_editar_alimento"
+            android:focusable="true"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logo_controle_alimentar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/titleControleAlimentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="50dp"
+            android:text="@string/controle_alimentar"
+            android:textColor="#FA050000"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

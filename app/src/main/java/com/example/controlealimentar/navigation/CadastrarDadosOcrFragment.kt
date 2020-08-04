@@ -12,9 +12,10 @@ import android.widget.ArrayAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentCadastrarDadosOcrBinding
-import com.example.controlealimentar.model.AlimentoTabelaNutricional
+import com.example.controlealimentar.model.AlimentoUsuario
 import com.example.controlealimentar.util.ValidacaoFormatoMetas
 import kotlinx.android.synthetic.main.fragment_cadastrar_dados_ocr.*
 
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_cadastrar_dados_ocr.*
 class CadastrarDadosOcrFragment : Fragment() {
 
     val metas = ValidacaoFormatoMetas()
+    val args: CadastrarDadosOcrFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,17 +48,18 @@ class CadastrarDadosOcrFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            val alimentoTabelaNutricional = AlimentoTabelaNutricional()
+            val alimentoTabelaNutricional = AlimentoUsuario()
             alimentoTabelaNutricional.nomeAlimento = nomeEditText.text.toString()
-            alimentoTabelaNutricional.calorias = java.lang.Double.parseDouble(caloriaValueView.text.toString())
-            alimentoTabelaNutricional.carboidratos = java.lang.Double.parseDouble(carboidratoText.text.toString())
-            alimentoTabelaNutricional.proteinas = java.lang.Double.parseDouble(proteinaText.text.toString())
-            alimentoTabelaNutricional.gorduras = java.lang.Double.parseDouble(gorduraText.text.toString())
-            alimentoTabelaNutricional.porcao = java.lang.Double.parseDouble(porcaoEditText.text.toString())
+            alimentoTabelaNutricional.caloriaPorcao = java.lang.Double.parseDouble(caloriaValueView.text.toString())
+            alimentoTabelaNutricional.carboidratoPorcao = java.lang.Double.parseDouble(carboidratoText.text.toString())
+            alimentoTabelaNutricional.proteinaPorcao = java.lang.Double.parseDouble(proteinaText.text.toString())
+            alimentoTabelaNutricional.gorduraPorcao = java.lang.Double.parseDouble(gorduraText.text.toString())
+            alimentoTabelaNutricional.porcaoAlimento = java.lang.Double.parseDouble(porcaoEditText.text.toString())
             alimentoTabelaNutricional.unidadePorcao = spinner.selectedItem.toString()
 
             val action = CadastrarDadosOcrFragmentDirections.
-                actionCadastrarDadosOcrFragmentToIncluirAlimentoCadastradoFragment(alimentoTabelaNutricional)
+                actionCadastrarDadosOcrFragmentToIncluirAlimentoCadastradoFragment(
+                    alimentoTabelaNutricional, args.idRefeicao, args.nomeRefeicao, args.horarioRefeicao, args.alimentoAvulso)
             view?.findNavController()?.navigate(action)
         }
 

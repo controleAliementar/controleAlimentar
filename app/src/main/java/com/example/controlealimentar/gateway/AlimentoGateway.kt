@@ -11,6 +11,7 @@ interface AlimentoGateway {
 
     @GET("alimento/paginado")
     fun buscarAlimentoPaginado(@Header("nomeAlimento") nomeAlimento : String,
+                               @Header("processoId") processoId : String,
                                 @Query("size") size: Int,
                                 @Query("page") page: Int) : Call<AlimentoPaginadoResponseGateway>
 
@@ -38,4 +39,9 @@ interface AlimentoGateway {
     @DELETE("alimento")
     fun deletarAlimento(@Header("processoId") processoId : String,
                          @Header("idRegistro") idRegistro : String) : Call<Void>
+
+    @POST("alimento/salvar-alimento-usuario")
+    fun salvarAlimentoUsuario(@Header("idRefeicao") idRefeicao : String,
+                       @Header("processoId") processoId : String,
+                       @Body body : SalvarAlimentoUsuarioRequestGateway) : Call<Void>
 }

@@ -46,6 +46,7 @@ class EditarAlimentoRefeicao : Fragment() {
     var tipoPorcaoEscolhida: String = "gramas"
     var idPorcao: String? = null
     val porcaoGramas : String = "gramas"
+    val alimentoIseridoPeloUsuario = "606d816e-ed23-4304-8e93-7f56a5c8cb55"
 
 
     override fun onCreateView(
@@ -82,7 +83,11 @@ class EditarAlimentoRefeicao : Fragment() {
                 val regexPegaNumero = "[^0-9]".toRegex()
                 if (!tipoPorcaoEscolhida.equals(porcaoGramas)){
                     val valorEscritoNaPorcao = args.alimento!!.porcao.porcao.replace(regexPegaNumero, "")
-                    valorPorcaoText.setText(valorEscritoNaPorcao)
+
+                    if (valorEscritoNaPorcao != ""){
+                        valorPorcaoText.setText(valorEscritoNaPorcao)
+                    }
+
                 }
                 preencherCamposMacronutrientes(tipoPorcaoEscolhida)
             }
@@ -103,7 +108,7 @@ class EditarAlimentoRefeicao : Fragment() {
             val gorduras = java.lang.Double.parseDouble(gorduraValue.text.toString().replace(".","").replace(",", "."))
 
             val porcao = spinner.selectedItem
-            if (porcao == porcaoGramas){
+            if (porcao == porcaoGramas || args.alimento!!.id == alimentoIseridoPeloUsuario){
                 idPorcao = null
             }
 
@@ -116,6 +121,10 @@ class EditarAlimentoRefeicao : Fragment() {
                 gorduras,
                 args.alimentoAvulso
             )
+
+            if (args.alimento!!.id == alimentoIseridoPeloUsuario){
+                salvarAlimento.unidadePorcao = tipoPorcaoEscolhida
+            }
 
             progressBar.show(this.requireContext(), MessageLoading.MENSAGEM_SALVANDO.mensagem)
             alimentoService.editarAlimento(salvarAlimento, args.alimentoUsuario.idRegistro, processoId,
@@ -170,11 +179,15 @@ class EditarAlimentoRefeicao : Fragment() {
     private fun criarSpinner(unidadeMedida : String?){
 
         val regexRemoveNumbers = "\\d".toRegex()
-        val listOfItems = arrayListOf(porcaoGramas)
+        val listOfItems = arrayListOf<String>()
         val alimentoUsuario = args.alimentoUsuario
 
         if (!unidadeMedida.isNullOrBlank()) {
             listOfItems.add(unidadeMedida.replace(regexRemoveNumbers, ""))
+        }
+
+        if (args.alimento!!.id != alimentoIseridoPeloUsuario){
+            listOfItems.add(porcaoGramas)
         }
 
         val arrayAdapter =
@@ -196,13 +209,25 @@ class EditarAlimentoRefeicao : Fragment() {
         return decimal.format(resultado)
     }
 
+    private fun calcularMacronutrientesAlimentoIseridoPeloUsuario(valorPorcaoInserido: Double, valorMacronutriente: Double, valorPorcaoAlimento: Double) : String {
+        val resultado = (valorMacronutriente * valorPorcaoInserido) / valorPorcaoAlimento
+        val decimal = DecimalFormat("#,###.#")
+        return decimal.format(resultado)
+    }
+
     private fun preencherCamposMacronutrientes(porcaoEscolhida: String){
         if (args.alimento != null &&
             !valorPorcaoText.text.toString().isBlank()){
 
             val porcaoDigitada = java.lang.Double.parseDouble(valorPorcaoText.text.toString())
 
-            if(args.alimento?.porcao != null && args.alimento!!.porcao.porcao.endsWith(porcaoEscolhida)){
+            if(args.alimento?.porcao != null && args.alimento!!.id == alimentoIseridoPeloUsuario){
+                caloriaValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.calorias, args.alimento!!.porcao.qtdGramas)
+                carboidratosValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.carboidratos, args.alimento!!.porcao.qtdGramas)
+                proteinasValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.proteinas, args.alimento!!.porcao.qtdGramas)
+                gorduraValue.text = calcularMacronutrientesAlimentoIseridoPeloUsuario(porcaoDigitada, args.alimento!!.gorduras, args.alimento!!.porcao.qtdGramas)
+            }
+            else if(args.alimento?.porcao != null && args.alimento!!.porcao.porcao.endsWith(porcaoEscolhida)){
 
                 val regexPegaNumero = "[^0-9]".toRegex()
                 val valorEscritoNaPorcao = args.alimento!!.porcao.porcao.replace(regexPegaNumero, "")

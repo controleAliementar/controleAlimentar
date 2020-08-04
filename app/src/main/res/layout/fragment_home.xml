@@ -9,13 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="0dp"
-        android:paddingEnd="0dp">
+        android:paddingEnd="0dp"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/contraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="800dp"
             android:visibility="visible">
 
             <TextView
@@ -274,19 +274,43 @@
                 app:layout_constraintStart_toEndOf="@+id/gorduraProgressBar"
                 app:layout_constraintTop_toBottomOf="@+id/carboidratoProgressNumberTotal" />
 
-            <Button
+
+            <ImageView
                 android:id="@+id/editarMetasbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginEnd="4dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/editar_metas"
-                android:textSize="14sp"
+                android:clickable="true"
+                android:contentDescription="@string/icone_para_editar_metas"
+                android:focusable="true"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_edit_24px"
                 app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/editarMetaText"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gorduraProgressBar" />
+
+            <ImageView
+                android:id="@+id/historicoMetas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="16dp"
+                android:clickable="true"
+                android:contentDescription="@string/icone_para_historico_de_metas"
+                android:focusable="true"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_search_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
+                app:layout_constraintEnd_toStartOf="@+id/historicoMetasText"
+                app:layout_constraintStart_toEndOf="@+id/editarMetaText"
                 app:layout_constraintTop_toBottomOf="@+id/gorduraProgressBar" />
 
             <TextView
@@ -318,6 +342,34 @@
                 app:layoutManager="LinearLayoutManager"
                 android:nestedScrollingEnabled="false"
                 tools:listitem="@layout/fragment_refeicao_item" />
+
+            <TextView
+                android:id="@+id/editarMetaText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="39dp"
+                android:text="@string/editar_metas"
+                app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
+                app:layout_constraintEnd_toStartOf="@+id/historicoMetas"
+                app:layout_constraintStart_toEndOf="@+id/editarMetasbutton"
+                app:layout_constraintTop_toBottomOf="@+id/gorduraProgressBar" />
+
+            <TextView
+                android:id="@+id/historicoMetasText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="42dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="39dp"
+                android:text="@string/hist_rico_de_metas"
+                app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/historicoMetas"
+                app:layout_constraintTop_toBottomOf="@+id/gorduraProgressBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

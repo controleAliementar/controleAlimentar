@@ -14,6 +14,7 @@ import com.example.controlealimentar.databinding.FragmentLoadingInicioAppBinding
 import com.example.controlealimentar.extensions.navigateSafe
 import com.example.controlealimentar.model.enuns.SharedIds
 import com.example.controlealimentar.service.MetaDiariasService
+import com.example.controlealimentar.service.UsuarioService
 import com.example.controlealimentar.util.SharedPreference
 
 
@@ -32,7 +33,8 @@ class LoadingInicioAppFragment : Fragment() {
             inflater, R.layout.fragment_loading_inicio_app, container, false
         )
 
-        binding.progressBar.visibility = View.VISIBLE
+        binding.iconControleAlimentar.visibility = View.VISIBLE
+        binding.titleControleAlimentar.visibility = View.VISIBLE
 
         return binding.root
     }
@@ -40,9 +42,10 @@ class LoadingInicioAppFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         Handler().postDelayed({
-            binding.progressBar.visibility = View.INVISIBLE
+            binding.iconControleAlimentar.visibility = View.INVISIBLE
+            binding.titleControleAlimentar.visibility = View.INVISIBLE
             decideFluxo()
-        }, 1000)
+        }, 5000)
     }
 
 
@@ -62,7 +65,22 @@ class LoadingInicioAppFragment : Fragment() {
                     if (meta.processoId.isBlank()) {
                         findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_cadastrarMetasFragment)
                     }else {
-                        findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+
+                        val usuarioService = UsuarioService()
+
+                        usuarioService.buscarFeedbackUsuario(processoId,
+                            {
+
+                                if(it.status.equals("P")){
+
+                                    findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_exibirFeedbackFragment2)
+
+                                }
+
+                                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                            },{
+                                findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
+                            })
                     }
                 }, {})
         }

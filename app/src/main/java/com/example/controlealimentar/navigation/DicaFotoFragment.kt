@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.controlealimentar.databinding.FragmentDicaFotoBinding
 
 
@@ -27,6 +27,7 @@ class DicaFotoFragment : Fragment() {
 
     private val REQUEST_IMAGE_CAPTURE = 1
     private val PermissionsRequestCode = 123
+    val args: DicaFotoFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -71,8 +72,8 @@ class DicaFotoFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if ((requestCode == REQUEST_IMAGE_CAPTURE) && (resultCode == Activity.RESULT_OK)) {
-            val action = DicaFotoFragmentDirections.actionDicaFotoFragmentToCadastrarDadosOcrFragment()
-            view?.findNavController()?.navigate(action)
+//            val action = DicaFotoFragmentDirections.actionDicaFotoFragmentToCadastrarDadosOcrFragment()
+//            view?.findNavController()?.navigate(action)
         }
     }
 }

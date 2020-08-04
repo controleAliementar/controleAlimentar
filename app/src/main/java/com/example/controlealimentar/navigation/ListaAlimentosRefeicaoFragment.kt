@@ -97,16 +97,17 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         }
 
         incluirPorFotoButton.setOnClickListener{
-            val action = ListaAlimentosRefeicaoFragmentDirections
-                .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment()
-            view?.findNavController()?.navigate(action)
+            incluirAlimento()
+        }
+        incluirAlimentoText.setOnClickListener {
+            incluirAlimento()
         }
 
+        buscarAlimentoTextView.setOnClickListener {
+            buscarAlimento()
+        }
         buscarAlimentoButton.setOnClickListener{
-            val action = ListaAlimentosRefeicaoFragmentDirections
-                .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(null,
-                    args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao)
-            view?.findNavController()?.navigate(action)
+            buscarAlimento()
         }
 
         alterarHorarioRefeicaobutton.setOnClickListener {
@@ -117,6 +118,24 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
             view?.findNavController()?.navigate(action)
         }
 
+    }
+
+    private fun incluirAlimento() {
+        val action = ListaAlimentosRefeicaoFragmentDirections
+            .actionListaAlimentosRefeicaoFragmentToCadastrarDadosOcrFragment(
+                args.idRefeicao,
+                args.nomeRefeicao, args.alimentoAvulso, args.horarioRefeicao
+            )
+        view?.findNavController()?.navigate(action)
+    }
+
+    private fun buscarAlimento() {
+        val action = ListaAlimentosRefeicaoFragmentDirections
+            .actionListaAlimentosRefeicaoFragmentToBuscarAlimentoFragment(
+                null,
+                args.idRefeicao, args.alimentoAvulso, args.horarioRefeicao, args.nomeRefeicao
+            )
+        view?.findNavController()?.navigate(action)
     }
 
     private fun atualizarRefeicoesPagina(processoId: String) {
