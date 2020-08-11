@@ -51,6 +51,9 @@
         <action
             android:id="@+id/action_homeFragment_to_listaAlimentosRefeicaoFragment"
             app:destination="@id/listaAlimentosRefeicaoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historicoMetasFragment"
+            app:destination="@id/historicoMetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/incluirAlimentoFragment"
@@ -375,4 +378,27 @@
             android:id="@+id/action_exibirFeedbackFragment2_to_homeFragment"
             app:destination="@id/homeFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/historicoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.HistoricoMetasFragment"
+        android:label="fragment_historico_metas"
+        tools:layout="@layout/fragment_historico_metas" >
+        <action
+            android:id="@+id/action_historicoMetasFragment_to_buscarHistoricoMetasFragment"
+            app:destination="@id/buscarHistoricoMetasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buscarHistoricoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.BuscarHistoricoMetasFragment"
+        android:label="fragment_buscar_historico_metas"
+        tools:layout="@layout/fragment_buscar_historico_metas" >
+        <action
+            android:id="@+id/action_buscarHistoricoMetasFragment_to_listaMetasFragment"
+            app:destination="@id/listaMetasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaMetasFragment"
+        android:name="com.example.controlealimentar.navigation.ListaMetasFragment"
+        android:label="fragment_lista_metas"
+        tools:layout="@layout/fragment_lista_metas" />
 </navigation>
