@@ -5,7 +5,7 @@
     android:id="@+id/fragment_home_app"
     tools:context=".navigation.HomeFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:paddingStart="0dp"
@@ -352,6 +352,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="39dp"
                 android:text="@string/editar_metas"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
                 app:layout_constraintEnd_toStartOf="@+id/historicoMetas"
                 app:layout_constraintStart_toEndOf="@+id/editarMetasbutton"
@@ -366,11 +368,13 @@
                 android:layout_marginEnd="30dp"
                 android:layout_marginBottom="39dp"
                 android:text="@string/hist_rico_de_metas"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toTopOf="@+id/RefeicoesText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/historicoMetas"
                 app:layout_constraintTop_toBottomOf="@+id/gorduraProgressBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

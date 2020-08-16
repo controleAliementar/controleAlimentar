@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.controlealimentar.R
 import com.example.controlealimentar.adapter.IOnHistoricoMetaListFragmentInteractionListener
@@ -44,7 +45,7 @@ class ListaMetasFragment : Fragment(),
             metaDiarias6
         )
 
-        binding.recycleViewListMetas.layoutManager = LinearLayoutManager(activity)
+        binding.recycleViewListMetas.layoutManager = LinearLayoutManager(requireContext())
         binding.recycleViewListMetas.adapter = HistoricoMetaItemRecyclerViewAdapter(
             listOf,
             this
@@ -54,7 +55,15 @@ class ListaMetasFragment : Fragment(),
     }
 
     override fun onHistoricoMetaListFragmentInteraction(item: MetaDiarias) {
+        val action =
+            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment()
+        view?.findNavController()?.navigate(action)
+    }
 
+    override fun onHistoricoMetaDetalhadaIconeFragmentInteraction(item: MetaDiarias) {
+        val action =
+            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment()
+        view?.findNavController()?.navigate(action)
     }
 
 }

@@ -23,7 +23,7 @@ import com.example.controlealimentar.service.AlimentoService
 import com.example.controlealimentar.service.RefeicaoService
 import com.example.controlealimentar.util.CustomProgressBar
 import com.example.controlealimentar.util.SharedPreference
-import kotlinx.android.synthetic.main.fragment_alimento_detalhado_item.*
+import kotlinx.android.synthetic.main.fragment_alimento_detalhado_item.view.*
 import kotlinx.android.synthetic.main.fragment_lista_alimentos_refeicao.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -173,10 +173,11 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
         view?.findNavController()?.navigate(action)
     }
 
-    override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado) {
+    override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado, view: View) {
 
         if (item.alimentoIngerido){
-            ingeridoCheckBox.isChecked = true
+            view.ingeridoCheckBox.isChecked = true
+            view.ingeridoCheckBox.isClickable = false
         } else {
             val sharedPreference = SharedPreference(context)
             val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)

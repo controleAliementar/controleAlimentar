@@ -38,6 +38,11 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
             holder.mEditarAlimento.visibility = View.INVISIBLE
         } else {
             holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
+
+            if (item.alimentoIngerido){
+                holder.mIngeridoCheckBox.isClickable = false
+            }
+
         }
 
         val regexRemoveNumbers = "\\d".toRegex()
@@ -49,7 +54,7 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
         holder.mKcalValueTextView.text = decimal.format(item.calorias)
 
         holder.mIngeridoCheckBox.setOnClickListener {
-            mListenerAlimento?.onAlimentoDetalhadoListFragmentInteraction(item)
+            mListenerAlimento?.onAlimentoDetalhadoListFragmentInteraction(item, it)
         }
 
         holder.mEditarAlimento.setOnClickListener {

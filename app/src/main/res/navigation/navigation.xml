@@ -400,5 +400,23 @@
         android:id="@+id/listaMetasFragment"
         android:name="com.example.controlealimentar.navigation.ListaMetasFragment"
         android:label="fragment_lista_metas"
-        tools:layout="@layout/fragment_lista_metas" />
+        tools:layout="@layout/fragment_lista_metas" >
+        <action
+            android:id="@+id/action_listaMetasFragment_to_exibirMetaDetalhadaFragment"
+            app:destination="@id/exibirMetaDetalhadaFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibirMetaDetalhadaFragment"
+        android:name="com.example.controlealimentar.navigation.ExibirMetaDetalhadaFragment"
+        android:label="fragment_exibir_meta_detalhada"
+        tools:layout="@layout/fragment_exibir_meta_detalhada" >
+        <action
+            android:id="@+id/action_exibirMetaDetalhadaFragment_to_listaRefeicoesHistoricoMetasFragment"
+            app:destination="@id/listaRefeicoesHistoricoMetasFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaRefeicoesHistoricoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.ListaRefeicoesHistoricoMetasFragment"
+        android:label="fragment_lista_refeicoes_historico_metas"
+        tools:layout="@layout/fragment_lista_refeicoes_historico_metas" />
 </navigation>
