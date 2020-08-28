@@ -77,8 +77,8 @@ class CadastrarDadosOcrFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val listOptionsPorcao = arrayListOf("grama(s)", "mililitro(s)",
-            "unidade(s)", "fatia(s)", "copo(s)")
+        val listOptionsPorcao = arrayListOf("gramas", "mililitros",
+            "unidades", "fatias", "copos")
 
         val arrayAdapter =
             ArrayAdapter(this.requireContext(), android.R.layout.simple_spinner_item, listOptionsPorcao)

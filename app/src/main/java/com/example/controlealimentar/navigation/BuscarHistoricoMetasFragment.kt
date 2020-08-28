@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.archit.calendardaterangepicker.customviews.CalendarListener
 import com.example.controlealimentar.databinding.FragmentBuscarHistoricoMetasBinding
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -21,6 +23,7 @@ import java.util.concurrent.TimeUnit
 class BuscarHistoricoMetasFragment : Fragment() {
 
     private val quantidadeLimiteDeDiasDaBusca: Int = 14
+    val args: BuscarHistoricoMetasFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,6 +54,14 @@ class BuscarHistoricoMetasFragment : Fragment() {
 
             }
         })
+
+        val dataInicioMeta = args.dataInicioMeta
+        val form = SimpleDateFormat("yyyy-MM-dd")
+        val date = form.parse(dataInicioMeta)
+        val calendarInicio = Calendar.getInstance()
+        calendarInicio.time = date
+
+        binding.calendarDatePickerRange.setSelectableDateRange(calendarInicio, Calendar.getInstance())
 
         binding.buscarHistoricoButton.setOnClickListener {
             val action = BuscarHistoricoMetasFragmentDirections

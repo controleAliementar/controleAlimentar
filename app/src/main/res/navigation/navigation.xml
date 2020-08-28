@@ -386,6 +386,9 @@
         <action
             android:id="@+id/action_historicoMetasFragment_to_buscarHistoricoMetasFragment"
             app:destination="@id/buscarHistoricoMetasFragment" />
+        <action
+            android:id="@+id/action_historicoMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarHistoricoMetasFragment"
@@ -395,6 +398,9 @@
         <action
             android:id="@+id/action_buscarHistoricoMetasFragment_to_listaMetasFragment"
             app:destination="@id/listaMetasFragment" />
+        <argument
+            android:name="dataInicioMeta"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/listaMetasFragment"

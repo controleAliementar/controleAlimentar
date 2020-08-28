@@ -264,7 +264,7 @@ class BuscarAlimentoFragment : Fragment() {
             listOfItems.add(unidadeMedida.replace(regexRemoveNumbers, ""))
         }
 
-        if (args.alimento?.porcao != null && args.alimento!!.porcao.id != ""){
+        if (args.alimento?.porcao != null && (args.alimento!!.porcao.id != "" || args.alimento!!.porcao.porcao == "")){
             listOfItems.add(porcaoInicial)
         }
 

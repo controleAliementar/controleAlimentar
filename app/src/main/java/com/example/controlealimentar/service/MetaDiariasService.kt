@@ -41,6 +41,7 @@ class MetaDiariasService {
                 metaDiarias.carboidratos = response.body()!!.carboidratos
                 metaDiarias.proteinas = response.body()!!.proteinas
                 metaDiarias.gorduras = response.body()!!.gorduras
+                metaDiarias.dataInclusao = response.body()!!.dataInclusao
 
                 onSuccess(metaDiarias)
             }

@@ -39,13 +39,13 @@ class LoadingInicioAppFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         Handler().postDelayed({
             binding.iconControleAlimentar.visibility = View.INVISIBLE
             binding.titleControleAlimentar.visibility = View.INVISIBLE
             decideFluxo()
-        }, 5000)
+        }, 4000)
     }
 
 
@@ -82,7 +82,9 @@ class LoadingInicioAppFragment : Fragment() {
                                 findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_homeFragment)
                             })
                     }
-                }, {})
+                }, {
+
+                })
         }
 
     }
