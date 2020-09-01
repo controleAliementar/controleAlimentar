@@ -398,9 +398,9 @@
         <action
             android:id="@+id/action_buscarHistoricoMetasFragment_to_listaMetasFragment"
             app:destination="@id/listaMetasFragment" />
-        <argument
-            android:name="dataInicioMeta"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_buscarHistoricoMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaMetasFragment"
@@ -410,6 +410,15 @@
         <action
             android:id="@+id/action_listaMetasFragment_to_exibirMetaDetalhadaFragment"
             app:destination="@id/exibirMetaDetalhadaFragment" />
+        <argument
+            android:name="listMetas"
+            app:argType="com.example.controlealimentar.model.MetaDiariasHistorico[]" />
+        <action
+            android:id="@+id/action_listaMetasFragment_to_buscarHistoricoMetasFragment"
+            app:destination="@id/buscarHistoricoMetasFragment" />
+        <action
+            android:id="@+id/action_listaMetasFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/exibirMetaDetalhadaFragment"

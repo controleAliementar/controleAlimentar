@@ -1,5 +1,6 @@
 package com.example.controlealimentar.gateway
 
+import com.example.controlealimentar.gateway.data.MetaDiariasHistoricoResponseGateway
 import com.example.controlealimentar.gateway.data.MetaDiariasRequestGateway
 import com.example.controlealimentar.gateway.data.MetaDiariasResponseGateway
 import retrofit2.Call
@@ -16,4 +17,10 @@ interface MetaDiariasGateway {
 
     @GET("meta/diaria")
     fun buscarMetaDiarias(@Header("processoId") processoId : String) : Call<MetaDiariasResponseGateway>
+
+    @GET("meta/diaria/historico")
+    fun buscarHistoricoMetaDiarias(@Header("processoId") processoId : String,
+                                   @Header("dataFim") dataFim : String,
+                                   @Header("dataInicio") dataInicio : String)
+            : Call<List<MetaDiariasHistoricoResponseGateway>>
 }
