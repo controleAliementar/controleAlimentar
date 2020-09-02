@@ -62,13 +62,13 @@ class ListaMetasFragment : Fragment(),
 
     override fun onHistoricoMetaListFragmentInteraction(item: MetaDiariasHistorico) {
         val action =
-            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment()
+            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment(item)
         view?.findNavController()?.navigate(action)
     }
 
     override fun onHistoricoMetaDetalhadaIconeFragmentInteraction(item: MetaDiariasHistorico) {
         val action =
-            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment()
+            ListaMetasFragmentDirections.actionListaMetasFragmentToExibirMetaDetalhadaFragment(item)
         view?.findNavController()?.navigate(action)
     }
 

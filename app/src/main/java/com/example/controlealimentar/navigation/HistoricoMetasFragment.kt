@@ -10,15 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.controlealimentar.R
 import com.example.controlealimentar.databinding.FragmentHistoricoMetasBinding
-import com.example.controlealimentar.service.MetaDiariasService
 
 /**
  * A simple [Fragment] subclass.
  */
 class HistoricoMetasFragment : Fragment() {
-
-    private val metaDiariaService = MetaDiariasService()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -428,6 +428,9 @@
         <action
             android:id="@+id/action_exibirMetaDetalhadaFragment_to_listaRefeicoesHistoricoMetasFragment"
             app:destination="@id/listaRefeicoesHistoricoMetasFragment" />
+        <argument
+            android:name="metaDiariaHistorico"
+            app:argType="com.example.controlealimentar.model.MetaDiariasHistorico" />
     </fragment>
     <fragment
         android:id="@+id/listaRefeicoesHistoricoMetasFragment"
