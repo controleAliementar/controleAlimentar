@@ -11,38 +11,19 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <ImageView
-            android:id="@+id/exit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="280dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:contentDescription="@string/cone_para_fechar_popup"
-            android:focusable="true"
-            android:padding="5dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_close_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/calendarDatePickerRange"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.archit.calendardaterangepicker.customviews.DateRangeCalendarView
             android:id="@+id/calendarDatePickerRange"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginTop="170dp"
+            android:layout_marginBottom="130dp"
             android:background="#FFFFFEFE"
             app:date_selection_mode="free_range"
             app:disable_date_color="#ABABAB"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exit"
+            app:layout_constraintTop_toTopOf="parent"
             app:range_color="#5165F3"
             app:selected_date_circle_color="#0821DF"
             app:title_color="@color/calendar_text" />
