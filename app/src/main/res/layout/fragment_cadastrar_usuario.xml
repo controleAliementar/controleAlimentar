@@ -9,36 +9,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/cadastrarUsuarioTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/cadastro"
+            android:textAlignment="center"
+            android:textColor="#FA050000"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toTopOf="@+id/nameText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/nameText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:digits="@string/caracteres_aceitos_campo_string"
             android:ems="10"
             android:hint="@string/Nome"
             android:inputType="textPersonName"
             android:maxLength="100"
-            android:digits="@string/caracteres_aceitos_campo_string"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/emailText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.151" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrarUsuarioTitle" />
 
         <EditText
             android:id="@+id/emailText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:digits="@string/carecteres_aceitos_campo_email"
             android:ems="10"
             android:hint="@string/Email"
             android:inputType="textEmailAddress"
             android:maxLength="100"
-            android:digits="@string/carecteres_aceitos_campo_email"
             app:layout_constraintBottom_toTopOf="@+id/cadastrarUsuarioButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"
@@ -51,14 +72,38 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="90dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="90dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/cadastrar"
             android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
+
+        <TextView
+            android:id="@+id/recuperarCadastroLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginRight="90dp"
+            android:layout_marginBottom="96dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:soundEffectsEnabled="false"
+            android:text="@string/recuperar_cadastro"
+            android:textAllCaps="false"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="17sp"
+            android:typeface="normal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameText"
-            app:layout_constraintVertical_bias="0.426" />
+            app:layout_constraintTop_toBottomOf="@+id/cadastrarUsuarioButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

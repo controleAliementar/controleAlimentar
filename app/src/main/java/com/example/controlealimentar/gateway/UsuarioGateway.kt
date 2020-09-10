@@ -16,4 +16,7 @@ interface UsuarioGateway {
 
     @PUT("usuario/feedback")
     fun atualizarFeedbackUsuario(@Header("processoId") processoId : String) : Call<Void>
+
+    @GET("usuario/email")
+    fun buscarUsuarioPorEmail(@Header("email") email : String) : Call<UsuarioResponseGateway>
 }

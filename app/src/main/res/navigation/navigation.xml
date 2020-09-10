@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_cadastrarMetasFragment"
             app:destination="@id/cadastrarMetasFragment" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_recuperarCadastroFragment"
+            app:destination="@id/recuperarCadastroFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -437,4 +440,19 @@
         android:name="com.example.controlealimentar.navigation.ListaRefeicoesHistoricoMetasFragment"
         android:label="fragment_lista_refeicoes_historico_metas"
         tools:layout="@layout/fragment_lista_refeicoes_historico_metas" />
+    <dialog
+        android:id="@+id/recuperarCadastroFragment"
+        android:name="com.example.controlealimentar.navigation.RecuperarCadastroFragment"
+        android:label="fragment_recuperar_cadastro"
+        tools:layout="@layout/fragment_recuperar_cadastro" >
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_cadastrarMetasFragment"
+            app:destination="@id/cadastrarMetasFragment" />
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
 </navigation>

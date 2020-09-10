@@ -142,6 +142,12 @@ class CadastrarUsuarioFragment : Fragment() {
             }
         }
 
+        binding.recuperarCadastroLink.setOnClickListener {
+            val action = CadastrarUsuarioFragmentDirections
+                .actionCadastrarUsuarioFragmentToRecuperarCadastroFragment()
+            view?.findNavController()?.navigate(action)
+        }
+
     }
 
     private fun habilitarBotao(editText1IsNull: Boolean, editText2IsNull: Boolean) {
