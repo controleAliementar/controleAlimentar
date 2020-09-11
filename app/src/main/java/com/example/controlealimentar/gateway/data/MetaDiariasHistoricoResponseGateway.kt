@@ -1,6 +1,6 @@
 package com.example.controlealimentar.gateway.data
 
-class MetaDiariasResponseGateway {
+class MetaDiariasHistoricoResponseGateway {
     var id: String = ""
     var processoId: String = ""
     var calorias: Double = 0.0
@@ -11,5 +11,6 @@ class MetaDiariasResponseGateway {
     var carboidratosConsumidos: Double = 0.0
     var proteinasConsumidas: Double = 0.0
     var gordurasConsumidas: Double = 0.0
-    var dataInclusao: String = ""
+    var dataReferencia: String = ""
+    var metaAtingida: Boolean = false
 }

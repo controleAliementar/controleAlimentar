@@ -2,9 +2,8 @@ package com.example.controlealimentar.service
 
 import android.util.Log
 import com.example.controlealimentar.config.RetrofitConfig
-import com.example.controlealimentar.exception.AtualizarFeedbackUsuarioException
-import com.example.controlealimentar.exception.BuscarFeedbackUsuarioException
-import com.example.controlealimentar.exception.CadastrarUsuarioException
+import com.example.controlealimentar.exception.*
+import com.example.controlealimentar.gateway.data.AtualizarUsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.FeedbackUsuarioResponseGateway
 import com.example.controlealimentar.gateway.data.UsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.UsuarioResponseGateway
@@ -119,6 +118,75 @@ class UsuarioService {
             override fun onFailure(call: Call<Void>, t: Throwable?) {
                 Log.e("Deu ruim: ", t?.message)
                 onError(AtualizarFeedbackUsuarioException(t?.message))
+            }
+        })
+
+    }
+
+    fun buscarUsuarioPorEmail(email: String,
+                              onSuccess : (Usuario) -> Unit,
+                              onError : (Exception) -> Unit) {
+
+        val call = retrofitConfig.getUsuarioGateway()!!
+            .buscarUsuarioPorEmail(email)
+
+        call.enqueue(object : Callback<UsuarioResponseGateway> {
+            override fun onResponse(call: Call<UsuarioResponseGateway>,
+                                    response: Response<UsuarioResponseGateway>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(BuscarUsuarioPorEmailException(response.errorBody().toString()))
+                }
+                if (response.code() == 204){
+                    onSuccess(Usuario())
+                }
+
+                response.body()?.let {
+
+                    val usuario = Usuario()
+                    usuario.id = it.id
+                    usuario.nome = it.nome
+                    usuario.email = it.email
+
+                    onSuccess(usuario)
+                }
+            }
+
+            override fun onFailure(call: Call<UsuarioResponseGateway>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(BuscarUsuarioPorEmailException(t?.message))
+            }
+        })
+
+    }
+
+    fun atualizarUsuario(usuario: Usuario,
+                         processoId: String,
+                      onSuccess : () -> Unit,
+                      onError : (Exception) -> Unit) {
+
+        val usuarioGateway = AtualizarUsuarioRequestGateway(
+            usuario.tokenFirebase)
+
+        val call = retrofitConfig.getUsuarioGateway()!!
+            .atualizarUsuario(processoId, usuarioGateway)
+
+        call.enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>,
+                                    response: Response<Void>
+            ) {
+                if (!response.isSuccessful){
+                    print(response.errorBody())
+                    return onError(AtualizarUsuarioException(response.errorBody().toString()))
+                }
+
+                onSuccess()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable?) {
+                Log.e("Deu ruim: ", t?.message)
+                onError(CadastrarUsuarioException(t?.message))
             }
         })
 

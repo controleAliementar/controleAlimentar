@@ -22,7 +22,7 @@ class RetrofitConfig {
             .build()
 
         this.retrofit = Retrofit.Builder()
-            .baseUrl("https://controlealimentar.herokuapp.com/")
+            .baseUrl("http://ec2-100-27-14-190.compute-1.amazonaws.com:5000/")
             .addConverterFactory(JacksonConverterFactory.create())
             .client(okHttpClient)
             .build()

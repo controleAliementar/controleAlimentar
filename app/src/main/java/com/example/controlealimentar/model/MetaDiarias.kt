@@ -7,4 +7,5 @@ class MetaDiarias{
     var carboidratos: Double = 0.0
     var proteinas: Double = 0.0
     var gorduras: Double = 0.0
+    var dataInclusao: String = ""
 }

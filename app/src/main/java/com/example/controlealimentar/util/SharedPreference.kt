@@ -13,7 +13,7 @@ class SharedPreference(val context: Context?) {
 
         editor.putString(KEY_NAME, text)
 
-        editor.commit()
+        editor.apply()
     }
 
 

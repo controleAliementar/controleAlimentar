@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_cadastrarMetasFragment"
             app:destination="@id/cadastrarMetasFragment" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_recuperarCadastroFragment"
+            app:destination="@id/recuperarCadastroFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -51,6 +54,9 @@
         <action
             android:id="@+id/action_homeFragment_to_listaAlimentosRefeicaoFragment"
             app:destination="@id/listaAlimentosRefeicaoFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historicoMetasFragment"
+            app:destination="@id/historicoMetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/incluirAlimentoFragment"
@@ -373,6 +379,80 @@
         tools:layout="@layout/fragment_exibir_feedback" >
         <action
             android:id="@+id/action_exibirFeedbackFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/historicoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.HistoricoMetasFragment"
+        android:label="fragment_historico_metas"
+        tools:layout="@layout/fragment_historico_metas" >
+        <action
+            android:id="@+id/action_historicoMetasFragment_to_buscarHistoricoMetasFragment"
+            app:destination="@id/buscarHistoricoMetasFragment" />
+        <action
+            android:id="@+id/action_historicoMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/buscarHistoricoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.BuscarHistoricoMetasFragment"
+        android:label="fragment_buscar_historico_metas"
+        tools:layout="@layout/fragment_buscar_historico_metas" >
+        <action
+            android:id="@+id/action_buscarHistoricoMetasFragment_to_listaMetasFragment"
+            app:destination="@id/listaMetasFragment" />
+        <action
+            android:id="@+id/action_buscarHistoricoMetasFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaMetasFragment"
+        android:name="com.example.controlealimentar.navigation.ListaMetasFragment"
+        android:label="fragment_lista_metas"
+        tools:layout="@layout/fragment_lista_metas" >
+        <action
+            android:id="@+id/action_listaMetasFragment_to_exibirMetaDetalhadaFragment"
+            app:destination="@id/exibirMetaDetalhadaFragment" />
+        <argument
+            android:name="listMetas"
+            app:argType="com.example.controlealimentar.model.MetaDiariasHistorico[]" />
+        <action
+            android:id="@+id/action_listaMetasFragment_to_buscarHistoricoMetasFragment"
+            app:destination="@id/buscarHistoricoMetasFragment" />
+        <action
+            android:id="@+id/action_listaMetasFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exibirMetaDetalhadaFragment"
+        android:name="com.example.controlealimentar.navigation.ExibirMetaDetalhadaFragment"
+        android:label="fragment_exibir_meta_detalhada"
+        tools:layout="@layout/fragment_exibir_meta_detalhada" >
+        <action
+            android:id="@+id/action_exibirMetaDetalhadaFragment_to_listaRefeicoesHistoricoMetasFragment"
+            app:destination="@id/listaRefeicoesHistoricoMetasFragment" />
+        <argument
+            android:name="metaDiariaHistorico"
+            app:argType="com.example.controlealimentar.model.MetaDiariasHistorico" />
+    </fragment>
+    <fragment
+        android:id="@+id/listaRefeicoesHistoricoMetasFragment"
+        android:name="com.example.controlealimentar.navigation.ListaRefeicoesHistoricoMetasFragment"
+        android:label="fragment_lista_refeicoes_historico_metas"
+        tools:layout="@layout/fragment_lista_refeicoes_historico_metas" />
+    <dialog
+        android:id="@+id/recuperarCadastroFragment"
+        android:name="com.example.controlealimentar.navigation.RecuperarCadastroFragment"
+        android:label="fragment_recuperar_cadastro"
+        tools:layout="@layout/fragment_recuperar_cadastro" >
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_cadastrarMetasFragment"
+            app:destination="@id/cadastrarMetasFragment" />
+        <action
+            android:id="@+id/action_recuperarCadastroFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </dialog>
 </navigation>

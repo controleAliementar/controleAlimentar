@@ -105,6 +105,14 @@
     <string name="voc_n_o_possui_nenhum_alimento_na_sua_refei_o_aproveite_e_cadastre_agora">Você não possui alimento na sua refeição. Aproveite e cadastre agora!</string>
     <string name="icone_para_incluir_alimento_na_refei_o">Icone para incluir alimento na refeição</string>
     <string name="icone_para_buscar_alimento_na_refei_o">Icone para buscar alimento na refeição</string>
+    <string name="selecione_periodo_para_realizar_a_busca">Selecione periodo para realizar a busca</string>
+    <string name="meta_atingida">Meta atingida</string>
+    <string name="icone_para_expandir_meta">icone para expandir meta</string>
+    <string name="_10_08_2020">10/08/2020</string>
+    <string name="visualizar_refei_es">Visualizar refeições</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="recuperar_cadastro"><u>Recuperar cadastro</u></string>
+    <string name="digite_o_seu_e_mail_utilizado_no_cadastro">Digite o seu e-mail utilizado no cadastro:</string>
     <string-array name="porcoes_list_default">
         <item>gramas</item>
     </string-array>

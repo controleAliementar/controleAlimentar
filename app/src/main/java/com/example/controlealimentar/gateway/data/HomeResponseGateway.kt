@@ -15,6 +15,7 @@ class HomeResponseGateway {
         val gordurasConsumidas: Double = 0.0
         val proteinas: Double = 0.0
         val proteinasConsumidas: Double = 0.0
+        val dataInclusao: String = ""
     }
 
     class RefeicoesResponseGateway{
