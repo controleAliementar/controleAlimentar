@@ -44,9 +44,25 @@ class RecuperarCadastroFragment : DialogFragment() {
             }
 
             usuarioService.buscarUsuarioPorEmail(email,
-                {
-                    if(it.id != ""){
-                        decideFluxo(it.id)
+                { usuario ->
+                    if(usuario.id != ""){
+
+                        val sharedPreference = SharedPreference(context)
+                        var tokenFirebase = sharedPreference.getValueString(SharedIds.TOKEN_FIREBASE.name)
+
+                        if (tokenFirebase.isNullOrBlank()){
+                            tokenFirebase = ""
+                        }
+
+                        usuario.tokenFirebase = tokenFirebase
+
+                        usuarioService.atualizarUsuario(usuario , usuario.id, {
+                            decideFluxo(usuario.id)
+                        },
+                        {
+                            findNavController().navigateSafe(R.id.action_recuperarCadastroFragment_to_erroGenericoFragment)
+                        })
+
                     }else {
                         view.emailText.setError("Nenhum usuário encontrado")
                         return@buscarUsuarioPorEmail

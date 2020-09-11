@@ -1,5 +1,6 @@
 package com.example.controlealimentar.gateway
 
+import com.example.controlealimentar.gateway.data.AtualizarUsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.FeedbackUsuarioResponseGateway
 import com.example.controlealimentar.gateway.data.UsuarioRequestGateway
 import com.example.controlealimentar.gateway.data.UsuarioResponseGateway
@@ -19,4 +20,8 @@ interface UsuarioGateway {
 
     @GET("usuario/email")
     fun buscarUsuarioPorEmail(@Header("email") email : String) : Call<UsuarioResponseGateway>
+
+    @PUT("usuario")
+    fun atualizarUsuario(@Header("processoId") processoId : String,
+        @Body usuario : AtualizarUsuarioRequestGateway) : Call<Void>
 }
