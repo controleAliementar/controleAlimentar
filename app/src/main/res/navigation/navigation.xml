@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_recuperarCadastroFragment"
             app:destination="@id/recuperarCadastroFragment" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
