@@ -141,7 +141,12 @@ class ListaBuscaAlimentosFragment : Fragment(),
                         adapter.setLoaded()
                         adapter.notifyDataSetChanged()
                     },
-                    {})
+                    {
+                        val action =
+                            ListaBuscaAlimentosFragmentDirections
+                                .actionListaBuscaAlimentosFragmentToErroGenericoFragment()
+                        view?.findNavController()?.navigate(action)
+                    })
 
             },5000)
 

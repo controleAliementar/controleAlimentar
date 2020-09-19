@@ -83,7 +83,7 @@ class LoadingInicioAppFragment : Fragment() {
                             })
                     }
                 }, {
-
+                    findNavController().navigateSafe(R.id.action_loadingInicioAppFragment_to_erroGenericoFragment)
                 })
         }
 
