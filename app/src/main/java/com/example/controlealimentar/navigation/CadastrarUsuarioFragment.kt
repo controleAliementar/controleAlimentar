@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -27,8 +28,7 @@ import com.facebook.GraphRequest
 import com.facebook.login.LoginResult
 import kotlinx.android.synthetic.main.fragment_cadastrar_usuario.*
 import java.util.*
-
-
+import kotlin.system.exitProcess
 
 
 /**
@@ -50,6 +50,14 @@ class CadastrarUsuarioFragment : Fragment() {
             inflater, R.layout.fragment_cadastrar_usuario, container, false
         )
 
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    exitProcess(0)
+                }
+            })
+
 
         binding.facebookButton.setReadPermissions(Arrays.asList("email", "public_profile"))
         binding.facebookButton.setFragment(this)
@@ -60,6 +68,7 @@ class CadastrarUsuarioFragment : Fragment() {
                     loginResult.accessToken
                 ) { `object`, response ->
 
+                    progressBar.show(context, MessageLoading.MENSAGEM_SALVANDO.mensagem)
                     val email = `object`.getString("email")
                     val name = `object`.getString("name")
 
@@ -90,6 +99,8 @@ class CadastrarUsuarioFragment : Fragment() {
                         {
                             erroGenerico()
                         })
+                    progressBar.dialog.dismiss()
+
                 }
                 val parameters = Bundle()
                 parameters.putString("fields", "id,name,email,gender,birthday")
@@ -213,8 +224,6 @@ class CadastrarUsuarioFragment : Fragment() {
         usuario.email = email
         usuario.tokenFirebase = tokenFirebase
 
-        progressBar.show(context, MessageLoading.MENSAGEM_SALVANDO.mensagem)
-
         usuarioService.salvarUsuario(usuario, {
             sharedPreference.save(SharedIds.ID_USUARIO.name, it)
 
@@ -224,10 +233,7 @@ class CadastrarUsuarioFragment : Fragment() {
                 .actionCadastrarUsuarioFragmentToCadastrarMetasFragment()
             view?.findNavController()?.navigate(action)
         }, {
-            progressBar.dialog.dismiss()
-
             erroGenerico()
-
         })
     }
 
