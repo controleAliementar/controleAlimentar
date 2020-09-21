@@ -6,10 +6,10 @@
     <string name="metas_diarias">Meta diária</string>
     <string name="salvar">Salvar</string>
     <string name="carboidrato">Carboidratos</string>
-    <string name="proteina">Proteinas</string>
+    <string name="proteina">Proteínas</string>
     <string name="gordura">Gorduras</string>
     <string name="caloria">Calorias</string>
-    <string name="editar_metas">Editar Metas</string>
+    <string name="editar_metas">Editar Meta</string>
     <string name="abreviacao_hora">H</string>
     <string name="kcal_value_cafe_manha">0</string>
     <string name="Kcal">Kcal</string>
@@ -97,9 +97,9 @@
     <string name="feeback">Feedback do seu último dia</string>
     <string name="emoji_feedback">Emoji feedback</string>
     <string name="controle_alimentar">Controle Alimentar</string>
-    <string name="icone_para_editar_metas">Icone para editar metas</string>
-    <string name="icone_para_historico_de_metas">Icone para historico de metas</string>
-    <string name="hist_rico_de_metas">Histórico de metas</string>
+    <string name="icone_para_editar_metas">Icone para editar meta</string>
+    <string name="icone_para_historico_de_metas">Icone para historico de meta</string>
+    <string name="hist_rico_de_metas">Histórico de meta</string>
     <string name="icone_adicionar_alimento_por_cadastro">Icone adicionar alimento por cadastro</string>
     <string name="icone_para_adicionar_alimento_por_busca">Icone para adicionar alimento por busca</string>
     <string name="voc_n_o_possui_nenhum_alimento_na_sua_refei_o_aproveite_e_cadastre_agora">Você não possui alimento na sua refeição. Aproveite e cadastre agora!</string>
@@ -116,4 +116,6 @@
     <string-array name="porcoes_list_default">
         <item>gramas</item>
     </string-array>
+    <string name="facebook_app_id">2124490031014689</string>
+    <string name="fb_login_protocol_scheme">fb2124490031014689</string>
 </resources>

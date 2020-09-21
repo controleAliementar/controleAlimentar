@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -40,6 +41,13 @@ class CadastrarMetasFragment : Fragment() {
         binding = DataBindingUtil
             .inflate(inflater,
                 R.layout.fragment_cadastrar_metas, container, false)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                }
+            })
 
         return binding.root
     }

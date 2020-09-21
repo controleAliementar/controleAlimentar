@@ -74,32 +74,49 @@
             android:layout_marginStart="90dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="90dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="60dp"
             android:text="@string/cadastrar"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/textView8"
+            app:layout_constraintBottom_toTopOf="@+id/facebook_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
-        <TextView
-            android:id="@+id/recuperarCadastroLink"
+<!--        <TextView-->
+<!--            android:id="@+id/recuperarCadastroLink"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="90dp"-->
+<!--            android:layout_marginLeft="90dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="90dp"-->
+<!--            android:layout_marginRight="90dp"-->
+<!--            android:layout_marginBottom="50dp"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:soundEffectsEnabled="false"-->
+<!--            android:text="@string/recuperar_cadastro"-->
+<!--            android:textAllCaps="false"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+<!--            android:textSize="17sp"-->
+<!--            android:typeface="normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/facebook_button"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/cadastrarUsuarioButton" />-->
+
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="90dp"
             android:layout_marginLeft="90dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="90dp"
             android:layout_marginRight="90dp"
-            android:layout_marginBottom="96dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:soundEffectsEnabled="false"
-            android:text="@string/recuperar_cadastro"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="17sp"
-            android:typeface="normal"
+            android:layout_marginBottom="50dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_cadastrarUsuarioFragment_to_recuperarCadastroFragment"
             app:destination="@id/recuperarCadastroFragment" />
+        <action
+            android:id="@+id/action_cadastrarUsuarioFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/editarMetasFragment"
@@ -202,6 +205,9 @@
         <action
             android:id="@+id/action_loadingInicioAppFragment_to_exibirFeedbackFragment2"
             app:destination="@id/exibirFeedbackFragment2" />
+        <action
+            android:id="@+id/action_loadingInicioAppFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/buscarAlimentoFragment"
@@ -271,6 +277,9 @@
         <argument
             android:name="horarioRefeicao"
             app:argType="long" />
+        <action
+            android:id="@+id/action_listaBuscaAlimentosFragment_to_erroGenericoFragment"
+            app:destination="@id/erroGenericoFragment" />
     </fragment>
     <fragment
         android:id="@+id/listaAlimentosRefeicaoFragment"
