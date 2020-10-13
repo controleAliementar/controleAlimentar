@@ -118,4 +118,8 @@
     </string-array>
     <string name="facebook_app_id">2124490031014689</string>
     <string name="fb_login_protocol_scheme">fb2124490031014689</string>
+    <string name="dica_do_dia">Dica do dia!</string>
+    <string name="ok">Ok</string>
+    <string name="vimos_que_voc_n_o_conseguiu_atingir_sua_meta_de_b_carboidratos_b">Vimos que você não conseguiu atingir sua meta de <b>carboidratos</b></string>
+    <string name="que_tal_incluir_b_p_o_de_forma_b_em_sua_dieta_ele_rico_em_carboidratos_mas_aten_o_cuidado_para_n_o_ultrapassar_o_limite_em_outros_macronutrientes">Que tal incluir <b>pão de forma</b> em sua dieta? Ele é rico em carboidratos. Mas atenção, cuidado para não ultrapassar o limite em outros macronutrientes!</string>
 </resources>

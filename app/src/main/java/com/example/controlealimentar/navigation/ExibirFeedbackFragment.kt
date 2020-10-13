@@ -53,7 +53,9 @@ class ExibirFeedbackFragment : DialogFragment() {
 
             usuarioService.atualizarFeedbackUsuario(processoId,
                 {
-                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+                    dismiss()
+                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_sugerirAlimentoFragment)
+//                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
                 },
                 {
                     findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
