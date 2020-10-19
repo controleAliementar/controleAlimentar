@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="90dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
             android:text="@string/incluir_alimento"
             android:textAlignment="textStart"
@@ -25,7 +26,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/divider4"
-            app:layout_constraintEnd_toStartOf="@+id/alterarHorarioRefeicaobutton"
+            app:layout_constraintEnd_toStartOf="@+id/iconHorarioRefeicaoIncluir"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -43,23 +44,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/incluirAlimentoTextView" />
 
-        <Button
-            android:id="@+id/alterarHorarioRefeicaobutton"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
+
+        <ImageView
+            android:id="@+id/iconHorarioRefeicaoIncluir"
+            android:layout_width="39dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="17dp"
+            android:clickable="true"
+            android:contentDescription="@string/icone_de_horario_da_refeicao"
+            android:focusable="true"
+            android:padding="5dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_schedule_black_24dp"
+            app:layout_constraintBottom_toTopOf="@+id/divider4"
+            app:layout_constraintEnd_toStartOf="@+id/horarioRefeicaoIncluir"
+            app:layout_constraintStart_toEndOf="@+id/incluirAlimentoTextView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/horarioRefeicaoIncluir"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="30dp"
-            android:background="#DAD7D7"
-            android:text="11 : 25"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="25dp"
+            android:text="@string/_10_00"
+            android:textColor="#000000"
             android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@+id/divider4"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/incluirAlimentoTextView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
+            app:layout_constraintStart_toEndOf="@+id/iconHorarioRefeicaoIncluir"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/dicaParaIncluirAlimentoText"

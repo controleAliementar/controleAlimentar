@@ -11,4 +11,6 @@ class FeedbackUsuarioResponseGateway {
     var proteinasMeta: Double = 0.0
     var status: String = ""
     var data: String = ""
+    var macroNutrienteNaoAlcancado: String = ""
+    var alimentoSugerido: String = ""
 }

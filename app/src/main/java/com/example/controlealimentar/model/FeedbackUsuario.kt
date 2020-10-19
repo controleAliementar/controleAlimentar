@@ -11,4 +11,6 @@ class FeedbackUsuario{
     var gordurasMeta: Double = 0.0
     var proteinasConsumidas: Double = 0.0
     var proteinasMeta: Double = 0.0
+    var macroNutrienteNaoAlcancado: String = ""
+    var alimentoSugerido: String = ""
 }
