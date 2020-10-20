@@ -58,7 +58,6 @@ class ExibirFeedbackFragment : DialogFragment() {
 
             usuarioService.atualizarFeedbackUsuario(processoId,
                 {
-                    dismiss()
                     if(!macroNutrienteNaoAlcancado.isBlank()) {
                         val bundle = Bundle()
                         bundle.putString("macroNutrienteNaoAlcancado", macroNutrienteNaoAlcancado)

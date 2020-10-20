@@ -455,7 +455,7 @@
             android:id="@+id/action_recuperarCadastroFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </dialog>
-    <dialog
+    <fragment
         android:id="@+id/sugerirAlimentoFragment"
         android:name="com.example.controlealimentar.navigation.SugerirAlimentoFragment"
         android:label="fragment_sugerir_alimento"
@@ -463,5 +463,5 @@
         <action
             android:id="@+id/action_sugerirAlimentoFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
-    </dialog>
+    </fragment>
 </navigation>
