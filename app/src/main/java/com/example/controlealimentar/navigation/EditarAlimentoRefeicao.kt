@@ -46,6 +46,7 @@ class EditarAlimentoRefeicao : Fragment() {
     var tipoPorcaoEscolhida: String = "gramas"
     var idPorcao: String? = null
     val porcaoGramas : String = "gramas"
+    val mililitro : String = "mililitros"
     val alimentoIseridoPeloUsuario = "606d816e-ed23-4304-8e93-7f56a5c8cb55"
 
 
@@ -186,7 +187,7 @@ class EditarAlimentoRefeicao : Fragment() {
             listOfItems.add(unidadeMedida.replace(regexRemoveNumbers, ""))
         }
 
-        if (args.alimento!!.id != alimentoIseridoPeloUsuario){
+        if (args.alimento!!.id != alimentoIseridoPeloUsuario && args.alimento!!.porcao.porcao != mililitro){
             listOfItems.add(porcaoGramas)
         }
 

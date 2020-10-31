@@ -48,6 +48,7 @@ class BuscarAlimentoFragment : Fragment() {
     var size: Int = 10
     var idPorcao: String? = null
     val porcaoInicial : String = "gramas"
+    val mililitro : String = "mililitros"
     val alimentoIseridoPeloUsuario = "606d816e-ed23-4304-8e93-7f56a5c8cb55"
 
 
@@ -264,7 +265,7 @@ class BuscarAlimentoFragment : Fragment() {
             listOfItems.add(unidadeMedida.replace(regexRemoveNumbers, ""))
         }
 
-        if (args.alimento?.porcao != null && (args.alimento!!.porcao.id != "" || args.alimento!!.porcao.porcao == "")){
+        if (args.alimento?.porcao != null && (args.alimento!!.porcao.id != "" || args.alimento!!.porcao.porcao == "") && args.alimento!!.porcao.porcao != mililitro){
             listOfItems.add(porcaoInicial)
         }
 
