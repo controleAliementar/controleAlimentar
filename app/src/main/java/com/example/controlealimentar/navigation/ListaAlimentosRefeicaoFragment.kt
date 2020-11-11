@@ -184,10 +184,10 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
 
     override fun onAlimentoDetalhadoListFragmentInteraction(item: AlimentoDetalhado, view: View) {
 
-        if (item.alimentoIngerido){
-            view.ingeridoCheckBox.isChecked = true
-            view.ingeridoCheckBox.isClickable = false
-        } else {
+//        if (item.alimentoIngerido){
+//            view.ingeridoCheckBox.isChecked = true
+//            view.ingeridoCheckBox.isClickable = false
+//        } else {
             val sharedPreference = SharedPreference(context)
             val processoId = sharedPreference.getValueString(SharedIds.ID_USUARIO.name)
 
@@ -206,7 +206,7 @@ class ListaAlimentosRefeicaoFragment : Fragment(),
                         .actionListaAlimentosRefeicaoFragmentToErroGenericoFragment()
                     view?.findNavController()?.navigate(action)
                 })
-        }
+//        }
 
     }
 
