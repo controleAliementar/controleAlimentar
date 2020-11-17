@@ -83,8 +83,8 @@ class UsuarioService {
                     feedbackUsuario.proteinasMeta = it.proteinasMeta
                     feedbackUsuario.status = it.status
                     feedbackUsuario.data = it.data
-                    feedbackUsuario.macroNutrienteNaoAlcancado = it.macroNutrienteNaoAlcancado
-                    feedbackUsuario.alimentoSugerido = it.alimentoSugerido
+                    feedbackUsuario.macroNutrienteNaoAlcancado = it.macroNutrienteNaoAlcancado ?: ""
+                    feedbackUsuario.alimentoSugerido = it.alimentoSugerido ?: ""
 
                     onSuccess(feedbackUsuario)
                 }

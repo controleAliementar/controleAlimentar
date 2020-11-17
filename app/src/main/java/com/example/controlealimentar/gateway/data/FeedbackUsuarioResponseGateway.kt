@@ -1,5 +1,6 @@
 package com.example.controlealimentar.gateway.data
 
+
 class FeedbackUsuarioResponseGateway {
     var caloriasConsumidas: Double = 0.0
     var caloriasMeta: Double = 0.0
@@ -11,6 +12,6 @@ class FeedbackUsuarioResponseGateway {
     var proteinasMeta: Double = 0.0
     var status: String = ""
     var data: String = ""
-    var macroNutrienteNaoAlcancado: String = ""
-    var alimentoSugerido: String = ""
+    var macroNutrienteNaoAlcancado: String? = ""
+    var alimentoSugerido: String? = ""
 }
