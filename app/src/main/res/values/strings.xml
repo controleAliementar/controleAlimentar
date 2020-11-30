@@ -121,7 +121,7 @@
     <string name="dica_do_dia">Dica do dia!</string>
     <string name="ok">Ok</string>
     <string name="meta_nao_atingida_feedback">Vimos que você não conseguiu atingir sua meta de <b>%1$s</b></string>
-    <string name="sugesta_alimento_feedback">Que tal incluir <b>%1$s</b> em sua dieta? Ele é rico em carboidratos. Mas atenção, cuidado para não ultrapassar o limite em outros macronutrientes!</string>
+    <string name="sugesta_alimento_feedback">Que tal incluir <b>%1$s</b> em sua dieta? Ele é rico em %2$s. Mas atenção, cuidado para não ultrapassar o limite em outros macronutrientes!</string>
     <string name="icone_de_horario_da_refeicao">icone de horario da refeicao</string>
     <string name="_10_00">10:00</string>
 </resources>

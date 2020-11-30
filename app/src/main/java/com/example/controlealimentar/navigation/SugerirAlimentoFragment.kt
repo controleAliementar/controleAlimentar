@@ -33,7 +33,7 @@ class SugerirAlimentoFragment : Fragment() {
         val sugestaoAlimentoText = resources.getString(R.string.sugesta_alimento_feedback)
 
         binding.metaNaoAtingidaText.text = String.format(metaNaoAtingidaText, "<b>$macroNutrienteNaoAlcancado</b>").parseAsHtml()
-        binding.sugestaoText.text = String.format(sugestaoAlimentoText, "<b>$alimentoSugerido</b>").parseAsHtml()
+        binding.sugestaoText.text = String.format(sugestaoAlimentoText, "<b>$alimentoSugerido</b>", macroNutrienteNaoAlcancado).parseAsHtml()
 
         binding.okButton.setOnClickListener {
             findNavController().navigate(R.id.action_sugerirAlimentoFragment_to_homeFragment)
