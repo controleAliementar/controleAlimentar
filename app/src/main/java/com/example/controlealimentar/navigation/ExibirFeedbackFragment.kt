@@ -25,6 +25,8 @@ import java.text.DecimalFormat
 class ExibirFeedbackFragment : DialogFragment() {
 
     val usuarioService = UsuarioService()
+    lateinit var macroNutrienteNaoAlcancado: String
+    lateinit var alimentoSugerido: String
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -42,6 +44,9 @@ class ExibirFeedbackFragment : DialogFragment() {
 
                 setGif(it, view)
 
+                macroNutrienteNaoAlcancado = it.macroNutrienteNaoAlcancado
+                alimentoSugerido = it.alimentoSugerido
+
             },{
                 findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
             })
@@ -53,7 +58,14 @@ class ExibirFeedbackFragment : DialogFragment() {
 
             usuarioService.atualizarFeedbackUsuario(processoId,
                 {
-                    findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+                    if(!macroNutrienteNaoAlcancado.isBlank()) {
+                        val bundle = Bundle()
+                        bundle.putString("macroNutrienteNaoAlcancado", macroNutrienteNaoAlcancado)
+                        bundle.putString("alimentoSugerido", alimentoSugerido)
+                        findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_sugerirAlimentoFragment, bundle)
+                    } else {
+                        findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)
+                    }
                 },
                 {
                     findNavController().navigateSafe(R.id.action_exibirFeedbackFragment2_to_homeFragment)

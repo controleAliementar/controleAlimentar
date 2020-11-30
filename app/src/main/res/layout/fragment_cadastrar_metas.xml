@@ -7,12 +7,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
         <Button
             android:id="@+id/salvarButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/com_facebook_button"
+            android:layout_width="135dp"
+            android:layout_height="40dp"
             android:layout_marginStart="100dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="100dp"

@@ -29,8 +29,9 @@
             android:id="@+id/cp_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:background="#FFFFFF"
+            android:gravity="center">
 
             <ImageButton
                 android:id="@+id/ib_close"
@@ -42,8 +43,8 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="410dp"
                 android:background="@null"
-                android:contentDescription="@string/cone_para_fechar_popup"
                 android:clickable="true"
+                android:contentDescription="@string/cone_para_fechar_popup"
                 android:focusable="true"
                 android:src="@drawable/ic_close_black_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,6 +60,7 @@
                 android:layout_marginTop="50dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="50dp"
+                android:background="#FFFFFF"
                 android:text=""
                 android:textColor="@android:color/black"
                 android:textStyle="bold"

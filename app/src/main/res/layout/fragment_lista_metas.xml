@@ -13,6 +13,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#FFFFFF"
             android:paddingStart="0dp"
             android:paddingEnd="0dp">
 
@@ -43,6 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="16dp"
+                    android:background="#FFFFFF"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"

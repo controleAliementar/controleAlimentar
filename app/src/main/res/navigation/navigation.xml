@@ -58,8 +58,8 @@
             android:id="@+id/action_homeFragment_to_listaAlimentosRefeicaoFragment"
             app:destination="@id/listaAlimentosRefeicaoFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_historicoMetasFragment"
-            app:destination="@id/historicoMetasFragment" />
+            android:id="@+id/action_homeFragment_to_buscarHistoricoMetasFragment"
+            app:destination="@id/buscarHistoricoMetasFragment" />
     </fragment>
     <fragment
         android:id="@+id/incluirAlimentoFragment"
@@ -389,19 +389,10 @@
         <action
             android:id="@+id/action_exibirFeedbackFragment2_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_exibirFeedbackFragment2_to_sugerirAlimentoFragment"
+            app:destination="@id/sugerirAlimentoFragment" />
     </dialog>
-    <fragment
-        android:id="@+id/historicoMetasFragment"
-        android:name="com.example.controlealimentar.navigation.HistoricoMetasFragment"
-        android:label="fragment_historico_metas"
-        tools:layout="@layout/fragment_historico_metas" >
-        <action
-            android:id="@+id/action_historicoMetasFragment_to_buscarHistoricoMetasFragment"
-            app:destination="@id/buscarHistoricoMetasFragment" />
-        <action
-            android:id="@+id/action_historicoMetasFragment_to_erroGenericoFragment"
-            app:destination="@id/erroGenericoFragment" />
-    </fragment>
     <fragment
         android:id="@+id/buscarHistoricoMetasFragment"
         android:name="com.example.controlealimentar.navigation.BuscarHistoricoMetasFragment"
@@ -464,4 +455,13 @@
             android:id="@+id/action_recuperarCadastroFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </dialog>
+    <fragment
+        android:id="@+id/sugerirAlimentoFragment"
+        android:name="com.example.controlealimentar.navigation.SugerirAlimentoFragment"
+        android:label="fragment_sugerir_alimento"
+        tools:layout="@layout/fragment_sugerir_alimento" >
+        <action
+            android:id="@+id/action_sugerirAlimentoFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

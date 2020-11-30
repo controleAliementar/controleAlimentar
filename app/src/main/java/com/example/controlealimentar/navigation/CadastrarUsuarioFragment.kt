@@ -194,6 +194,7 @@ class CadastrarUsuarioFragment : Fragment() {
                     tokenFirebase = ""
                 }
 
+                progressBar.show(context, MessageLoading.MENSAGEM_SALVANDO.mensagem)
                 criarUsuario(name, email, tokenFirebase, sharedPreference, view)
 
             } catch (e : Exception) {

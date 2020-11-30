@@ -75,10 +75,10 @@ class HomeFragment : Fragment(),
             Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_editarMetasFragment))
 
         binding.historicoMetas.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_historicoMetasFragment))
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_buscarHistoricoMetasFragment))
 
         binding.historicoMetasText.setOnClickListener(
-            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_historicoMetasFragment))
+            Navigation.createNavigateOnClickListener(R.id.action_homeFragment_to_buscarHistoricoMetasFragment))
 
         return binding.root
     }

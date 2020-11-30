@@ -7,139 +7,162 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
         android:paddingStart="0dp"
-        android:paddingEnd="0dp"
-        android:orientation="vertical">
+        android:paddingEnd="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/contraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible">
-
-        <TextView
-            android:id="@+id/incluirAlimentoTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/incluir_alimento"
-            android:textAlignment="textStart"
-            android:textColor="#FA050000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/divider4"
-            app:layout_constraintEnd_toStartOf="@+id/alterarHorarioRefeicaobutton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <View
-            android:id="@+id/divider4"
-            android:layout_width="300dp"
-            android:layout_height="1dp"
-            android:layout_marginStart="56dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="56dp"
-            android:background="?android:attr/listDivider"
-            app:layout_constraintBottom_toTopOf="@+id/buscarAlimentoButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/incluirAlimentoTextView" />
-
-        <Button
-            android:id="@+id/alterarHorarioRefeicaobutton"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="#DAD7D7"
-            android:text="11 : 25"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/divider4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/incluirAlimentoTextView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.625" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewListaAlimentoDetalhado"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="LinearLayoutManager"
-            android:nestedScrollingEnabled="false"
-            app:layout_constraintTop_toBottomOf="@+id/buscarAlimentoButton"
-            tools:listitem="@layout/fragment_alimento_detalhado_item" />
+            android:visibility="visible">
 
-        <ImageView
-            android:id="@+id/buscarAlimentoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@string/icone_para_buscar_alimento_na_refei_o"
-            android:src="@drawable/ic_search_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
-            app:layout_constraintEnd_toStartOf="@+id/buscarAlimentoTextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/divider4" />
+            <TextView
+                android:id="@+id/incluirAlimentoTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/incluir_alimento"
+                android:textAlignment="textStart"
+                android:textColor="#FA050000"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/divider4"
+                app:layout_constraintEnd_toStartOf="@+id/iconHorarioRefeicao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/incluirPorFotoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="@string/icone_para_incluir_alimento_na_refei_o"
-            android:src="@drawable/ic_add_black_24dp"
-            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
-            app:layout_constraintEnd_toStartOf="@+id/incluirAlimentoText"
-            app:layout_constraintStart_toEndOf="@+id/buscarAlimentoTextView"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+            <View
+                android:id="@+id/divider4"
+                android:layout_width="300dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="56dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintBottom_toTopOf="@+id/buscarAlimentoButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/incluirAlimentoTextView" />
 
-        <TextView
-            android:id="@+id/buscarAlimentoTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="2dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/buscar_alimento"
-            android:textColor="#FA050000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
-            app:layout_constraintEnd_toStartOf="@+id/incluirPorFotoButton"
-            app:layout_constraintStart_toEndOf="@+id/buscarAlimentoButton"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
 
-        <TextView
-            android:id="@+id/incluirAlimentoText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="2dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:text="@string/incluir_alimento"
-            android:textColor="#FA050000"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/incluirPorFotoButton"
-            app:layout_constraintTop_toBottomOf="@+id/divider4" />
+            <ImageView
+                android:id="@+id/iconHorarioRefeicao"
+                android:layout_width="44dp"
+                android:layout_height="41dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="17dp"
+                android:clickable="true"
+                android:contentDescription="@string/icone_de_horario_da_refeicao"
+                android:focusable="true"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_schedule_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/divider4"
+                app:layout_constraintEnd_toStartOf="@+id/horarioRefeicao"
+                app:layout_constraintStart_toEndOf="@+id/incluirAlimentoTextView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/horarioRefeicao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/_10_00"
+                android:textColor="#000000"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/divider4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iconHorarioRefeicao"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleViewListaAlimentoDetalhado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/buscarAlimentoButton"
+                tools:listitem="@layout/fragment_alimento_detalhado_item" />
+
+            <ImageView
+                android:id="@+id/buscarAlimentoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/icone_para_buscar_alimento_na_refei_o"
+                android:src="@drawable/ic_search_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+                app:layout_constraintEnd_toStartOf="@+id/buscarAlimentoTextView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider4" />
+
+            <ImageView
+                android:id="@+id/incluirPorFotoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/icone_para_incluir_alimento_na_refei_o"
+                android:src="@drawable/ic_add_black_24dp"
+                app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+                app:layout_constraintEnd_toStartOf="@+id/incluirAlimentoText"
+                app:layout_constraintStart_toEndOf="@+id/buscarAlimentoTextView"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+            <TextView
+                android:id="@+id/buscarAlimentoTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/buscar_alimento"
+                android:textColor="#FA050000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+                app:layout_constraintEnd_toStartOf="@+id/incluirPorFotoButton"
+                app:layout_constraintStart_toEndOf="@+id/buscarAlimentoButton"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+            <TextView
+                android:id="@+id/incluirAlimentoText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="19dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="2dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:text="@string/incluir_alimento"
+                android:textColor="#FA050000"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/recycleViewListaAlimentoDetalhado"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/incluirPorFotoButton"
+                app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

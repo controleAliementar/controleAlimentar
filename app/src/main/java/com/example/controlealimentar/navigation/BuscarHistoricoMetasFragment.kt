@@ -60,8 +60,8 @@ class BuscarHistoricoMetasFragment : Fragment() {
             },
             {
                 progressBar.dialog.dismiss()
-                val action = HistoricoMetasFragmentDirections
-                    .actionHistoricoMetasFragmentToErroGenericoFragment()
+                val action = BuscarHistoricoMetasFragmentDirections
+                    .actionBuscarHistoricoMetasFragmentToErroGenericoFragment()
                 view?.findNavController()?.navigate(action)
             })
 

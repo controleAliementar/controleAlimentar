@@ -34,14 +34,14 @@ class AlimentoDetalhadoItemRecyclerViewAdapter(
 
         if (idRefeicao == alimentoAvulsoId) {
             holder.mIngeridoCheckBox.visibility = View.GONE
-            holder.mExcluirAlimento.visibility = View.INVISIBLE
-            holder.mEditarAlimento.visibility = View.INVISIBLE
+            holder.mExcluirAlimento.visibility = View.GONE
+            holder.mEditarAlimento.visibility = View.GONE
         } else {
             holder.mIngeridoCheckBox.isChecked = item.alimentoIngerido
 
-            if (item.alimentoIngerido){
-                holder.mIngeridoCheckBox.isClickable = false
-            }
+//            if (item.alimentoIngerido){
+//                holder.mIngeridoCheckBox.isClickable = false
+//            }
 
         }
 

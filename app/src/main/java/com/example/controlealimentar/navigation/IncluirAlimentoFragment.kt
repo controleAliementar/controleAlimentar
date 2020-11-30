@@ -45,9 +45,10 @@ class IncluirAlimentoFragment : Fragment() {
         binding.incluirAlimentoTextView.text = args.nomeRefeicao
 
         if (args.idRefeicao == "6ab66802-e7e5-4fb9-ba9a-6e85f44771a8"){
-            binding.alterarHorarioRefeicaobutton.visibility = View.GONE
+            binding.iconHorarioRefeicaoIncluir.visibility = View.GONE
+            binding.horarioRefeicaoIncluir.visibility = View.GONE
         } else {
-            binding.alterarHorarioRefeicaobutton.text = convertLongToTime(args.horarioRefeicao)
+            binding.horarioRefeicaoIncluir.text = convertLongToTime(args.horarioRefeicao)
         }
 
         binding.incluirPorFotoButton.setOnClickListener{
@@ -65,7 +66,14 @@ class IncluirAlimentoFragment : Fragment() {
             buscarAlimento()
         }
 
-        binding.alterarHorarioRefeicaobutton.setOnClickListener{
+        binding.iconHorarioRefeicaoIncluir.setOnClickListener{
+            val action = IncluirAlimentoFragmentDirections
+                .actionIncluirAlimentoFragmentToEditarHorarioRefeicaoFragment(args.horarioRefeicao,
+                    args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso)
+            view?.findNavController()?.navigate(action)
+        }
+
+        binding.horarioRefeicaoIncluir.setOnClickListener{
             val action = IncluirAlimentoFragmentDirections
                 .actionIncluirAlimentoFragmentToEditarHorarioRefeicaoFragment(args.horarioRefeicao,
                     args.idRefeicao, args.nomeRefeicao, args.alimentoAvulso)
